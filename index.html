@@ -24,7 +24,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20261107_v59">
+  <link rel="stylesheet" href="style.css?v=20261107_v60">
 </head>
 <body class="view-dashboard">
 
@@ -1323,7 +1323,13 @@
                     <span class="hud-dot-pulse"></span>
                     <span class="hud-target-label">GEOGRAPHIC CONTEXT // NEPAL</span>
                   </div>
-                  <span class="hud-coords-tag">28.25°N, 85.50°E</span>
+                  <div class="hud-header-right">
+                    <div class="map-layer-toggles font-mono">
+                      <button class="layer-toggle-btn active" id="btn-layer-sat-himalayas" onclick="setStoryMapLayer('himalayas', 'satellite')" title="Show High-Res Satellite Terrain">SAT</button>
+                      <button class="layer-toggle-btn" id="btn-layer-dark-himalayas" onclick="setStoryMapLayer('himalayas', 'dark')" title="Show Dark Canvas">DARK</button>
+                    </div>
+                    <span class="hud-coords-tag">28.25°N, 85.50°E</span>
+                  </div>
                 </div>
                 
                 <div class="story-map-frame">
@@ -1334,7 +1340,7 @@
                 </div>
 
                 <div class="story-map-hud-footer font-mono">
-                  <span class="hud-footer-tag">SENSOR OVERPASS: ASCENDING TRACK 083 // L-BAND 24CM</span>
+                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • ASCENDING TRACK 083 // L-BAND 24CM</span>
                 </div>
               </div>
             </div>
@@ -1440,7 +1446,13 @@
                     <span class="hud-dot-pulse"></span>
                     <span class="hud-target-label">GEOGRAPHIC CONTEXT // ALASKA</span>
                   </div>
-                  <span class="hud-coords-tag">58.46°N, 134.56°W</span>
+                  <div class="hud-header-right">
+                    <div class="map-layer-toggles font-mono">
+                      <button class="layer-toggle-btn active" id="btn-layer-sat-alaska" onclick="setStoryMapLayer('alaska', 'satellite')" title="Show High-Res Satellite Terrain">SAT</button>
+                      <button class="layer-toggle-btn" id="btn-layer-dark-alaska" onclick="setStoryMapLayer('alaska', 'dark')" title="Show Dark Canvas">DARK</button>
+                    </div>
+                    <span class="hud-coords-tag">58.46°N, 134.56°W</span>
+                  </div>
                 </div>
                 
                 <div class="story-map-frame">
@@ -1451,7 +1463,7 @@
                 </div>
 
                 <div class="story-map-hud-footer font-mono">
-                  <span class="hud-footer-tag">SENSOR OVERPASS: DESCENDING TRACK 129 // L-BAND 24CM</span>
+                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • DESCENDING TRACK 129 // L-BAND 24CM</span>
                 </div>
               </div>
             </div>
@@ -1590,6 +1602,6 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v59"></script>
+  <script src="app.js?v=20261107_v60"></script>
 </body>
 </html>

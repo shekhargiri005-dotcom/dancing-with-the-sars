@@ -120,10 +120,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data/cases.json?v=20261107_v59');
+    const res = await fetch('data/cases.json?v=20261107_v60');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v59)', {
-      build: '20261107_v59',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v60)', {
+      build: '20261107_v60',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -1780,13 +1780,17 @@ function initStoryMiniMap(c) {
 
 
 // ==========================================================================
-// 5B. Editorial Story Mini-Maps Controller (CartoDB Dark Matter + Cyan Pulse Marker)
+// 5B. Editorial Story Mini-Maps Controller (ESRI Satellite + Dark Gray + Cyan Pulse Marker)
 // ==========================================================================
 let storyMapHimalayas = null;
 let storyMapAlaska = null;
 const mapInteractionStates = {
   himalayas: false,
   alaska: false
+};
+const storyMapLayers = {
+  himalayas: { sat: null, dark: null, current: 'satellite' },
+  alaska: { sat: null, dark: null, current: 'satellite' }
 };
 
 function initStoryHimalayasMap() {
@@ -1796,7 +1800,9 @@ function initStoryHimalayasMap() {
   if (!storyMapHimalayas) {
     storyMapHimalayas = L.map('story-map-himalayas', {
       center: [28.25, 85.50],
-      zoom: 7,
+      zoom: 9,
+      minZoom: 4,
+      maxZoom: 18,
       dragging: false,
       scrollWheelZoom: false,
       doubleClickZoom: false,
@@ -1804,32 +1810,54 @@ function initStoryHimalayasMap() {
       zoomControl: true
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(storyMapHimalayas);
+    const satLayer = L.tileLayer(ESRI_SATELLITE_URL, {
+      attribution: ESRI_ATTRIBUTION,
+      maxZoom: 18
+    });
+
+    const darkLayer = L.tileLayer(ESRI_DARK_GRAY_URL, {
+      attribution: ESRI_DARK_GRAY_ATTR,
+      maxZoom: 16
+    });
+
+    satLayer.addTo(storyMapHimalayas);
+    storyMapLayers.himalayas.sat = satLayer;
+    storyMapLayers.himalayas.dark = darkLayer;
+    storyMapLayers.himalayas.current = 'satellite';
 
     const cyanPulseIcon = L.divIcon({
       className: 'cyan-pulse-marker',
       html: '<div class="marker-pulse-ripple"></div><div class="marker-pulse-core"></div>',
       iconSize: [28, 28],
-      iconAnchor: [14, 14]
+      iconAnchor: [14, 14],
+      popupAnchor: [0, -14]
     });
 
     L.marker([28.25, 85.50], { icon: cyanPulseIcon })
       .addTo(storyMapHimalayas)
-      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">LANGTANG LIRUNG</strong><br><span style="font-size:11px;color:#94a3b8;">Himalayan Ice Avalanche Epicenter<br>28.25°N, 85.50°E</span>')
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">LANGTANG LIRUNG</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Epicenter of 20M m³ Ice Avalanche<br>28.25°N, 85.50°E</span>', {
+        autoPan: false
+      })
       .openPopup();
+
+    if (window.ResizeObserver && !container._roAttached) {
+      const ro = new ResizeObserver(() => {
+        if (storyMapHimalayas) storyMapHimalayas.invalidateSize();
+      });
+      ro.observe(container);
+      container._roAttached = true;
+    }
   }
 
-  // Handle Leaflet zero-dimension bug when container was previously hidden (display: none)
-  setTimeout(() => {
-    if (storyMapHimalayas) {
-      storyMapHimalayas.invalidateSize();
-      storyMapHimalayas.setView([28.25, 85.50], 7);
-    }
-  }, 120);
+  // Multi-pass size invalidation to completely eliminate container dimension zero-bugs
+  [30, 100, 250, 500].forEach(delay => {
+    setTimeout(() => {
+      if (storyMapHimalayas) {
+        storyMapHimalayas.invalidateSize();
+        storyMapHimalayas.setView([28.25, 85.50], storyMapHimalayas.getZoom() || 9);
+      }
+    }, delay);
+  });
 }
 
 function initStoryAlaskaMap() {
@@ -1839,7 +1867,9 @@ function initStoryAlaskaMap() {
   if (!storyMapAlaska) {
     storyMapAlaska = L.map('story-map-alaska', {
       center: [58.46, -134.56],
-      zoom: 7,
+      zoom: 9,
+      minZoom: 4,
+      maxZoom: 18,
       dragging: false,
       scrollWheelZoom: false,
       doubleClickZoom: false,
@@ -1847,32 +1877,83 @@ function initStoryAlaskaMap() {
       zoomControl: true
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(storyMapAlaska);
+    const satLayer = L.tileLayer(ESRI_SATELLITE_URL, {
+      attribution: ESRI_ATTRIBUTION,
+      maxZoom: 18
+    });
+
+    const darkLayer = L.tileLayer(ESRI_DARK_GRAY_URL, {
+      attribution: ESRI_DARK_GRAY_ATTR,
+      maxZoom: 16
+    });
+
+    satLayer.addTo(storyMapAlaska);
+    storyMapLayers.alaska.sat = satLayer;
+    storyMapLayers.alaska.dark = darkLayer;
+    storyMapLayers.alaska.current = 'satellite';
 
     const cyanPulseIcon = L.divIcon({
       className: 'cyan-pulse-marker',
       html: '<div class="marker-pulse-ripple"></div><div class="marker-pulse-core"></div>',
       iconSize: [28, 28],
-      iconAnchor: [14, 14]
+      iconAnchor: [14, 14],
+      popupAnchor: [0, -14]
     });
 
     L.marker([58.46, -134.56], { icon: cyanPulseIcon })
       .addTo(storyMapAlaska)
-      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">SUICIDE BASIN</strong><br><span style="font-size:11px;color:#94a3b8;">Glacial Lake Outburst Flood (GLOF)<br>58.46°N, 134.56°W</span>')
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">SUICIDE BASIN</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Subglacial Dam Breach & GLOF Source<br>58.46°N, 134.56°W</span>', {
+        autoPan: false
+      })
       .openPopup();
+
+    if (window.ResizeObserver && !container._roAttached) {
+      const ro = new ResizeObserver(() => {
+        if (storyMapAlaska) storyMapAlaska.invalidateSize();
+      });
+      ro.observe(container);
+      container._roAttached = true;
+    }
   }
 
-  // Handle Leaflet zero-dimension bug when container was previously hidden (display: none)
-  setTimeout(() => {
-    if (storyMapAlaska) {
-      storyMapAlaska.invalidateSize();
-      storyMapAlaska.setView([58.46, -134.56], 7);
+  // Multi-pass size invalidation to completely eliminate container dimension zero-bugs
+  [30, 100, 250, 500].forEach(delay => {
+    setTimeout(() => {
+      if (storyMapAlaska) {
+        storyMapAlaska.invalidateSize();
+        storyMapAlaska.setView([58.46, -134.56], storyMapAlaska.getZoom() || 9);
+      }
+    }, delay);
+  });
+}
+
+function setStoryMapLayer(region, layerType) {
+  const map = region === 'himalayas' ? storyMapHimalayas : storyMapAlaska;
+  const layers = storyMapLayers[region];
+  if (!map || !layers) return;
+
+  if (layerType === 'satellite') {
+    if (layers.dark && map.hasLayer(layers.dark)) map.removeLayer(layers.dark);
+    if (layers.sat && !map.hasLayer(layers.sat)) layers.sat.addTo(map);
+    layers.current = 'satellite';
+  } else {
+    if (layers.sat && map.hasLayer(layers.sat)) map.removeLayer(layers.sat);
+    if (layers.dark && !map.hasLayer(layers.dark)) layers.dark.addTo(map);
+    layers.current = 'dark';
+  }
+
+  const btnSat = document.getElementById('btn-layer-sat-' + region);
+  const btnDark = document.getElementById('btn-layer-dark-' + region);
+  if (btnSat && btnDark) {
+    if (layerType === 'satellite') {
+      btnSat.classList.add('active');
+      btnDark.classList.remove('active');
+    } else {
+      btnSat.classList.remove('active');
+      btnDark.classList.add('active');
     }
-  }, 120);
+  }
+  sendClientLog('info', 'STORY_MAP_LAYER', 'Switched ' + region + ' story map layer to ' + layerType, { region: region, layer: layerType });
 }
 
 function toggleMapInteraction(region) {
