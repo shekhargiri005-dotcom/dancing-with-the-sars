@@ -161,6 +161,41 @@ http://localhost:8080
 
 ---
 
+## ⚡ Frontend Hosting with Vercel
+
+The application is pre-configured for instant zero-configuration deployment on **Vercel** via [`vercel.json`](vercel.json).
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fshekhargiri005-dotcom%2Fdancing-with-the-sars)
+
+### Method 1: GitHub Web Dashboard (Recommended — Automatic CI/CD)
+1. Go to **[vercel.com/new](https://vercel.com/new)** and sign in with your GitHub account.
+2. Under **"Import Git Repository"**, select **`shekhargiri005-dotcom/dancing-with-the-sars`**.
+3. In the project setup:
+   - **Framework Preset**: `Other`
+   - **Root Directory**: `./` (default)
+   - **Build Command**: *(leave blank — purely static)*
+   - **Output Directory**: *(leave blank)*
+4. Click **Deploy**. Vercel will build and assign a global, high-speed HTTPS URL (e.g. `https://dancing-with-the-sars.vercel.app`).
+5. **Continuous Deployment**: Every future `git push origin main` will automatically build and deploy new preview and production releases.
+
+### Method 2: Vercel CLI
+Deploy directly from your terminal using the Vercel CLI:
+```bash
+# 1. Log in to Vercel
+vercel login
+
+# 2. Deploy directly to production
+vercel --prod
+```
+
+### Pre-Configured Vercel Optimizations (`vercel.json`):
+- **High-Performance Caching**: Satellite and radar asset layers in `/assets/*` are configured with `public, max-age=31536000, immutable` for edge CDN caching.
+- **Instant Data Invalidation**: `data/cases.json` and application assets use `must-revalidate` to ensure immediate propagation of scenario and telemetry updates.
+- **Security & Frame Hardening**: Pre-configured HTTP response headers (`nosniff`, `DENY` framing, `strict-origin-when-cross-origin`).
+- **Clean Rewrites**: SPA routing cleanly resolves to `/index.html` without breaking direct deep links.
+
+---
+
 ## 🔬 Data Pipeline & Research Workflows
 
 For researchers wishing to pull operational NISAR Level-1 (L1) and Level-2 (L2) granules directly from NASA's Alaska Satellite Facility (ASF) DAAC:
