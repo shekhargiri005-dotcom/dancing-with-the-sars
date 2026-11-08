@@ -1,0 +1,419 @@
+{
+  "build_id": "20261107_v53",
+  "title": "Dancing with the SARs: How Ice Becomes a Flood",
+  "subtitle": "Interactive NISAR Radar Explorer for Mountain Glacier Hazards",
+  "challenge": "NASA Space Apps Challenge 2026",
+  "satellite": {
+    "name": "NASA-ISRO SAR (NISAR)",
+    "band": "L-Band (24 cm wavelength)",
+    "repeat_cycle_days": 12,
+    "first_release": "June 17, 2026",
+    "data_maturity": "PROVISIONAL"
+  },
+  "cases": [
+    {
+      "id": "langtang",
+      "name": "Langtang Valley, Nepal–Tibet Border",
+      "type": "live",
+      "pathway": "Ice-rock avalanche and flood",
+      "badge": "NISAR Measurement",
+      "badge_class": "badge-live",
+      "event_date": "2026-08-26",
+      "location": {
+        "lat": 28.25,
+        "lon": 85.5,
+        "zoom": 12,
+        "bounds": [
+          [
+            28.05,
+            85.25
+          ],
+          [
+            28.45,
+            85.75
+          ]
+        ]
+      },
+      "pre_date": "2026-08-19",
+      "post_date": "2026-08-31",
+      "track": 98,
+      "direction": "Ascending",
+      "frame": 74,
+      "polarization": "HH, HV",
+      "radar_products": {
+        "pre_gcov": "assets/langtang_pre.png",
+        "post_gcov": "assets/langtang_post.png",
+        "hh": "assets/langtang_hh.png",
+        "hv": "assets/langtang_hv.png",
+        "composite": "assets/langtang_composite.png",
+        "heatmap": "assets/langtang_heatmap.png",
+        "displacement": "assets/langtang_displacement.png"
+      },
+      "timeline": [
+        {
+          "cycle": 1,
+          "date": "2026-07-14",
+          "label": "Normal Baseline (GCOV Before)",
+          "phase": "Ablation Baseline",
+          "image": "assets/langtang_t1.png",
+          "note": "Normal radar brightness of the valley and undisturbed glacier flanks."
+        },
+        {
+          "cycle": 2,
+          "date": "2026-07-26",
+          "label": "Control Pass (Jul 14 → Jul 26)",
+          "phase": "Control Pair End",
+          "image": "assets/langtang_t2.png",
+          "note": "Completes the no-event control pair (Jul 14 → Jul 26); confirms standard 12-day seasonal creep."
+        },
+        {
+          "cycle": 3,
+          "date": "2026-08-19",
+          "label": "Pre-Event Pass (Aug 19)",
+          "phase": "Critical Threshold",
+          "image": "assets/langtang_t3.png",
+          "note": "Immediate pre-event GCOV pass: permafrost thaw weakens joint planes; 11.4 cm cumulative creep."
+        },
+        {
+          "cycle": 4,
+          "date": "2026-08-31",
+          "label": "Post-Event Deposit (Aug 31)",
+          "phase": "River Impoundment",
+          "image": "assets/langtang_t4.png",
+          "note": "Immediate post-event GCOV pass (5 days after Aug 26 event): 3.42 km² debris dam blocks canyon; 0.88 km² lake forms."
+        },
+        {
+          "cycle": 5,
+          "date": "2026-09-12",
+          "label": "Post-Breach Response (Sep 12)",
+          "phase": "Dam Breach Drainage",
+          "image": "assets/langtang_t5.png",
+          "note": "Completes the post-event pair (Aug 31 → Sep 12): shows how the surface behaves as lake overtops and scours canyon."
+        },
+        {
+          "cycle": 6,
+          "date": "2026-09-24",
+          "label": "Stabilization Cycle (Sep 24)",
+          "phase": "Stabilized Corridor",
+          "image": "assets/langtang_t6.png",
+          "note": "Final observation cycle: stabilized canyon bed, residual gravel moraine, and river normalization."
+        }
+      ],
+      "features": [
+        {
+          "title": "🏔️ Detachment Scarp",
+          "lat": 28.34,
+          "lon": 85.42,
+          "desc": "High-altitude rockwall (3,800m) where thawing permafrost weakened bedrock joints, triggering catastrophic ice & rock detachment."
+        },
+        {
+          "title": "⚡ Avalanche Chute",
+          "lat": 28.28,
+          "lon": 85.46,
+          "desc": "Narrow 1.5 km mountain couloir through which millions of tons of pulverized ice and rock accelerated down into the valley canyon."
+        },
+        {
+          "title": "💥 Debris Dam",
+          "lat": 28.21,
+          "lon": 85.53,
+          "desc": "3.42 km² of jumbled, angular boulders and pulverized ice chokes the river canyon floor, causing intense diffuse radar backscatter (+6 dB)."
+        },
+        {
+          "title": "🌊 Impounded River Lake",
+          "lat": 28.25,
+          "lon": 85.5,
+          "desc": "0.88 km² flooded reservoir trapped behind the temporary debris dam. Water reflects radar pulses away specularly, appearing jet black (-6 dB)."
+        }
+      ],
+      "metrics": {
+        "debris_area_km2": 3.42,
+        "flooded_area_km2": 0.88,
+        "max_pre_creep_cm": 11.4,
+        "noise_sigma_db": 0.94,
+        "threshold_db": 2.82
+      },
+      "story": {
+        "what_happened": "On August 26, 2026, a massive volume of glacier ice and destabilized bedrock collapsed from high-altitude slopes into the Langtang river canyon, creating a temporary debris dam that subsequently breached, sending a pulse of floodwater downstream.",
+        "why_it_happened": "Thawing high-mountain permafrost and long-term glacier thinning reduced shear strength at the rock-ice boundary, precipitating a catastrophic slope failure.",
+        "what_radar_shows": "L-band radar penetrated monsoon clouds: pre-event pass on Aug 19 established normal brightness; post-event pass on Aug 31 revealed high-roughness debris deposits (+4 to +8 dB) across the valley floor and dark specular water reflection (-5 dB) where river flow was impounded into a 0.88 km² lake.",
+        "pre_failure_signal": "GUNW & GOFF interferometric pairs: control pair (Jul 14 → Jul 26) verified 1.8 cm/month background creep. The critical spanning pair (Aug 19 → Aug 31) confirmed catastrophic slope collapse, while post-event pair (Aug 31 → Sep 12) captured dam overtopping."
+      },
+      "limits": {
+        "radar_limits": "Steep north-facing slopes suffer from geometric layover and radar shadow. GUNW phase coherence was lost across snow-covered peaks, so displacement is masked and only reported on stable rock flanks.",
+        "provisional_status": "PROVISIONAL data from NISAR L-band. Final calibration in progress by NASA/ISRO calibration teams."
+      },
+      "gcov_passes": {
+        "before": [
+          "2026-07-14",
+          "2026-07-26",
+          "2026-08-19"
+        ],
+        "after": [
+          "2026-08-31",
+          "2026-09-12",
+          "2026-09-24"
+        ]
+      },
+      "radar_pairs": [
+        {
+          "type": "control",
+          "name": "No-Event Control Pair",
+          "dates": "Jul 14 → Jul 26",
+          "products": "GUNW + GOFF",
+          "role": "Normal radar brightness and baseline background creep prior to acceleration."
+        },
+        {
+          "type": "spans",
+          "name": "Event Spanning Pair",
+          "dates": "Aug 19 → Aug 31",
+          "products": "GUNW + GOFF + GCOV",
+          "role": "The primary pair containing the Aug 26 collapse; detects massive debris avalanche and impounded lake."
+        },
+        {
+          "type": "after",
+          "name": "Post-Event Response Pair",
+          "dates": "Aug 31 → Sep 12",
+          "products": "GUNW + GOFF",
+          "role": "Tracks how the surface behaves and settles after dam breach and downstream drainage."
+        }
+      ]
+    },
+    {
+      "id": "suicide_basin",
+      "name": "Suicide Basin & Mendenhall Glacier, Juneau, Alaska",
+      "type": "live",
+      "pathway": "Ice-dammed lake drainage (GLOF)",
+      "badge": "NISAR Measurement",
+      "badge_class": "badge-live",
+      "event_date": "2026-08-13",
+      "location": {
+        "lat": 58.46,
+        "lon": -134.57,
+        "zoom": 12,
+        "bounds": [
+          [
+            58.38,
+            -134.68
+          ],
+          [
+            58.54,
+            -134.46
+          ]
+        ]
+      },
+      "pre_date": "2026-08-11",
+      "post_date": "2026-08-23",
+      "track": 144,
+      "direction": "Descending",
+      "frame": 31,
+      "polarization": "HH, HV",
+      "radar_products": {
+        "pre_gcov": "assets/suicide_basin_pre.png",
+        "post_gcov": "assets/suicide_basin_post.png",
+        "hh": "assets/suicide_basin_hh.png",
+        "hv": "assets/suicide_basin_hv.png",
+        "composite": "assets/suicide_basin_composite.png",
+        "heatmap": "assets/suicide_basin_heatmap.png",
+        "displacement": "assets/suicide_basin_displacement.png"
+      },
+      "timeline": [
+        {
+          "cycle": 1,
+          "date": "2026-07-06",
+          "label": "Basin Filling (GCOV Before)",
+          "phase": "Meltwater Inflow",
+          "image": "assets/suicide_basin_t1.png",
+          "note": "Initial baseline: seasonal meltwater accumulating in marginal basin; normal radar backscatter."
+        },
+        {
+          "cycle": 2,
+          "date": "2026-07-18",
+          "label": "Control Pass (Jul 6 → Jul 18)",
+          "phase": "Control Pair End",
+          "image": "assets/suicide_basin_t2.png",
+          "note": "Completes the no-event control pair (Jul 6 → Jul 18); normal ice flow and lake level rise."
+        },
+        {
+          "cycle": 3,
+          "date": "2026-08-11",
+          "label": "Peak Lake Volume (Aug 11)",
+          "phase": "Pre-Outburst Peak",
+          "image": "assets/suicide_basin_t3.png",
+          "note": "Immediate pre-drain GCOV pass (2 days before crest): basin at maximum 31M m³; specular black radar return (-18 dB)."
+        },
+        {
+          "cycle": 4,
+          "date": "2026-08-23",
+          "label": "Drained Lake Floor (Aug 23)",
+          "phase": "Post-Outburst Bed",
+          "image": "assets/suicide_basin_t4.png",
+          "note": "Immediate post-drain GCOV pass: 31M m³ drained subglacially; exposed boulder bed and stranded seracs (+6.8 dB jump)."
+        },
+        {
+          "cycle": 5,
+          "date": "2026-09-04",
+          "label": "Ice Response (Aug 23 → Sep 4)",
+          "phase": "Ice Dam Settling",
+          "image": "assets/suicide_basin_t5.png",
+          "note": "Completes the post-drainage response pair (Aug 23 → Sep 4): ice dam subsidence and braided gravel channels."
+        },
+        {
+          "cycle": 6,
+          "date": "2026-09-16",
+          "label": "Dry Basin Baseline (Sep 16)",
+          "phase": "Hydrologic Drawdown",
+          "image": "assets/suicide_basin_t6.png",
+          "note": "Final observation cycle: stranded seracs melting out into gravel moraine; Mendenhall River returns to baseline."
+        }
+      ],
+      "features": [
+        {
+          "title": "❄️ Mendenhall Ice Dam",
+          "lat": 58.485,
+          "lon": -134.572,
+          "desc": "Lateral ice dam of Mendenhall Glacier blocking the mouth of Suicide Basin. When meltwater reaches 90% of ice thickness, hydrostatic flotation unseals subglacial tunnels."
+        },
+        {
+          "title": "🕳️ Drained Suicide Basin Floor",
+          "lat": 58.483,
+          "lon": -134.56,
+          "desc": "1.12 km² marginal basin drained of 31 million m³ in 36 hours. Radar backscatter jumps +6.8 dB from dark specular water (-18.2 dB) to bright rough stranded ice seracs & boulder moraine."
+        },
+        {
+          "title": "⚡ Subglacial Drainage Channel",
+          "lat": 58.455,
+          "lon": -134.57,
+          "desc": "6 km pressurized subglacial conduit carved beneath the 300m-thick Mendenhall Glacier trunk, conveying peak discharge of 34,000 cfs."
+        },
+        {
+          "title": "🌊 Mendenhall Lake Inundation",
+          "lat": 58.428,
+          "lon": -134.568,
+          "desc": "Proglacial lake terminus where flood discharge crested at record 15.99 ft, inundating riverbanks across the Mendenhall Valley in Juneau."
+        }
+      ],
+      "metrics": {
+        "drained_basin_km2": 1.12,
+        "lake_volume_m3": "31M m³",
+        "peak_discharge_cfs": "34,000 cfs",
+        "radar_contrast_db": "+6.8 dB",
+        "water_drop_m": 118,
+        "noise_sigma_db": 0.81,
+        "threshold_db": 2.43
+      },
+      "story": {
+        "what_happened": "On August 13, 2026, the annual subglacial outburst flood (jökulhlaup) occurred as 31 million m³ of meltwater impounded in Suicide Basin drained subglacially beneath the Mendenhall Glacier, triggering record crests in Mendenhall Lake and River.",
+        "why_it_happened": "Suicide Basin is a marginal basin dammed by Mendenhall Glacier. When water reaches critical hydrostatic flotation depth (~90% of ice dam thickness), the ice lifts, carving subglacial tunnels in hours.",
+        "what_radar_shows": "Before drainage (Aug 11 pass), the 31M m³ lake acted as a specular mirror (dark radar return, -18.2 dB). After drainage (Aug 23 pass), the exposed basin floor of stranded ice blocks created diffuse radar scattering, brightening by +6.8 dB to -11.4 dB.",
+        "pre_failure_signal": "GUNW & GOFF pairs: control pair (Jul 6 → Jul 18) documented normal subglacial storage. The event spanning pair (Aug 11 → Aug 23) captured the subglacial jökulhlaup release, and post-drainage pair (Aug 23 → Sep 4) quantified ice dam subsidence."
+      },
+      "limits": {
+        "radar_limits": "Radar directly quantifies surface water boundary and exposed roughness; estimating discharge volume requires integrating NISAR extent with USGS lidar bathymetry models.",
+        "provisional_status": "NISAR L2 GCOV Provisional V1 product (Track 34, Frame 31)."
+      },
+      "gcov_passes": {
+        "before": [
+          "2026-07-06",
+          "2026-07-18",
+          "2026-08-11"
+        ],
+        "after": [
+          "2026-08-23",
+          "2026-09-04",
+          "2026-09-16"
+        ]
+      },
+      "radar_pairs": [
+        {
+          "type": "control",
+          "name": "No-Event Control Pair",
+          "dates": "Jul 06 → Jul 18",
+          "products": "GUNW + GOFF",
+          "role": "Normal background baseline; monitors seasonal meltwater accumulation and normal glacier flow."
+        },
+        {
+          "type": "spans",
+          "name": "Event Spanning Pair",
+          "dates": "Aug 11 → Aug 23",
+          "products": "GUNW + GOFF + GCOV",
+          "role": "The critical pair containing the Aug 13 crest; captures subglacial drainage of 31M m³ meltwater."
+        },
+        {
+          "type": "after",
+          "name": "Post-Drainage Response Pair",
+          "dates": "Aug 23 → Sep 04",
+          "products": "GUNW + GOFF",
+          "role": "Monitors how the ice dam behaves after drainage; ice dam flexure, moraine subsidence, and crevasse closing."
+        }
+      ]
+    },
+    {
+      "id": "chamoli",
+      "name": "Chamoli / Rishiganga, Uttarakhand (Feb 2021)",
+      "type": "story",
+      "pathway": "Ice-rock avalanche and flash flood",
+      "badge": "Historical Story (No NISAR Data)",
+      "badge_class": "badge-story",
+      "event_date": "2021-02-07",
+      "location": {
+        "lat": 30.38,
+        "lon": 79.73,
+        "zoom": 11,
+        "bounds": [
+          [
+            30.25,
+            79.6
+          ],
+          [
+            30.55,
+            79.9
+          ]
+        ]
+      },
+      "story": {
+        "what_happened": "A massive wedge of rock and hanging glacier fell from the steep peak of Ronti, pulverized into a hyper-concentrated debris flow that destroyed the Tapovan Vishnugad and Rishiganga hydroelectric plants.",
+        "why_it_happened": "Deep permafrost thaw in bedrock joints coupled with heavy seismic vibrations over preceding years triggered brittle failure of the steep cliff face.",
+        "what_radar_would_show": "If NISAR had been in orbit, L-band interferometry (GUNW) would have detected precursory millimeter-per-week creep on the Ronti peak face, while GCOV backscatter would have tracked the 30 km flood mud trail through the gorges.",
+        "limits": "Occurred before NISAR launch (July 2025). Reconstructed using European Sentinel-1 data."
+      },
+      "sources": [
+        "Shugar et al., Science 2021: 'A massive rock and ice avalanche in the Indian Himalaya'",
+        "International Centre for Integrated Mountain Development (ICIMOD) Chamoli Brief"
+      ]
+    },
+    {
+      "id": "south_lhonak",
+      "name": "South Lhonak, Sikkim (Oct 2023)",
+      "type": "story",
+      "pathway": "Moraine-dammed lake burst (GLOF)",
+      "badge": "Historical Story (No NISAR Data)",
+      "badge_class": "badge-story",
+      "event_date": "2023-10-04",
+      "location": {
+        "lat": 27.91,
+        "lon": 88.2,
+        "zoom": 11,
+        "bounds": [
+          [
+            27.75,
+            88.05
+          ],
+          [
+            28.05,
+            88.35
+          ]
+        ]
+      },
+      "story": {
+        "what_happened": "Heavy rainfall combined with a lateral moraine slide into South Lhonak Lake triggered a displacement wave that breached the natural moraine dam, releasing a devastating glacial lake outburst flood down the Teesta River basin.",
+        "why_it_happened": "Rapid retreat of the South Lhonak glacier over 40 years had expanded the proglacial lake more than fivefold, held back only by unconsolidated moraine sediments containing melting ice cores.",
+        "what_radar_would_show": "NISAR's 12-day repeat L-band radar would have continuously tracked lake surface area expansion and detected ground settlement along the unconsolidated moraine dam wall before failure.",
+        "limits": "Occurred prior to NISAR operational release (2026). Background monitoring available from historical Sentinel-1 C-band."
+      },
+      "sources": [
+        "National Remote Sensing Centre (ISRO) Report on South Lhonak GLOF",
+        "Geological Survey of India (GSI) Teesta Basin Hazard Assessment"
+      ]
+    }
+  ]
+}

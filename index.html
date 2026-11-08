@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Dancing with the SARs: How Ice Becomes a Flood | NISAR Radar Explorer</title>
+  
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CesiumJS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/cesium@1.119.0/Build/Cesium/Widgets/widgets.css">
+
+  <!-- Three.js CDN for Isometric 3D Command Center -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css?v=20261107_v53">
+</head>
+<body class="view-dashboard">
+
+  <!-- =====================================================================
+       1. GLOBAL BRAND NAV (56px Fixed, Precision Linear/Apple Glass)
+       ===================================================================== -->
+  <header class="app-header command-toolbar vertical-toolbar" id="app-toolbar">
+    <div class="nav-container">
+      
+      <!-- Vertical HUD Header Badge -->
+      <div class="vtoolbar-header font-mono">
+        <span class="vtoolbar-pulse-dot"></span>
+        <span class="vtoolbar-title">NISAR HUD</span>
+      </div>
+
+      <!-- Brand & Mission Identity -->
+      <div class="brand-group" onclick="switchView('landing')" style="cursor: pointer;" title="Back to Mission Launchpad">
+        <div class="brand-radar-mark" aria-hidden="true">
+          <span class="radar-ping"></span>
+          <span class="radar-core"></span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title-wrap">
+            <span class="brand-title">Dancing with the SARs</span>
+            <span class="brand-divider">/</span>
+            <span class="brand-subtitle">Hazard Radar Explorer</span>
+          </div>
+          <div class="brand-badges-row">
+            <span class="badge-tech">NISAR L-BAND 24cm</span>
+            <span class="badge-provisional font-mono" title="Data Maturity: PROVISIONAL (NASA-ISRO Science Team)">PROVISIONAL DATA</span>
+            <span class="badge-mission">NASA SPACE APPS 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Navigation & Telemetry Selectors -->
+      <nav class="nav-actions" aria-label="Main Navigation">
+        <button id="nav-btn-landing" class="nav-pill top-nav-btn active" onclick="switchView('landing')" title="Mission Launchpad & Scenario Selector">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          <span>Launchpad</span>
+        </button>
+
+        <button id="nav-btn-dashboard" class="nav-pill top-nav-btn" onclick="switchView('dashboard')" title="Isometric 3D Command Center Dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>3D Dashboard</span>
+        </button>
+
+        <button id="nav-btn-globe" class="nav-pill top-nav-btn" onclick="switchView('globe')" title="Interactive 3D Cesium Hazard Globe">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <span>3D Globe</span>
+        </button>
+
+        <!-- Case Switcher Menu -->
+        <div class="case-dropdown-container">
+          <button class="nav-pill dropdown-trigger" aria-haspopup="true">
+            <span class="telemetry-dot"></span>
+            <span id="current-case-label">Select Case Study</span>
+            <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div class="case-dropdown-menu">
+            <div class="dropdown-header">OPERATIONAL NISAR OBSERVATIONS</div>
+            <button class="case-item" onclick="selectCase('langtang')">
+              <div class="case-item-indicator live"></div>
+              <div class="case-item-meta">
+                <span class="case-item-title">Langtang Avalanche</span>
+                <span class="case-item-sub">Nepal–Tibet • Aug 2026</span>
+              </div>
+              <span class="tag-status live">L-BAND</span>
+            </button>
+            
+            <button class="case-item" onclick="selectCase('suicide_basin')">
+              <div class="case-item-indicator live"></div>
+              <div class="case-item-meta">
+                <span class="case-item-title">Suicide Basin Lake Drain</span>
+                <span class="case-item-sub">Juneau, Alaska • Aug 2026</span>
+              </div>
+              <span class="tag-status live">L-BAND</span>
+            </button>
+
+            <div class="dropdown-header">HISTORICAL GROUND TRUTH (NO NISAR)</div>
+            <button class="case-item" onclick="selectCase('chamoli')">
+              <div class="case-item-indicator story"></div>
+              <div class="case-item-meta">
+                <span class="case-item-title">Chamoli Rock-Ice Slip</span>
+                <span class="case-item-sub">Uttarakhand • Feb 2021</span>
+              </div>
+              <span class="tag-status story">STORY</span>
+            </button>
+
+            <button class="case-item" onclick="selectCase('south_lhonak')">
+              <div class="case-item-indicator story"></div>
+              <div class="case-item-meta">
+                <span class="case-item-title">South Lhonak Moraine Burst</span>
+                <span class="case-item-sub">Sikkim • Oct 2023</span>
+              </div>
+              <span class="tag-status story">STORY</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CONTEXTUAL SUBPANEL 1: Editorial Landing View -->
+        <div class="toolbar-context-panel font-mono" id="toolbar-landing-context">
+          <span class="toolbar-context-heading">MISSION SCENARIOS //</span>
+          <button class="toolbar-context-btn font-mono" onclick="selectCase('langtang')">
+            <span class="beacon-dot live"></span>
+            <span>LANGTANG [LIVE]</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="selectCase('suicide_basin')">
+            <span class="beacon-dot live"></span>
+            <span>SUICIDE BASIN [LIVE]</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="selectCase('chamoli')">
+            <span class="beacon-dot story"></span>
+            <span>CHAMOLI [STORY]</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="selectCase('south_lhonak')">
+            <span class="beacon-dot story"></span>
+            <span>SOUTH LHONAK [STORY]</span>
+          </button>
+        </div>
+
+        <!-- CONTEXTUAL SUBPANEL 2: 3D Command Dashboard Diorama Filters -->
+        <div class="toolbar-dashboard-filters toolbar-context-panel font-mono hidden" id="toolbar-dashboard-filters">
+          <span class="toolbar-context-heading">3D DIORAMA NODES //</span>
+          <button class="dash-filter-btn active font-mono" id="dash-filter-all" onclick="filterDashboardNodes('all')">[ ALL ICE NODES (4) ]</button>
+          <button class="dash-filter-btn font-mono" id="dash-filter-live" onclick="filterDashboardNodes('live')">[ LIVE NISAR (2) ]</button>
+          <button class="dash-filter-btn font-mono" id="dash-filter-hist" onclick="filterDashboardNodes('story')">[ HISTORICAL GLOFs (2) ]</button>
+        </div>
+
+        <!-- CONTEXTUAL SUBPANEL 3: 3D Cesium Hazard Globe Controls -->
+        <div class="toolbar-context-panel font-mono hidden" id="toolbar-globe-context">
+          <span class="toolbar-context-heading">3D GLOBE HAZARDS //</span>
+          <button class="dash-filter-btn active font-mono" id="toolbar-globe-filter-all" onclick="applyGlobeFilter('all')">[ ALL HAZARDS (4) ]</button>
+          <button class="dash-filter-btn font-mono" id="toolbar-globe-filter-ice" onclick="applyGlobeFilter('ice')">[ CRYOSPHERE ONLY (2) ]</button>
+          <span class="toolbar-context-heading" style="margin-top: 4px;">ORBITAL BEACONS //</span>
+          <button class="toolbar-context-btn font-mono" onclick="handleGlobeBeaconClick('langtang')">
+            <span class="beacon-dot live"></span>
+            <span>LANGTANG (28.2°N)</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="handleGlobeBeaconClick('suicide_basin')">
+            <span class="beacon-dot live"></span>
+            <span>SUICIDE BASIN (58.5°N)</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="handleGlobeBeaconClick('chamoli')">
+            <span class="beacon-dot story"></span>
+            <span>CHAMOLI (30.4°N)</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="handleGlobeBeaconClick('south_lhonak')">
+            <span class="beacon-dot story"></span>
+            <span>SOUTH LHONAK (27.9°N)</span>
+          </button>
+        </div>
+
+        <!-- CONTEXTUAL SUBPANEL 4: Place Explorer / Multi-Channel Radar Lab -->
+        <div class="toolbar-context-panel font-mono hidden" id="toolbar-place-context">
+          <span class="toolbar-context-heading">RADAR LAB ACTIONS //</span>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('dashboard')">
+            <span>← 3D COMMAND CENTER</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('globe')">
+            <span>🌐 3D HAZARD GLOBE</span>
+          </button>
+          <span class="toolbar-context-heading" style="margin-top: 4px;">PHYSICS DIAGNOSTICS //</span>
+          <button class="toolbar-context-btn font-mono" id="toolbar-btn-adv" onclick="toggleAdvancedDiagnostics()">
+            <span>⚙ ADVANCED CHANNELS</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" id="toolbar-btn-probe" onclick="togglePhysicsProbeHUD()">
+            <span>⚡ PHYSICS PROBE HUD</span>
+          </button>
+        </div>
+
+        <!-- CONTEXTUAL SUBPANEL 5: Editorial Story View -->
+        <div class="toolbar-context-panel font-mono hidden" id="toolbar-story-context">
+          <span class="toolbar-context-heading">DOSSIER NAVIGATION //</span>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('dashboard')">
+            <span>← 3D DASHBOARD</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('globe')">
+            <span>🌐 3D HAZARD GLOBE</span>
+          </button>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('landing')">
+            <span>🚀 MISSION LAUNCHPAD</span>
+          </button>
+        </div>
+
+        <button id="nav-btn-mission-tour" class="nav-pill top-nav-btn tour-pulse-btn" onclick="startMissionTour()" title="Launch Guided Forensic Radar Walkthrough">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span class="tour-nav-label">Mission Tour</span>
+        </button>
+
+        <button class="nav-pill top-nav-btn nav-guide-btn" onclick="openStoryGuide()">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span>3 Flood Pathways</span>
+        </button>
+
+        <!-- Minimization Option Button -->
+        <button id="toolbar-minimize-btn" class="nav-pill toolbar-minimize-btn font-mono" onclick="toggleToolbarMinimization()" title="Minimize Toolbar (Enter Full Immersion View)">
+          <svg class="minimize-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+          <span>MINIMIZE</span>
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Floating Restore / Expand Pill (Shown when toolbar is minimized) -->
+  <button id="toolbar-restore-pill" class="toolbar-restore-pill vertical-restore-dock font-mono hidden" onclick="toggleToolbarMinimization()" title="Expand Command Toolbar">
+    <span class="restore-dot"></span>
+    <span class="restore-label">❖ HUD · EXPAND ▸</span>
+  </button>
+
+  <!-- =====================================================================
+       2. PRIMARY VIEWPORT
+       ===================================================================== -->
+  <main class="app-main">
+    
+    <!-- =====================================================================
+         VIEW 0: EDITORIAL MISSION LAUNCHPAD (#landing-view) — IgnitronDev Style
+         ===================================================================== -->
+    <section id="landing-view" class="view-section active editorial-landing" aria-label="Dancing with the SARs Editorial Launchpad">
+      
+      <div class="editorial-container">
+        
+        <!-- Top Editorial Metadata Header Bar -->
+        <div class="editorial-meta-header font-mono">
+          <div class="meta-col-left">
+            <span class="editorial-tag-bracket">[</span>
+            <span class="meta-sys-name">NISAR // L-BAND ORBITAL SURVEILLANCE</span>
+            <span class="editorial-tag-bracket">]</span>
+            <span class="meta-bullet">•</span>
+            <span class="meta-sub">NASA-ISRO EARTH OBSERVATION PROGRAM</span>
+          </div>
+          <div class="meta-col-right">
+            <span class="meta-code">DOSSIER REF: SAR-2026-GEOINT</span>
+            <span class="meta-bullet">•</span>
+            <span class="meta-status">ACTIVE TELEMETRY</span>
+          </div>
+        </div>
+
+        <!-- Asymmetric Two-Column Magazine Grid -->
+        <div class="editorial-grid">
+          
+          <!-- LEFT COLUMN: Oversized Typography & Editorial Mission Text -->
+          <div class="editorial-left-col">
+            <div class="editorial-kicker font-mono">
+              <span class="kicker-index">VOL. 2026</span>
+              <span class="kicker-divider">/</span>
+              <span class="kicker-label">FORENSIC RADAR DOSSIER</span>
+            </div>
+
+            <h1 class="editorial-headline">
+              Dancing with the SARs.
+            </h1>
+
+            <p class="editorial-dek">
+              Active spaceborne microwave remote sensing across catastrophic planetary hazards. When mountain ice collapses or subterranean magma chambers swell beneath monsoon storms, dense volcanic ash, or total darkness, NISAR's 24.2 cm L-band radar unmasks the physical deformations optical satellites cannot see.
+            </p>
+
+            <!-- Technical Mission Metrics Table / Spec Strip -->
+            <div class="editorial-spec-strip font-mono">
+              <div class="spec-entry">
+                <span class="spec-label">RADAR BAND</span>
+                <span class="spec-val">L-Band (24.2 cm)</span>
+              </div>
+              <div class="spec-entry">
+                <span class="spec-label">REPEAT PASS</span>
+                <span class="spec-val">12-Day Orbit</span>
+              </div>
+              <div class="spec-entry">
+                <span class="spec-label">DEFORMATION</span>
+                <span class="spec-val">3 mm/yr LOS</span>
+              </div>
+              <div class="spec-entry">
+                <span class="spec-label">PENETRATION</span>
+                <span class="spec-val">Cloud & Ash Blind-Proof</span>
+              </div>
+            </div>
+
+            <div class="editorial-footer-note font-mono">
+              <span>SELECT AN INVESTIGATION DOMAIN ON THE RIGHT TO INITIALIZE RADAR PIPELINE</span>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Structural, Thin-Bordered Options Stacked Vertically -->
+          <div class="editorial-right-col" role="region" aria-label="Hazard Case Options">
+            
+            <!-- OPTION A: Ice Avalanche (Himalayas) -->
+            <article class="editorial-option-card option-ice" onclick="switchView('story-ice')" tabindex="0" role="button" aria-label="Open Ice Avalanche (Himalayas) Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-ice')">
+              <div class="option-header-row font-mono">
+                <span class="option-cat-code">[ HAZARD 01 // CRYOSPHERE ]</span>
+                <span class="option-sensor-tag">L2 GCOV DUAL-POL</span>
+              </div>
+
+              <div class="option-title-block">
+                <h2 class="option-title">Ice Avalanche (Himalayas)</h2>
+                <span class="option-locale font-mono">LANGTANG VALLEY & CHAMOLI CORRIDORS // 28.25°N, 85.50°E</span>
+              </div>
+
+              <p class="option-summary">
+                Catastrophic hanging glacier detachment, pulverized rock-ice chutes, canyon debris dams, and sudden lake outburst floods (GLOFs). L-band radar isolates debris deposit roughness (+6.2 dB) and catches pre-collapse slope creep through heavy monsoon cloud cover.
+              </p>
+
+              <div class="option-specs-grid font-mono">
+                <div class="option-stat">
+                  <span class="stat-k">+6.2 dB</span>
+                  <span class="stat-v">Debris Surge</span>
+                </div>
+                <div class="option-stat">
+                  <span class="stat-k">11.4 cm</span>
+                  <span class="stat-v">InSAR Creep (LOS)</span>
+                </div>
+                <div class="option-stat">
+                  <span class="stat-k">3.42 km²</span>
+                  <span class="stat-v">Debris Footprint</span>
+                </div>
+              </div>
+
+              <div class="option-action-footer font-mono">
+                <span class="action-text">INITIALIZE HIMALAYAN RADAR LAB</span>
+                <span class="action-arrow">→</span>
+              </div>
+            </article>
+
+            <!-- OPTION B: Glacial Lake Outburst Floods (GLOFs) -->
+            <article class="editorial-option-card option-ice" onclick="selectCase('south_lhonak')" tabindex="0" role="button" aria-label="Open Glacial Lake Outburst Flood (GLOF) Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')selectCase('south_lhonak')">
+              <div class="option-header-row font-mono">
+                <span class="option-cat-code">[ HAZARD 02 // CRYOSPHERE GLOF ]</span>
+                <span class="option-sensor-tag">L-BAND SPECULAR WATER LOSS</span>
+              </div>
+
+              <div class="option-title-block">
+                <h2 class="option-title">Glacial Lake Outbursts (GLOFs)</h2>
+                <span class="option-locale font-mono">SUICIDE BASIN & SOUTH LHONAK LAKES // 58.46°N, 27.91°N</span>
+              </div>
+
+              <p class="option-summary">
+                Subglacial jökulhlaup lake evacuations and surging moraine-dam collapses. While dense monsoon storm clouds and mountain darkness blind optical sensors, microwave L-band isolates the sudden loss of specular reflection as tens of millions of cubic meters of water drain violently downstream.
+              </p>
+
+              <div class="option-specs-grid font-mono">
+                <div class="option-stat">
+                  <span class="stat-k">31M m³</span>
+                  <span class="stat-v">Peak Discharge</span>
+                </div>
+                <div class="option-stat">
+                  <span class="stat-k">168 ha</span>
+                  <span class="stat-v">Lake Loss</span>
+                </div>
+                <div class="option-stat">
+                  <span class="stat-k">100%</span>
+                  <span class="stat-v">Cloud Penetration</span>
+                </div>
+              </div>
+
+              <div class="option-action-footer font-mono">
+                <span class="action-text">INITIALIZE GLOF RADAR LAB</span>
+                <span class="action-arrow">→</span>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================================
+         VIEW 1: ISOMETRIC 3D COMMAND CENTER DASHBOARD (#dashboard-view)
+         ===================================================================== -->
+    <section id="dashboard-view" class="view-section active dashboard-view" aria-label="Isometric 3D Cryosphere Command Center">
+
+      <!-- Isometric 3D Space Viewport -->
+      <div class="isometric-viewport" id="isometric-viewport">
+
+        <!-- 1. The Isometric Grid Floor (NEON STYLE) -->
+        <div class="grid-floor-container" aria-hidden="true">
+          <div class="grid-floor"></div>
+          <div class="grid-glow-vignette"></div>
+        </div>
+
+        <!-- Ground 3D Isometric Microchip Pedestal Stand (Perfect Center of Circuit) -->
+        <div class="isometric-pedestal" id="isometric-pedestal" aria-hidden="true">
+          <svg class="pedestal-chip-svg" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="chipGlowCyan" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <!-- Tamed cyber-cyan gradient (No more blinding white glare) -->
+              <linearGradient id="coreDieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0E3854"/>
+                <stop offset="45%" stop-color="#00FFFF" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#082236"/>
+              </linearGradient>
+              <linearGradient id="leftWallGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#142C44"/>
+                <stop offset="100%" stop-color="#091827"/>
+              </linearGradient>
+              <linearGradient id="rightWallGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0E2135"/>
+                <stop offset="100%" stop-color="#06111C"/>
+              </linearGradient>
+            </defs>
+
+            <!-- 1. Glowing Floor Socket Pad (Circuit connections land at edges) -->
+            <polygon points="100,46.1 176.0,90.0 100,133.9 24.0,90.0" fill="rgba(0, 255, 255, 0.12)" stroke="#00FFFF" stroke-width="1.8" filter="url(#chipGlowCyan)" />
+            <polygon points="100,50.1 169.0,90.0 100,129.9 31.0,90.0" fill="none" stroke="rgba(0, 255, 255, 0.45)" stroke-width="1" stroke-dasharray="4 3" />
+
+            <!-- 2. Extruded Left-Front Vertical Wall (rising 22px upward towards globe) -->
+            <polygon points="38.0,90.0 100,125.8 100,103.8 38.0,68.0" fill="url(#leftWallGrad)" stroke="#00FFFF" stroke-width="1" />
+
+            <!-- 3. Extruded Right-Front Vertical Wall -->
+            <polygon points="100,125.8 162.0,90.0 162.0,68.0 100,103.8" fill="url(#rightWallGrad)" stroke="#00FFFF" stroke-width="1" />
+
+            <!-- 4. IC Pin Contact Rails on Left Wall -->
+            <line x1="47.3" y1="73.4" x2="47.3" y2="95.4" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="53.5" y1="76.9" x2="53.5" y2="98.9" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="59.7" y1="80.5" x2="59.7" y2="102.5" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="65.9" y1="84.1" x2="65.9" y2="106.1" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="72.1" y1="87.7" x2="72.1" y2="109.7" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="78.3" y1="91.3" x2="78.3" y2="113.3" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="84.5" y1="94.8" x2="84.5" y2="116.8" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="90.7" y1="98.4" x2="90.7" y2="120.4" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+
+            <!-- 5. IC Pin Contact Rails on Right Wall -->
+            <line x1="109.3" y1="98.4" x2="109.3" y2="120.4" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="115.5" y1="94.8" x2="115.5" y2="116.8" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="121.7" y1="91.3" x2="121.7" y2="113.3" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="127.9" y1="87.7" x2="127.9" y2="109.7" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="134.1" y1="84.1" x2="134.1" y2="106.1" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="140.3" y1="80.5" x2="140.3" y2="102.5" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="146.5" y1="76.9" x2="146.5" y2="98.9" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+            <line x1="152.7" y1="73.4" x2="152.7" y2="95.4" stroke="#00FFFF" stroke-width="1.4" opacity="0.85" />
+
+            <!-- 6. Top Beveled Chip Surface -->
+            <polygon points="100,32.2 162.0,68.0 100,103.8 38.0,68.0" fill="#0B1B2B" stroke="#00FFFF" stroke-width="1.5" />
+
+            <!-- 7. Four Corner Mounting Brackets -->
+            <polygon points="34.0,68.0 42.0,64.0 42.0,73.0 34.0,77.0" fill="#040A10" stroke="#00FFFF" stroke-width="1" />
+            <polygon points="166.0,68.0 158.0,64.0 158.0,73.0 166.0,77.0" fill="#040A10" stroke="#00FFFF" stroke-width="1" />
+            <polygon points="96.0,104.0 104.0,104.0 104.0,113.0 96.0,113.0" fill="#040A10" stroke="#00FFFF" stroke-width="1" />
+            <polygon points="96.0,29.0 104.0,29.0 104.0,37.0 96.0,37.0" fill="#040A10" stroke="#00FFFF" stroke-width="1" />
+
+            <!-- 8. Top Inner Silicon Die (Sleek Cyber Glow, Not Overpowering) -->
+            <polygon points="100,42.0 146.0,68.0 100,94.0 54.0,68.0" fill="url(#coreDieGrad)" stroke="#00FFFF" stroke-width="1.4" />
+            <polygon points="100,48.0 135.0,68.0 100,88.0 65.0,68.0" fill="rgba(0, 255, 255, 0.22)" />
+          </svg>
+        </div>
+
+        <!-- 2. Dynamic Connecting Laser Lines SVG Overlay -->
+        <svg id="dashboard-laser-svg" class="dashboard-laser-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="neonGlowCyan" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur1"/>
+              <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+              <feMerge>
+                <feMergeNode in="blur2"/>
+                <feMergeNode in="blur1"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <linearGradient id="laserPulseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00FFFF" stop-opacity="0.3"/>
+              <stop offset="50%" stop-color="#00FFFF" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#286BFF" stop-opacity="0.8"/>
+            </linearGradient>
+          </defs>
+          <!-- Dynamic paths injected and updated via updateConnectingLines() -->
+          <g id="laser-paths-group"></g>
+        </svg>
+
+        <!-- 3. The Central 3D Earth (The Levitating Core) -->
+        <div id="core-globe-container" class="core-globe-container">
+          <div id="core-globe"></div>
+          <div class="core-globe-shadow" aria-hidden="true"></div>
+        </div>
+
+        <!-- Stable Plaque Label Cleanly Under 3D Chip Pedestal -->
+        <div id="pedestal-plaque" class="core-globe-label pedestal-plaque font-mono">
+          <span class="core-ping-ring"></span>
+          <span class="core-title">NISAR OBSERVATION CORE</span>
+          <span class="core-sub">GEO-RADAR TARGET: HIMALAYAS & ALASKA</span>
+        </div>
+
+        <!-- 4. The 4 3D Micro-Environment Stations (Merouane Bali Minimalist Aesthetic) -->
+        <div class="dashboard-nodes-layer">
+          
+          <!-- Station 1: Top-Left - Langtang Canyon Valley (LIVE NISAR) -->
+          <article class="micro-station node-top-left" id="node-langtang" onclick="startMissionTour('langtang')" role="button" tabindex="0" aria-label="Open Langtang Canyon Valley Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('langtang')">
+            <div class="station-pedestal-glow" aria-hidden="true"></div>
+            <div class="station-3d-viewport" id="diorama-langtang" title="Langtang Canyon Gorge 3D Model"></div>
+            <div class="station-name-bracket font-mono">
+              <span class="corner-bracket">┌</span>
+              <span class="station-title">LANGTANG CANYON</span>
+              <span class="corner-bracket">┐</span>
+            </div>
+          </article>
+
+          <!-- Station 2: Top-Right - Suicide Glacial Basin (LIVE NISAR) -->
+          <article class="micro-station node-top-right" id="node-suicide" onclick="startMissionTour('suicide_basin')" role="button" tabindex="0" aria-label="Open Suicide Glacial Basin Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('suicide_basin')">
+            <div class="station-pedestal-glow" aria-hidden="true"></div>
+            <div class="station-3d-viewport" id="diorama-suicide" title="Suicide Glacial Basin 3D Model"></div>
+            <div class="station-name-bracket font-mono">
+              <span class="corner-bracket">┌</span>
+              <span class="station-title">SUICIDE BASIN</span>
+              <span class="corner-bracket">┐</span>
+            </div>
+          </article>
+
+          <!-- Station 3: Bottom-Left - Chamoli Detachment Peak (HISTORICAL) -->
+          <article class="micro-station node-bottom-left" id="node-chamoli" onclick="openStoryModal('chamoli')" role="button" tabindex="0" aria-label="Open Chamoli Scarp Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('chamoli')">
+            <div class="station-pedestal-glow" aria-hidden="true"></div>
+            <div class="station-3d-viewport" id="diorama-chamoli" title="Chamoli Detachment Peak 3D Model"></div>
+            <div class="station-name-bracket font-mono">
+              <span class="corner-bracket">┌</span>
+              <span class="station-title">CHAMOLI SCARP</span>
+              <span class="corner-bracket">┐</span>
+            </div>
+          </article>
+
+          <!-- Station 4: Bottom-Right - South Lhonak Moraine Lake (HISTORICAL GLOF) -->
+          <article class="micro-station node-bottom-right" id="node-lhonak" onclick="openStoryModal('south_lhonak')" role="button" tabindex="0" aria-label="Open South Lhonak Moraine Lake Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('south_lhonak')">
+            <div class="station-pedestal-glow" aria-hidden="true"></div>
+            <div class="station-3d-viewport" id="diorama-lhonak" title="South Lhonak Moraine Lake 3D Model"></div>
+            <div class="station-name-bracket font-mono">
+              <span class="corner-bracket">┌</span>
+              <span class="station-title">SOUTH LHONAK LAKE</span>
+              <span class="corner-bracket">┐</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================================
+         VIEW 2: PLACE EXPLORER (#place-view) — Interactive GEOINT Radar Lab
+         ===================================================================== -->
+    <section id="place-view" class="view-section place-explorer-layout" aria-label="Interactive Radar Change Detection Lab">
+      
+      <!-- LEFT COLUMN: Map Viewport & Floating Glass Overlays -->
+      <div class="place-viewport-column sar-viewport-col">
+        
+        <!-- Signal Layer Filter Toolbar (Floating Glass Pills) -->
+        <div class="signal-toolbar-wrapper" role="toolbar" aria-label="Radar Signal Channel Switcher">
+          <button class="place-back-btn font-mono" onclick="switchView('dashboard')" title="Return to 3D Command Center Dashboard">
+            ← 3D DASHBOARD
+          </button>
+          <div class="signal-toolbar">
+            <button id="pill-composite" class="signal-pill sig-pill active font-mono" onclick="setSignalLayer('composite')" title="Polarimetric Decomposition (HH+HV+Ratio)">
+              <span class="pill-dot composite"></span>
+              <span>[CH 01] COMPOSITE RGB</span>
+            </button>
+            <button id="pill-hh" class="signal-pill sig-pill font-mono" onclick="setSignalLayer('hh')" title="Horizontal-Horizontal Co-Polarization (Surface Roughness)">
+              <span class="pill-dot hh"></span>
+              <span>[CH 02] HH CO-POL</span>
+            </button>
+            <button id="pill-hv" class="signal-pill sig-pill font-mono" onclick="setSignalLayer('hv')" title="Horizontal-Vertical Cross-Polarization (Volumetric Scatter / Ice Debris)">
+              <span class="pill-dot hv"></span>
+              <span>[CH 03] HV X-POL</span>
+            </button>
+            <button id="pill-diff" class="signal-pill sig-pill font-mono" onclick="setSignalLayer('diff')" title="Pre/Post-Event Amplitude Anomaly (ΔdB Difference)">
+              <span class="pill-dot diff"></span>
+              <span>[CH 04] ΔdB ANOMALY</span>
+            </button>
+            <button id="pill-heatmap" class="signal-pill sig-pill font-mono" onclick="setSignalLayer('heatmap')" title="High-Confidence Hazard Zone Heatmap">
+              <span class="pill-dot heatmap"></span>
+              <span>[CH 05] CHANGE HEATMAP</span>
+            </button>
+            <button id="pill-creep" class="signal-pill sig-pill font-mono" onclick="setSignalLayer('displacement')" title="Line-of-Sight (LOS) InSAR Interferometric Surface Creep">
+              <span class="pill-dot displacement"></span>
+              <span>[CH 06] InSAR CREEP (LOS)</span>
+            </button>
+            <button id="pill-timeseries" class="signal-pill sig-pill font-mono" onclick="setSignalLayer('timeseries')" title="12-Day Satellite Repeat Pass Time-Series">
+              <span class="pill-dot timeseries"></span>
+              <span>[CH 07] ORBIT TS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- The Map Viewport Wrapper -->
+        <div id="map-viewport-wrapper" class="map-viewport-wrapper">
+          
+          <!-- Underlying Leaflet Map Canvas -->
+          <div id="place-map" class="map-viewport"></div>
+
+          <!-- Loading Pulse Skeleton Overlay -->
+          <div id="radar-skeleton-loader" class="radar-skeleton-loader hidden">
+            <div class="skeleton-sweep"></div>
+            <div class="skeleton-content">
+              <span class="skeleton-spinner"></span>
+              <span class="skeleton-text">Calibrating NISAR L2 GCOV Telemetry...</span>
+            </div>
+          </div>
+
+          <!-- ===============================================================
+               1. THE SWIPE DIVIDER OVERLAY (Glowing Laser Edge & Grip)
+               =============================================================== -->
+          <div id="swipe-overlay-ui" class="swipe-overlay-ui">
+            <!-- Floating Wavelength Comparison Callouts -->
+            <div class="swipe-label-left font-mono" id="swipe-lbl-left">
+              <span class="swipe-tag-k">PRE-EVENT</span>
+              <span class="swipe-tag-v">OPTICAL (CLOUD-BLIND)</span>
+            </div>
+            <div class="swipe-label-right font-mono" id="swipe-lbl-right">
+              <span class="swipe-tag-k">POST-EVENT</span>
+              <span class="swipe-tag-v">NISAR L-BAND (λ = 24.2 CM)</span>
+            </div>
+
+            <input type="range" id="swipe-slider" min="0" max="100" value="50" class="swipe-range-input" aria-label="Before/After swipe comparison slider">
+            <div id="swipe-divider-line" class="swipe-divider-line">
+              <div class="swipe-laser-core"></div>
+              <div class="swipe-handle-grip" title="Drag to compare Pre/Post Radar">
+                <div class="grip-laser-ring"></div>
+                <div class="grip-chevrons">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div id="swipe-hint-pill" class="swipe-hint-pill">
+              <span class="hint-laser-dot"></span>
+              <span>Drag to compare</span>
+            </div>
+          </div>
+
+          <!-- ===============================================================
+               2. THE STORY TOUR CARD (Large Glassmorphic Modal Overlay)
+               =============================================================== -->
+          <div id="story-tour-card" class="story-tour-card hidden" role="dialog" aria-modal="true" aria-labelledby="tour-step-title">
+            <!-- Glowing Progress Bar at Top -->
+            <div class="tour-progress-track">
+              <div id="tour-progress-fill" class="tour-progress-fill"></div>
+            </div>
+
+            <div class="tour-header">
+              <div class="tour-badge-wrap">
+                <span id="tour-step-badge" class="tour-badge font-mono">STEP 1 OF 4</span>
+                <span class="tour-eyebrow">GUIDED HAZARD WALKTHROUGH</span>
+              </div>
+              <button onclick="exitStoryTour()" class="tour-close-btn" aria-label="Exit guided story tour">&times;</button>
+            </div>
+
+            <div class="tour-body">
+              <h4 id="tour-step-title" class="tour-title">Feature Title</h4>
+              <p id="tour-step-desc" class="tour-desc">Physical scattering and radar change explanation.</p>
+            </div>
+
+            <div class="tour-footer">
+              <div class="tour-step-indicators" aria-hidden="true">
+                <span class="step-dot active"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+              </div>
+              <div class="tour-actions">
+                <button id="tour-btn-prev" onclick="stepStoryTour(-1)" class="tour-nav-btn secondary">← Previous</button>
+                <button id="tour-btn-next" onclick="stepStoryTour(1)" class="tour-nav-btn primary">Next Step →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===============================================================
+               3. THE PHYSICS PROBE HUD (Cinematic Floating Telemetry Card)
+               =============================================================== -->
+          <div id="physics-probe-hud" class="physics-probe-hud hidden" role="region" aria-label="Radar Physics Telemetry Probe">
+            <div class="probe-laser-beam" aria-hidden="true"></div>
+            <div class="probe-header">
+              <div class="probe-title-wrap">
+                <span id="probe-mech-icon" class="probe-icon">🔬</span>
+                <div class="probe-title-group">
+                  <span id="probe-mech-name" class="probe-title">Point Target Scattering</span>
+                  <span class="probe-live-tag font-mono">PIXEL TELEMETRY</span>
+                </div>
+              </div>
+              <button onclick="resetPhysicsProbe()" class="probe-close-btn" aria-label="Close telemetry probe">&times;</button>
+            </div>
+            
+            <div class="probe-grid">
+              <div class="probe-cell">
+                <span class="probe-lbl">COORDINATES</span>
+                <span id="probe-coords" class="probe-val font-mono">--°N, --°E</span>
+              </div>
+              <div class="probe-cell">
+                <span class="probe-lbl">CALIBRATED σ⁰</span>
+                <span id="probe-sigma" class="probe-val font-mono">-- dB</span>
+              </div>
+              <div class="probe-cell">
+                <span class="probe-lbl">CHANGE Δσ⁰</span>
+                <span id="probe-delta" class="probe-val font-mono">-- dB</span>
+              </div>
+              <div class="probe-cell">
+                <span class="probe-lbl">POLARIZATION</span>
+                <span id="probe-pol" class="probe-val font-mono">--</span>
+              </div>
+            </div>
+
+            <div class="probe-desc-wrap">
+              <p id="probe-mech-desc" class="probe-desc">
+                Click anywhere on the SAR image to inspect calibrated dielectric backscatter and physical surface scattering.
+              </p>
+            </div>
+          </div>
+
+          <!-- Map Utility Controls Bar (Floating Bottom-Left) -->
+          <div class="map-utility-toolbar">
+            <button id="btn-toggle-basemap" class="map-util-btn" onclick="toggleBasemap()" title="Toggle Satellite / Terrain Basemap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <span>Basemap</span>
+            </button>
+            <button id="btn-toggle-pins" class="map-util-btn" onclick="toggleFeaturePins()" title="Show/Hide Feature Markers">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Pins</span>
+            </button>
+            <button id="btn-toggle-probe" class="map-util-btn" onclick="togglePhysicsProbeHUD()" title="Toggle Pixel Physics Telemetry Probe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+              </svg>
+              <span>Probe HUD</span>
+            </button>
+            <button class="map-util-btn" onclick="recenterPlaceMap()" title="Recenter Viewport">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="22" y1="12" x2="18" y2="12"></line>
+                <line x1="6" y1="12" x2="2" y2="12"></line>
+                <line x1="12" y1="6" x2="12" y2="2"></line>
+                <line x1="12" y1="22" x2="12" y2="18"></line>
+              </svg>
+              <span>Center</span>
+            </button>
+            <button class="map-util-btn tour-trigger" onclick="startStoryTour()" title="Launch Guided Hazard Story Walkthrough">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Story Tour</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: 380px GEOINT Telemetry & Science Sidebar -->
+      <aside class="place-sidebar-column" aria-label="Hazard Telemetry & Analysis Sidebar">
+        
+        <!-- Sidebar Top Header -->
+        <div class="sidebar-header-card">
+          <div class="sidebar-header-top">
+            <div class="sidebar-badge-group">
+              <span id="place-badge-tag" class="badge-tech font-mono">NISAR MEASUREMENT</span>
+              <span class="badge-provisional font-mono" title="Data Maturity: PROVISIONAL (Science Evaluation Only)">PROVISIONAL DATA</span>
+            </div>
+            <button id="btn-toggle-sidebar" class="sidebar-collapse-trigger" onclick="toggleSidebar()" aria-label="Toggle sidebar panel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+          
+          <h2 id="place-site-name" class="sidebar-place-title">Langtang Valley, Nepal–Tibet</h2>
+          
+          <div class="sidebar-dates-strip font-mono">
+            <div class="date-chip">
+              <span class="date-lbl">PRE-EVENT</span>
+              <strong id="date-label-pre">2026-08-16</strong>
+            </div>
+            <div class="date-sep">→</div>
+            <div class="date-chip">
+              <span class="date-lbl">POST-EVENT</span>
+              <strong id="date-label-post">2026-08-28</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Minimalist High-Contrast Stat Tiles -->
+        <div class="metrics-bento-grid">
+          <div class="stat-tile">
+            <span class="stat-tile-glow"></span>
+            <span id="tile-stat-1" class="stat-number font-mono">3.42 km²</span>
+            <span id="tile-lbl-1" class="stat-caption">Debris Deposit Area</span>
+          </div>
+          <div class="stat-tile">
+            <span class="stat-tile-glow"></span>
+            <span id="tile-stat-2" class="stat-number font-mono">0.88 km²</span>
+            <span id="tile-lbl-2" class="stat-caption">Impounded River Water</span>
+          </div>
+          <div class="stat-tile">
+            <span class="stat-tile-glow"></span>
+            <span id="tile-stat-3" class="stat-number font-mono">11.4 cm</span>
+            <span id="tile-lbl-3" class="stat-caption">Pre-Creep Displacement</span>
+          </div>
+          <div class="stat-tile">
+            <span class="stat-tile-glow"></span>
+            <span id="tile-stat-4" class="stat-number font-mono">2.82 dB</span>
+            <span id="tile-lbl-4" class="stat-caption">3σ Noise Threshold</span>
+          </div>
+        </div>
+
+        <!-- Satellite Orbit & Swath Technical Telemetry -->
+        <div class="swath-telemetry-strip font-mono">
+          <div class="swath-param">
+            <span class="lbl">TRACK</span>
+            <span id="swath-track" class="val">48</span>
+          </div>
+          <div class="swath-param">
+            <span class="lbl">PASS</span>
+            <span id="swath-pass" class="val">DESCENDING</span>
+          </div>
+          <div class="swath-param">
+            <span class="lbl">FRAME</span>
+            <span id="swath-frame" class="val">74</span>
+          </div>
+          <div class="swath-param">
+            <span class="lbl">POL</span>
+            <span id="disp-pol" class="val">HH, HV</span>
+          </div>
+        </div>
+
+        <!-- Key Georeferenced Hazards (POI Pills) -->
+        <div class="sidebar-section">
+          <div class="section-title-wrap">
+            <h4 class="sidebar-section-title">Critical Hazard Features</h4>
+            <span class="section-badge font-mono">INTERACTIVE</span>
+          </div>
+          <div id="feature-pills-row" class="feature-pills-container">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Plain-Language Story & Physical Narrative Panel -->
+        <div class="sidebar-section story-narrative-card">
+          <div class="section-title-wrap">
+            <h4 id="impact-heading" class="sidebar-section-title">Catastrophic Mountain Collapse</h4>
+          </div>
+          <p id="impact-narrative" class="story-prose">
+            On August 26, 2026, a massive volume of glacier ice and destabilized bedrock collapsed from high-altitude slopes into the Langtang river canyon, creating a temporary debris dam that subsequently breached, sending a pulse of floodwater downstream.
+          </p>
+        </div>
+
+        <!-- Calibrated Radar Decibel Scale Legend -->
+        <div class="sidebar-section legend-card">
+          <div class="section-title-wrap">
+            <h4 id="legend-headline" class="sidebar-section-title">
+              Backscatter <span class="glossary-term-badge" data-tooltip="Microwave power scattered back to antenna. Rough surfaces scatter brightly; flat water reflects away specularly (dark).">ⓘ</span> Contrast Scale (σ⁰ dB)
+            </h4>
+          </div>
+          <div id="legend-gradient-bar" class="legend-gradient-spectrum"></div>
+          <div class="legend-spectrum-ticks font-mono">
+            <span id="scale-min">-24 dB</span>
+            <span class="scale-mid">-12 dB</span>
+            <span id="scale-max">0 dB</span>
+          </div>
+          <div id="dynamic-legend" class="legend-key-descriptions"></div>
+          <p id="legend-footer-note" class="legend-footnote">
+            Radar backscatter calibrated to L2 GCOV gamma-nought backscatter intensity.
+          </p>
+        </div>
+
+        <!-- Radar Science Glossary Quick-Tooltips (Req 5) -->
+        <div class="sidebar-section glossary-card">
+          <div class="section-title-wrap">
+            <h4 class="sidebar-section-title">Radar Science Glossary</h4>
+            <span class="section-badge font-mono">HOVER ⓘ</span>
+          </div>
+          <div class="radar-glossary-strip">
+            <span class="glossary-badge font-mono" data-tooltip="Backscatter: Reflected radar power. Rough broken debris scatters brightly; flat calm water reflects away specularly (dark).">Backscatter ⓘ</span>
+            <span class="glossary-badge font-mono" data-tooltip="Phase: Fractional position of 24.2 cm radar wave. Comparing phase across orbits enables millimeter-scale line-of-sight displacement (InSAR).">Phase ⓘ</span>
+            <span class="glossary-badge font-mono" data-tooltip="Coherence: Correlation (0 to 1) of radar wave similarity between passes. High = stable ground; Low = surface change or floodwater.">Coherence ⓘ</span>
+            <span class="glossary-badge font-mono" data-tooltip="Offset Tracking: Sub-pixel cross-correlation algorithm for measuring large ground displacements (>6 cm) where phase coherence is lost.">Offset Tracking ⓘ</span>
+          </div>
+        </div>
+
+        <!-- Advanced Scientific Diagnostics (Collapsible) -->
+        <div class="sidebar-section diagnostics-card">
+          <button id="btn-toggle-advanced" class="diagnostics-toggle-btn" onclick="toggleAdvancedDiagnostics()">
+            <span>Advanced Physics Diagnostics</span>
+            <svg class="chevron-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="advanced-signals" class="diagnostics-content hidden">
+            <ul id="physics-bullet-list" class="diagnostics-list font-mono">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+
+                <!-- NISAR Radar Observation Schedule & 12-Day Pairs Matrix -->
+        <div id="radar-pairs-card" class="sidebar-section radar-pairs-card">
+          <div class="section-title-wrap">
+            <h4 class="sidebar-section-title">NISAR Observation Schedule & InSAR Pairs</h4>
+            <span class="section-badge font-mono">12-DAY ORBIT</span>
+          </div>
+
+          <!-- GCOV Passes Summary Badge Strip -->
+          <div class="radar-gcov-summary font-mono">
+            <div class="gcov-group">
+              <span class="gcov-lbl">GCOV BEFORE:</span>
+              <span id="gcov-before-dates" class="gcov-val">Jul 14, Jul 26, Aug 19</span>
+            </div>
+            <div class="gcov-group">
+              <span class="gcov-lbl">GCOV AFTER:</span>
+              <span id="gcov-after-dates" class="gcov-val">Aug 31, Sep 12, Sep 24</span>
+            </div>
+          </div>
+
+          <!-- 3 Interactive InSAR Pair Tabs -->
+          <div class="radar-pair-tabs" role="tablist" aria-label="12-Day Interferometric Pairs">
+            <button id="pair-btn-control" class="pair-tab-btn font-mono" onclick="selectRadarPair('control')">
+              <span class="pair-type-tag">01 // CONTROL</span>
+              <span id="pair-date-control" class="pair-dates">Jul 14 → Jul 26</span>
+            </button>
+            <button id="pair-btn-spans" class="pair-tab-btn active font-mono" onclick="selectRadarPair('spans')">
+              <span class="pair-type-tag">02 // EVENT SPANS</span>
+              <span id="pair-date-spans" class="pair-dates">Aug 19 → Aug 31</span>
+            </button>
+            <button id="pair-btn-after" class="pair-tab-btn font-mono" onclick="selectRadarPair('after')">
+              <span class="pair-type-tag">03 // AFTER EVENT</span>
+              <span id="pair-date-after" class="pair-dates">Aug 31 → Sep 12</span>
+            </button>
+          </div>
+
+          <!-- Selected Pair Description Box -->
+          <div id="radar-pair-detail-box" class="pair-detail-box font-mono">
+            <div class="pair-detail-header">
+              <span id="pair-detail-name" class="pair-name">EVENT SPANNING PAIR (Aug 19 → Aug 31)</span>
+              <span id="pair-detail-products" class="pair-prods">GUNW + GOFF + GCOV</span>
+            </div>
+            <p id="pair-detail-role" class="pair-role-text">
+              The primary pair containing the event: captures catastrophic slope collapse and impounded reservoir.
+            </p>
+          </div>
+        </div>
+
+        <!-- 12-Day Orbital Time-Series Player -->
+        <div id="timeseries-player" class="sidebar-section timeseries-card hidden">
+          <div class="ts-header">
+            <div class="ts-title-group">
+              <span id="ts-orbit-label" class="ts-orbit font-mono">ORBIT PASS 1 OF 5</span>
+              <h4 class="ts-heading">12-Day Repeat Sequence</h4>
+            </div>
+            <span id="ts-date-display" class="ts-date font-mono">2026-07-23</span>
+          </div>
+
+          <div class="ts-scrubber-controls">
+            <button class="ts-ctrl-btn" onclick="stepTimeline(-1)" title="Previous Orbit Pass">◀</button>
+            <button class="ts-ctrl-btn play-btn" onclick="toggleTimelinePlay()" title="Auto-Play Orbital Sequence">
+              <span id="ts-play-icon">▶</span>
+            </button>
+            <button class="ts-ctrl-btn" onclick="stepTimeline(1)" title="Next Orbit Pass">▶</button>
+            <input type="range" id="ts-slider" min="0" max="4" value="0" class="ts-range-slider" oninput="onTimelineSlider()" aria-label="Orbit timeline pass slider">
+          </div>
+
+          <!-- Req 7: Orbital Gap Visual Notice -->
+          <div class="timeline-gap-strip font-mono" title="12-Day Orbital Gap: Satellite imaging other swaths; no descending pass over this frame">
+            <span class="gap-hatch-pattern"></span>
+            <span class="gap-text">⚠️ ORBITAL GAP: JUL 27 – AUG 10 (NO OVERPASS)</span>
+          </div>
+
+          <div id="timeline-nodes-bar" class="timeline-nodes-container">
+            <!-- Interactive timeline nodes populated via JS -->
+          </div>
+
+          <p id="ts-phase-note" class="ts-phase-description">
+            Baseline undisturbed state: river canyon intact under summer ablation.
+          </p>
+        </div>
+
+        <!-- Next Case Study Launcher Pill -->
+        <div class="sidebar-section next-case-banner">
+          <div class="next-case-meta">
+            <span class="next-case-tag font-mono">NEXT HAZARD SCENARIO</span>
+            <h4 id="next-case-title" class="next-case-heading">Suicide Basin Lake Drain</h4>
+            <p id="next-case-desc" class="next-case-sub">See how an ice dam caused a flood by doing the exact opposite in Alaska.</p>
+          </div>
+          <button class="next-case-action-btn" onclick="goToNextCase()">
+            <span id="next-case-btn-label">Launch Juneau Explorer</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+
+      </aside>
+
+    </section>
+
+    <!-- =====================================================================
+         VIEW 2.5: 3D CESIUM GLOBE VIEW (#globe-view) — IgnitronDev Style
+         ===================================================================== -->
+    <section id="globe-view" class="view-section hidden" aria-label="3D Cesium Hazard Globe">
+      
+      <!-- Top-Left: Minimalist Monospace Return Button -->
+      <div class="globe-top-left-bar">
+        <button class="globe-back-btn font-mono" onclick="switchView('dashboard')" title="Return to 3D Command Center Dashboard">
+          ← Return to Dashboard
+        </button>
+        <button class="globe-back-btn font-mono" onclick="switchView('story-ice')" title="Return to Story Dossier" style="margin-left: 0.5rem;">
+          ← Story Dossier
+        </button>
+      </div>
+
+      <!-- Floating Top-Center Filter System -->
+      <nav class="globe-filter-panel font-mono" role="toolbar" aria-label="3D Globe Hazard Filters">
+        <span class="globe-filter-label">FILTER //</span>
+        <button id="globe-filter-all" class="globe-filter-btn active font-mono" onclick="applyGlobeFilter('all')">
+          [ ALL HAZARDS ]
+        </button>
+        <button id="globe-filter-ice" class="globe-filter-btn font-mono" onclick="applyGlobeFilter('ice')">
+          [ CRYOSPHERE ONLY ]
+        </button>
+      </nav>
+
+      <!-- 3D Cesium Container -->
+      <div id="cesiumContainer" class="cesium-container"></div>
+
+      <!-- Quick Telemetry HUD (Bottom Right) -->
+      <div class="globe-telemetry-hud font-mono" aria-hidden="true">
+        <div class="telemetry-hud-item">
+          <span class="hud-k">ORBIT:</span>
+          <span class="hud-v">NISAR L-BAND 747 KM</span>
+        </div>
+        <div class="telemetry-hud-item">
+          <span class="hud-k">SENSOR:</span>
+          <span class="hud-v">24.2 CM (HH/HV)</span>
+        </div>
+      </div>
+
+      <!-- Live Geodetic Reticle HUD (Bottom Left) -->
+      <div id="globe-geodetic-hud" class="globe-geodetic-hud font-mono">
+        <span class="hud-target-pulse"></span>
+        <span id="globe-coords-readout">GEO-TARGET: 28.25°N, 85.50°E // ORBIT: 747 KM SSO</span>
+        <span class="globe-key-hint">• DRAG TO ROTATE // CLICK PIN FOR 2D MAP</span>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         VIEW 3: EDITORIAL STORY VIEW (#story-view) — IgnitronDev Style
+         Sub-sections: #story-ice (Cryosphere Forensic Dossier)
+         ===================================================================== -->
+    <section id="story-view" class="view-section" aria-label="Editorial Hazard Dossier & Historical Story View">
+      <div class="story-viewport-wrapper">
+
+        <!-- Top Editorial Navigation & Sub-Section Switcher -->
+        <header class="story-nav-bar font-mono">
+          <div class="story-nav-back-group" style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="editorial-back-btn" onclick="switchView('landing')">
+              <span>←</span> BACK TO HOME
+            </button>
+            <button class="editorial-back-btn" onclick="switchView('dashboard')">
+              <span>←</span> 3D DASHBOARD
+            </button>
+          </div>
+          
+          <div class="story-dossier-meta">
+            <span>RADAR DOSSIER //</span>
+            <span class="meta-status-tag">L-BAND CRYOSPHERE MONITORING</span>
+          </div>
+
+          <div class="story-switcher-tabs" role="tablist" aria-label="Story Sub-sections">
+            <button id="tab-story-ice" class="story-tab active" role="tab" aria-selected="true" onclick="switchView('story-ice')">
+              01 // CRYOSPHERE COLLAPSE
+            </button>
+          </div>
+        </header>
+
+        <!-- SUB-SECTION 1: ICE AVALANCHE (HIMALAYAS) -->
+        <article id="story-ice" class="editorial-story-container" aria-label="Himalayan Ice Avalanche Dossier">
+          
+          <header class="editorial-story-header">
+            <div class="story-kicker font-mono">
+              <span class="kicker-tag">EVENT DOSSIER 01</span>
+              <span class="kicker-sub">// HIMALAYAN CRYOSPHERE COLLAPSE</span>
+            </div>
+            
+            <h1 id="story-article-title" class="editorial-story-title">
+              Chamoli / Rishiganga Ice & Rock Avalanche
+            </h1>
+
+            <!-- Monospace Metadata Strip -->
+            <div class="story-metadata-strip font-mono">
+              <div class="meta-pill-item">
+                <span class="meta-k">EVENT TYPE:</span>
+                <span class="meta-v">ICE-ROCK DETACHMENT</span>
+              </div>
+              <span class="meta-bar">|</span>
+              <div class="meta-pill-item">
+                <span class="meta-k">DATE:</span>
+                <span id="story-event-date" class="meta-v">2021-02-07</span>
+              </div>
+              <span class="meta-bar">|</span>
+              <div class="meta-pill-item">
+                <span class="meta-k">LOCATION:</span>
+                <span class="meta-v">UTTARAKHAND, INDIA (30.38°N, 79.73°E)</span>
+              </div>
+              <span class="meta-bar">|</span>
+              <div class="meta-pill-item">
+                <span class="meta-k">SENSOR:</span>
+                <span class="meta-v">NISAR L-BAND (24.2 CM)</span>
+              </div>
+            </div>
+
+            <!-- Pathway Badge Target -->
+            <div id="story-article-pathway" class="story-pathway-badge-wrap font-mono">
+              <span class="badge-story-no-nisar font-mono">⚠️ HISTORICAL FORENSIC BASELINE</span>
+              <span class="badge-pathway font-mono">PATHWAY 1: CATACLYSMIC ICE-ROCK DAMMING</span>
+            </div>
+          </header>
+
+          <!-- Geographic Context Mini Map Frame -->
+          <div class="editorial-map-frame">
+            <div class="map-frame-header font-mono">
+              <span>GEOGRAPHIC GROUND TRACK // MINI-MAP</span>
+              <span class="map-radar-mode">NISAR DUAL-POL L-BAND (HH/HV)</span>
+            </div>
+            <div id="story-mini-map" class="story-mini-map"></div>
+          </div>
+
+          <!-- Constrained Column for Readability (max-width: 700px) -->
+          <div class="editorial-text-column">
+            
+            <!-- 01: What Happened -->
+            <section class="editorial-section">
+              <div class="section-heading-row font-mono">
+                <span class="section-num">01 //</span>
+                <h2 class="section-title">What Happened</h2>
+              </div>
+              <p id="story-text-what" class="editorial-paragraph">
+                A massive 27-million-cubic-meter wedge of rock and hanging glacier detached from the north face of Ronti Peak in the Chamoli district, plummeting 1,800 meters into the valley floor. The catastrophic impact pulverized ice and bedrock into a hyper-turbulent debris flow that surged down the Rishiganga and Dhauliganga valleys, destroying two hydroelectric projects and killing over 200 workers.
+              </p>
+            </section>
+
+            <!-- 02: Why It Happened -->
+            <section class="editorial-section">
+              <div class="section-heading-row font-mono">
+                <span class="section-num">02 //</span>
+                <h2 class="section-title">Why It Happened</h2>
+              </div>
+              <p id="story-text-why" class="editorial-paragraph">
+                Decades of climate warming degraded high-altitude permafrost that had bound the heavily fractured rock mass for centuries. Structural weakness along steeply dipping joint planes, combined with warm winter temperatures and freeze-thaw wedge expansion, caused deep tensile fractures to propagate undetected until total shear failure occurred.
+              </p>
+            </section>
+
+            <!-- 03: How Radar Sees It -->
+            <section class="editorial-section">
+              <div class="section-heading-row font-mono">
+                <span class="section-num">03 //</span>
+                <h2 class="section-title">How Radar Sees It</h2>
+              </div>
+              <p id="story-text-radar" class="editorial-paragraph">
+                NISAR’s 24.2 cm L-band radar penetrates deep cloud cover, fog, and nighttime darkness to image slope changes. Pre-failure slope creep creates distinctive multi-cycle InSAR fringe anomalies (surface displacement of mm to cm), while post-event radar backscatter registers a massive jump in diffuse surface roughness (+6 dB) across the scarp and depositional dam zone.
+              </p>
+            </section>
+
+            <!-- 04: Satellite Data Limitations -->
+            <section class="editorial-section">
+              <div class="section-heading-row font-mono">
+                <span class="section-num">04 //</span>
+                <h2 class="section-title">Satellite Data Limitations</h2>
+              </div>
+              <p id="story-text-limits" class="editorial-paragraph">
+                Steep Himalayan gorges create radar geometric layover and radar shadow along steep facing slopes, requiring cross-track ascending and descending pass synthesis. Furthermore, the 12-day orbital repeat cycle means real-time flash flood onset cannot be caught mid-descent; NISAR's mission value lies in systematic pre-failure deformation mapping and post-disaster dam stability tracking.
+              </p>
+            </section>
+
+            <!-- 05: Scientific Sources & Citations -->
+            <section class="editorial-section">
+              <div class="section-heading-row font-mono">
+                <span class="section-num">05 //</span>
+                <h2 class="section-title">Scientific Sources & Citations</h2>
+              </div>
+              <ul id="story-sources-list" class="editorial-sources-list font-mono">
+                <li class="story-source-item">
+                  <span class="source-bullet">📄</span>
+                  <div class="source-text-wrap">
+                    <span class="source-title">Shugar et al. (2021) — A massive rock and ice avalanche caused the 2021 disaster at Chamoli, Indian Himalaya. Science 373(6552).</span>
+                    <span class="source-tag font-mono">SCIENCE JOURNAL (DOI: 10.1126/science.abh3482)</span>
+                  </div>
+                </li>
+                <li class="story-source-item">
+                  <span class="source-bullet">📄</span>
+                  <div class="source-text-wrap">
+                    <span class="source-title">Rosen et al. (2024) — NASA-ISRO SAR (NISAR) Mission Science Baseline and Solid Earth Applications.</span>
+                    <span class="source-tag font-mono">IEEE JSTARS (NISAR SCIENCE TEAM)</span>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <!-- Bottom CTA Footer -->
+            <div class="editorial-cta-footer">
+              <div class="cta-actions-wrap">
+                <button class="editorial-text-link font-mono" onclick="switchView('landing')">
+                  ← Back to Home
+                </button>
+                <button class="editorial-electric-cta font-mono" onclick="switchView('globe')">
+                  Explore Live Globe →
+                </button>
+              </div>
+            </div>
+
+          </div><!-- /.editorial-text-column -->
+        </article>
+
+      </div><!-- /.story-viewport-wrapper -->
+    </section>
+
+    <!-- Floating Interactive Story Card Modal (Globally Accessible) -->
+  <!-- Floating Interactive Story Card Modal for 3D Micro-Environments -->
+      <div id="story-card-modal" class="story-card-modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-story-title">
+        <div class="story-card-backdrop" onclick="closeStoryModal()" aria-hidden="true"></div>
+        <div class="story-card-dialog">
+          <div class="corner-bracket top-left">┌</div>
+          <div class="corner-bracket top-right">┐</div>
+          <div class="corner-bracket bottom-left">└</div>
+          <div class="corner-bracket bottom-right">┘</div>
+
+          <header class="modal-card-header font-mono">
+            <div class="modal-header-meta">
+              <span class="modal-pulse-dot live" id="modal-pulse-dot"></span>
+              <span id="modal-case-kicker" class="modal-case-kicker">CASE DOSSIER // CRYOSPHERE RADAR</span>
+              <span id="modal-case-badge" class="modal-badge live">● LIVE NISAR</span>
+            </div>
+            <button class="modal-close-btn font-mono" onclick="closeStoryModal()" aria-label="Close Story Dossier">[ ✕ ESC ]</button>
+          </header>
+
+          <div class="modal-card-body">
+            <div class="modal-title-row">
+              <h2 id="modal-story-title" class="modal-story-title">Langtang Canyon Valley</h2>
+              <div id="modal-story-coords" class="modal-story-coords font-mono">NEPAL–TIBET • 28.25°N, 85.50°E</div>
+            </div>
+
+            <p id="modal-story-narrative" class="modal-story-narrative">
+              Catastrophic cliff collapse impounded the canyon riverbed. NISAR L-band penetrates cloud cover to isolate the +6.2 dB roughness change and surface deformation.
+            </p>
+
+            <div class="modal-metrics-strip font-mono" id="modal-metrics-strip">
+              <div class="modal-metric"><span class="m-val" id="modal-m1-val">+6.2 dB</span><span class="m-lbl" id="modal-m1-lbl">SURGE</span></div>
+              <div class="modal-metric"><span class="m-val" id="modal-m2-val">11.4 cm</span><span class="m-lbl" id="modal-m2-lbl">InSAR CREEP</span></div>
+              <div class="modal-metric"><span class="m-val" id="modal-m3-val">3.42 km²</span><span class="m-lbl" id="modal-m3-lbl">FOOTPRINT</span></div>
+            </div>
+
+            <!-- Radar Dual-Observation Preview Strip -->
+            <div class="modal-radar-preview-wrap">
+              <div class="modal-preview-box">
+                <span class="preview-badge font-mono">PRE-EVENT (OPTICAL)</span>
+                <img id="modal-pre-img" src="assets/langtang_pre.png" alt="Pre-event satellite observation" class="modal-img">
+              </div>
+              <div class="modal-preview-divider">
+                <span class="divider-icon font-mono">⚡</span>
+                <span class="divider-text font-mono">NISAR L-BAND</span>
+              </div>
+              <div class="modal-preview-box">
+                <span class="preview-badge font-mono highlight">POST-EVENT (RADAR)</span>
+                <img id="modal-post-img" src="assets/langtang_post.png" alt="Post-event radar observation" class="modal-img">
+              </div>
+            </div>
+
+            <div class="modal-actions-row font-mono">
+              <button id="modal-btn-primary" class="modal-btn modal-btn-primary" onclick="launchModalRadarLab()">
+                <span class="btn-text">INITIALIZE MULTI-CHANNEL RADAR LAB</span>
+                <span class="btn-arrow">→</span>
+              </button>
+              <button id="modal-btn-secondary" class="modal-btn modal-btn-secondary" onclick="launchModalDossier()">
+                <span class="btn-text">OPEN FORENSIC DOSSIER</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+  </main>
+
+  <!-- =====================================================================
+       3. 3 FLOOD PATHWAYS MODAL (#guide-modal)
+       ===================================================================== -->
+  <div id="guide-modal" class="modal-backdrop hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge-tech font-mono">GLACIOLOGY FOUNDATION</span>
+          <h3 class="modal-title">How Ice Becomes a Flood: 3 Natural Pathways</h3>
+        </div>
+        <button onclick="closeStoryGuide()" class="modal-close-btn" aria-label="Close guide">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="guide-pathway-card">
+          <div class="pathway-num font-mono">01</div>
+          <div class="pathway-text">
+            <h4>Ice-Rock Avalanche Dam</h4>
+            <p>A mass collapse of hanging glacier and bedrock fills a canyon, impounding a temporary reservoir that later over-tops or bursts (e.g. Langtang, Chamoli).</p>
+          </div>
+        </div>
+        <div class="guide-pathway-card">
+          <div class="pathway-num font-mono">02</div>
+          <div class="pathway-text">
+            <h4>Subglacial Lake Outburst (Jökulhlaup)</h4>
+            <p>A glacier dam impounds seasonal meltwater. When water pressure overcomes the ice dam weight, the lake drains catastrophically beneath the glacier (e.g. Suicide Basin / Mendenhall).</p>
+          </div>
+        </div>
+        <div class="guide-pathway-card">
+          <div class="pathway-num font-mono">03</div>
+          <div class="pathway-text">
+            <h4>Moraine Dam Failure (GLOF)</h4>
+            <p>A retreating glacier leaves an unstable moraine holding back a deep proglacial lake. Landslides, waves, or ice melt breach the moraine wall (e.g. South Lhonak).</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="nav-pill" onclick="closeStoryGuide()">Close Guide</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS (CDN) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- CesiumJS (CDN) -->
+  <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
+  <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
+  <!-- Application Controller -->
+  <script src="app.js?v=20261107_v53"></script>
+</body>
+</html>
