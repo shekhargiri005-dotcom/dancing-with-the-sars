@@ -5155,3 +5155,431 @@ body.view-dashboard .nav-container {
     position: static;
   }
 }
+
+/* ==========================================================================
+   Detailed Forensic Dossier Modal (#dossier-modal) — IgnitronDev Style
+   ========================================================================== */
+#dossier-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 1;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#dossier-modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+  display: none !important;
+}
+
+.dossier-backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 10, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.dossier-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #08090B;
+  border: 1px solid #00FFFF;
+  border-radius: 12px;
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.22), 0 25px 70px rgba(0, 0, 0, 0.95);
+  padding: 2.25rem 2.5rem;
+  color: #F8FAFC;
+  font-family: var(--font-sans);
+  transform: scale(1) translateY(0);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#dossier-modal.hidden .dossier-dialog {
+  transform: scale(0.95) translateY(12px);
+}
+
+.dossier-dialog::-webkit-scrollbar {
+  width: 6px;
+}
+.dossier-dialog::-webkit-scrollbar-track {
+  background: rgba(8, 9, 11, 0.8);
+}
+.dossier-dialog::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.4);
+  border-radius: 3px;
+}
+.dossier-dialog::-webkit-scrollbar-thumb:hover {
+  background: #00FFFF;
+}
+
+.dossier-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dossier-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.dossier-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  color: #94A3B8;
+  text-transform: uppercase;
+}
+
+.dossier-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00FFFF;
+  box-shadow: 0 0 10px #00FFFF;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+.dossier-close-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  background: rgba(14, 23, 38, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 4px;
+  color: #00FFFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dossier-close-btn:hover {
+  background: #00FFFF;
+  color: #040914;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+}
+
+.dossier-title {
+  font-family: var(--font-sans);
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin: 0;
+  background: linear-gradient(180deg, #FFFFFF 40%, #E2E8F0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dossier-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  padding: 0.75rem 1.15rem;
+  background: rgba(0, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 255, 0.22);
+  border-left: 3px solid #00FFFF;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #94A3B8;
+  text-transform: uppercase;
+}
+
+.dossier-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dossier-meta-item .meta-label {
+  color: #64748B;
+  font-weight: 700;
+}
+
+.dossier-meta-item .meta-value {
+  color: #00FFFF;
+  font-weight: 700;
+}
+
+.dossier-meta-sep {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.dossier-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.dossier-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dossier-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  color: #00FFFF;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 700;
+}
+
+.dossier-section-heading .section-num {
+  color: #64748B;
+}
+
+.dossier-text-block p {
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: #CBD5E1;
+  margin: 0;
+}
+
+.dossier-timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00FFFF;
+  box-shadow: 0 0 10px #00FFFF, 0 0 18px rgba(0, 255, 255, 0.5);
+  border: 2px solid #08090B;
+  z-index: 2;
+  margin-top: 4px;
+}
+
+.timeline-item:not(:last-child) .timeline-marker::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  bottom: -4px;
+  width: 2px;
+  background: linear-gradient(180deg, #00FFFF 0%, rgba(0, 255, 255, 0.15) 100%);
+  z-index: 1;
+}
+
+.timeline-content {
+  margin-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.timeline-time {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00FFFF;
+  letter-spacing: 0.08em;
+}
+
+.timeline-step-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.timeline-desc {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.dossier-notice-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(0, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-left: 4px solid #00FFFF;
+  border-radius: 8px;
+}
+
+.notice-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #00FFFF;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notice-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.notice-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #00FFFF;
+  letter-spacing: 0.1em;
+}
+
+.notice-body p {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #CBD5E1;
+  margin: 0;
+}
+
+.dossier-sources-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.source-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(14, 23, 38, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.source-item:hover {
+  border-color: rgba(0, 255, 255, 0.4);
+  background: rgba(0, 255, 255, 0.04);
+}
+
+.source-bullet {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.source-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.source-link {
+  color: #00FFFF;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.45;
+  transition: color 0.15s ease;
+}
+
+.source-link:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.source-meta {
+  color: #64748B;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.dossier-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dossier-bottom-close-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: rgba(14, 23, 38, 0.9);
+  border: 1px solid #00FFFF;
+  border-radius: 6px;
+  color: #00FFFF;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 255, 255, 0.15);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dossier-bottom-close-btn:hover {
+  background: #00FFFF;
+  color: #040914;
+  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .dossier-dialog {
+    padding: 1.75rem 1.25rem;
+    max-height: 92vh;
+  }
+  .dossier-meta-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+  .dossier-meta-sep {
+    display: none;
+  }
+}
