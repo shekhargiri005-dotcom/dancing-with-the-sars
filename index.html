@@ -24,7 +24,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20261107_v58">
+  <link rel="stylesheet" href="style.css?v=20261107_v59">
 </head>
 <body class="view-dashboard">
 
@@ -1227,178 +1227,236 @@
 
         <!-- SUB-SECTION 1: THE LANGTANG COLLAPSE (HIMALAYAS) -->
         <article id="story-himalayas" class="editorial-story-card" aria-label="Himalayan Ice Avalanche Narrative Dossier">
-          
-          <header class="story-card-header">
-            <div class="story-card-kicker font-mono">
-              <span>DOSSIER 01</span>
-              <span>//</span>
-              <span>HIMALAYAN CRYOSPHERE COLLAPSE</span>
-            </div>
+          <div class="story-card-grid">
             
-            <h1 class="story-card-title">
-              The Langtang Collapse
-            </h1>
+            <!-- Left Column (60% width): Text Narrative & CTA -->
+            <div class="story-grid-left">
+              <header class="story-card-header">
+                <div class="story-card-kicker font-mono">
+                  <span>DOSSIER 01</span>
+                  <span>//</span>
+                  <span>HIMALAYAN CRYOSPHERE COLLAPSE</span>
+                </div>
+                
+                <h1 class="story-card-title">
+                  The Langtang Collapse
+                </h1>
 
-            <!-- Monospace Metadata Strip -->
-            <div class="story-meta-strip font-mono">
-              <div class="story-meta-item">
-                <span class="meta-key">EVENT:</span>
-                <span class="meta-val">ICE AVALANCHE</span>
+                <!-- Monospace Metadata Strip -->
+                <div class="story-meta-strip font-mono">
+                  <div class="story-meta-item">
+                    <span class="meta-key">EVENT:</span>
+                    <span class="meta-val">ICE AVALANCHE</span>
+                  </div>
+                  <span class="meta-sep">|</span>
+                  <div class="story-meta-item">
+                    <span class="meta-key">DATE:</span>
+                    <span class="meta-val">AUG 26, 2026</span>
+                  </div>
+                  <span class="meta-sep">|</span>
+                  <div class="story-meta-item">
+                    <span class="meta-key">LOCATION:</span>
+                    <span class="meta-val">LANGTANG VALLEY, NEPAL (28.25°N, 85.50°E)</span>
+                  </div>
+                  <span class="meta-sep">|</span>
+                  <div class="story-meta-item">
+                    <span class="meta-key">SENSOR:</span>
+                    <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+                  </div>
+                </div>
+              </header>
+
+              <!-- 3 Editorial Narrative Sections -->
+              <div class="story-sections-body">
+                
+                <!-- Section 1: What Happened -->
+                <section class="story-narrative-section">
+                  <h2 class="narrative-section-heading font-mono">
+                    <span class="narrative-num">01 //</span>
+                    <span>What Happened</span>
+                  </h2>
+                  <p class="narrative-p">
+                    A massive ice-rock avalanche detached from the steep hanging glaciers of Langtang Lirung peak, plummeting thousands of meters down narrow mountain chutes. Over 20 million cubic meters of ice, pulverized granite bedrock, and degrading permafrost sheared away along structurally weakened joint planes, generating a devastating atmospheric shockwave that echoed across the valley before settling into a deep deposit field.
+                  </p>
+                </section>
+
+                <!-- Section 2: The Damage -->
+                <section class="story-narrative-section">
+                  <h2 class="narrative-section-heading font-mono">
+                    <span class="narrative-num">02 //</span>
+                    <span>The Damage</span>
+                  </h2>
+                  <p class="narrative-p">
+                    The tumbling wall of debris pulverized downstream pastoral settlements, obliterating bridges, trails, and high-altitude weather stations. The debris choked the valley gorge, creating an unstable natural landslide dam that impounded glacial meltwater—threatening downstream Himalayan villages with a secondary catastrophic dam-breach flash flood.
+                  </p>
+                </section>
+
+                <!-- Section 3: How Radar Saw It -->
+                <section class="story-narrative-section">
+                  <h2 class="narrative-section-heading font-mono">
+                    <span class="narrative-num">03 //</span>
+                    <span>How Radar Saw It</span>
+                  </h2>
+                  <p class="narrative-p">
+                    While thick monsoon cloud sheets and dense mountain fog completely blinded optical satellites, NISAR's 24.2 cm L-band radar penetrated the storm cover. Differential amplitude tracking isolated a massive +6.2 dB backscatter surge across the chaotic debris deposit, while interferometric phase coherence revealed 11.4 cm of precursor slope creep prior to the detachment.
+                  </p>
+                </section>
+
               </div>
-              <span class="meta-sep">|</span>
-              <div class="story-meta-item">
-                <span class="meta-key">DATE:</span>
-                <span class="meta-val">AUG 26, 2026</span>
-              </div>
-              <span class="meta-sep">|</span>
-              <div class="story-meta-item">
-                <span class="meta-key">LOCATION:</span>
-                <span class="meta-val">LANGTANG VALLEY, NEPAL (28.25°N, 85.50°E)</span>
-              </div>
-              <span class="meta-sep">|</span>
-              <div class="story-meta-item">
-                <span class="meta-key">SENSOR:</span>
-                <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+
+              <!-- Bottom Call to Action -->
+              <footer class="story-cta-footer">
+                <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')" aria-label="View Radar Data in 3D Dashboard">
+                  <span>[</span>
+                  <span>VIEW RADAR DATA</span>
+                  <span class="cta-arrow">→</span>
+                  <span>]</span>
+                </button>
+              </footer>
+            </div>
+
+            <!-- Right Column (40% width): Geographic Mini-Map -->
+            <div class="story-grid-right">
+              <div class="story-map-sticky-wrap">
+                <div class="story-map-hud-header font-mono">
+                  <div class="hud-target-indicator">
+                    <span class="hud-dot-pulse"></span>
+                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // NEPAL</span>
+                  </div>
+                  <span class="hud-coords-tag">28.25°N, 85.50°E</span>
+                </div>
+                
+                <div class="story-map-frame">
+                  <div id="story-map-himalayas" class="story-leaflet-map" role="region" aria-label="Langtang Nepal geographic context mini-map"></div>
+                  <button id="interact-btn-himalayas" class="map-interact-btn font-mono" onclick="toggleMapInteraction('himalayas')" aria-label="Toggle map pan and zoom interaction">
+                    [ Click to Interact ]
+                  </button>
+                </div>
+
+                <div class="story-map-hud-footer font-mono">
+                  <span class="hud-footer-tag">SENSOR OVERPASS: ASCENDING TRACK 083 // L-BAND 24CM</span>
+                </div>
               </div>
             </div>
-          </header>
-
-          <!-- 3 Editorial Narrative Sections -->
-          <div class="story-sections-body">
-            
-            <!-- Section 1: What Happened -->
-            <section class="story-narrative-section">
-              <h2 class="narrative-section-heading font-mono">
-                <span class="narrative-num">01 //</span>
-                <span>What Happened</span>
-              </h2>
-              <p class="narrative-p">
-                A massive ice-rock avalanche detached from the steep hanging glaciers of Langtang Lirung peak, plummeting thousands of meters down narrow mountain chutes. Over 20 million cubic meters of ice, pulverized granite bedrock, and degrading permafrost sheared away along structurally weakened joint planes, generating a devastating atmospheric shockwave that echoed across the valley before settling into a deep deposit field.
-              </p>
-            </section>
-
-            <!-- Section 2: The Damage -->
-            <section class="story-narrative-section">
-              <h2 class="narrative-section-heading font-mono">
-                <span class="narrative-num">02 //</span>
-                <span>The Damage</span>
-              </h2>
-              <p class="narrative-p">
-                The tumbling wall of debris pulverized downstream pastoral settlements, obliterating bridges, trails, and high-altitude weather stations. The debris choked the valley gorge, creating an unstable natural landslide dam that impounded glacial meltwater—threatening downstream Himalayan villages with a secondary catastrophic dam-breach flash flood.
-              </p>
-            </section>
-
-            <!-- Section 3: How Radar Saw It -->
-            <section class="story-narrative-section">
-              <h2 class="narrative-section-heading font-mono">
-                <span class="narrative-num">03 //</span>
-                <span>How Radar Saw It</span>
-              </h2>
-              <p class="narrative-p">
-                While thick monsoon cloud sheets and dense mountain fog completely blinded optical satellites, NISAR's 24.2 cm L-band radar penetrated the storm cover. Differential amplitude tracking isolated a massive +6.2 dB backscatter surge across the chaotic debris deposit, while interferometric phase coherence revealed 11.4 cm of precursor slope creep prior to the detachment.
-              </p>
-            </section>
 
           </div>
-
-          <!-- Bottom Call to Action -->
-          <footer class="story-cta-footer">
-            <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')" aria-label="View Radar Data in 3D Dashboard">
-              <span>[</span>
-              <span>VIEW RADAR DATA</span>
-              <span class="cta-arrow">→</span>
-              <span>]</span>
-            </button>
-          </footer>
-
         </article>
 
         <!-- SUB-SECTION 2: THE SUICIDE BASIN BREACH (ALASKA) -->
         <article id="story-alaska" class="editorial-story-card hidden" aria-label="Alaska Glacial Lake Outburst Narrative Dossier">
-          
-          <header class="story-card-header">
-            <div class="story-card-kicker font-mono">
-              <span>DOSSIER 02</span>
-              <span>//</span>
-              <span>ALASKAN GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
-            </div>
+          <div class="story-card-grid">
             
-            <h1 class="story-card-title">
-              The Suicide Basin Breach
-            </h1>
+            <!-- Left Column (60% width): Text Narrative & CTA -->
+            <div class="story-grid-left">
+              <header class="story-card-header">
+                <div class="story-card-kicker font-mono">
+                  <span>DOSSIER 02</span>
+                  <span>//</span>
+                  <span>ALASKAN GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+                </div>
+                
+                <h1 class="story-card-title">
+                  The Suicide Basin Breach
+                </h1>
 
-            <!-- Monospace Metadata Strip -->
-            <div class="story-meta-strip font-mono">
-              <div class="story-meta-item">
-                <span class="meta-key">EVENT:</span>
-                <span class="meta-val">GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+                <!-- Monospace Metadata Strip -->
+                <div class="story-meta-strip font-mono">
+                  <div class="story-meta-item">
+                    <span class="meta-key">EVENT:</span>
+                    <span class="meta-val">GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+                  </div>
+                  <span class="meta-sep">|</span>
+                  <div class="story-meta-item">
+                    <span class="meta-key">DATE:</span>
+                    <span class="meta-val">AUG 19, 2026</span>
+                  </div>
+                  <span class="meta-sep">|</span>
+                  <div class="story-meta-item">
+                    <span class="meta-key">LOCATION:</span>
+                    <span class="meta-val">JUNEAU, ALASKA (58.46°N, 134.56°W)</span>
+                  </div>
+                  <span class="meta-sep">|</span>
+                  <div class="story-meta-item">
+                    <span class="meta-key">SENSOR:</span>
+                    <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+                  </div>
+                </div>
+              </header>
+
+              <!-- 3 Editorial Narrative Sections -->
+              <div class="story-sections-body">
+                
+                <!-- Section 1: What Happened -->
+                <section class="story-narrative-section">
+                  <h2 class="narrative-section-heading font-mono">
+                    <span class="narrative-num">01 //</span>
+                    <span>What Happened</span>
+                  </h2>
+                  <p class="narrative-p">
+                    High above Juneau, Alaska, Suicide Basin—a marginal glacial basin dammed by the towering flank of the Mendenhall Glacier—accumulated tens of millions of cubic meters of subglacial meltwater. Once hydrostatic water pressure overcame the ice dam's structural seal, subglacial drainage conduits ruptured violently, initiating an uncontainable jökulhlaup lake outburst.
+                  </p>
+                </section>
+
+                <!-- Section 2: The Damage -->
+                <section class="story-narrative-section">
+                  <h2 class="narrative-section-heading font-mono">
+                    <span class="narrative-num">02 //</span>
+                    <span>The Damage</span>
+                  </h2>
+                  <p class="narrative-p">
+                    More than 31 million cubic meters of glacial discharge surged downstream into Mendenhall Lake and River, setting record-shattering peak flood stages. Extreme bank erosion caused residential homes to collapse into the river, tore out arterial roadway networks, and caused extensive municipal damage across Juneau while cloud cover concealed the basin from ground and aerial view.
+                  </p>
+                </section>
+
+                <!-- Section 3: How Radar Saw It -->
+                <section class="story-narrative-section">
+                  <h2 class="narrative-section-heading font-mono">
+                    <span class="narrative-num">03 //</span>
+                    <span>How Radar Saw It</span>
+                  </h2>
+                  <p class="narrative-p">
+                    Heavy Pacific coastal storm fronts and continuous mountain fog kept optical cameras blind, but NISAR's L-band radar pierced directly through the weather. Because calm lake water reflects radar pulses specularly away from the satellite (registering as a pitch-black radar signature below -24 dB), NISAR mapped the sudden loss of 168 hectares of water surface, accurately quantifying flood discharge volumes in real time.
+                  </p>
+                </section>
+
               </div>
-              <span class="meta-sep">|</span>
-              <div class="story-meta-item">
-                <span class="meta-key">DATE:</span>
-                <span class="meta-val">AUG 19, 2026</span>
-              </div>
-              <span class="meta-sep">|</span>
-              <div class="story-meta-item">
-                <span class="meta-key">LOCATION:</span>
-                <span class="meta-val">JUNEAU, ALASKA (58.46°N, 134.56°W)</span>
-              </div>
-              <span class="meta-sep">|</span>
-              <div class="story-meta-item">
-                <span class="meta-key">SENSOR:</span>
-                <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+
+              <!-- Bottom Call to Action -->
+              <footer class="story-cta-footer">
+                <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')" aria-label="View Radar Data in 3D Dashboard">
+                  <span>[</span>
+                  <span>VIEW RADAR DATA</span>
+                  <span class="cta-arrow">→</span>
+                  <span>]</span>
+                </button>
+              </footer>
+            </div>
+
+            <!-- Right Column (40% width): Geographic Mini-Map -->
+            <div class="story-grid-right">
+              <div class="story-map-sticky-wrap">
+                <div class="story-map-hud-header font-mono">
+                  <div class="hud-target-indicator">
+                    <span class="hud-dot-pulse"></span>
+                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // ALASKA</span>
+                  </div>
+                  <span class="hud-coords-tag">58.46°N, 134.56°W</span>
+                </div>
+                
+                <div class="story-map-frame">
+                  <div id="story-map-alaska" class="story-leaflet-map" role="region" aria-label="Suicide Basin Juneau Alaska geographic context mini-map"></div>
+                  <button id="interact-btn-alaska" class="map-interact-btn font-mono" onclick="toggleMapInteraction('alaska')" aria-label="Toggle map pan and zoom interaction">
+                    [ Click to Interact ]
+                  </button>
+                </div>
+
+                <div class="story-map-hud-footer font-mono">
+                  <span class="hud-footer-tag">SENSOR OVERPASS: DESCENDING TRACK 129 // L-BAND 24CM</span>
+                </div>
               </div>
             </div>
-          </header>
-
-          <!-- 3 Editorial Narrative Sections -->
-          <div class="story-sections-body">
-            
-            <!-- Section 1: What Happened -->
-            <section class="story-narrative-section">
-              <h2 class="narrative-section-heading font-mono">
-                <span class="narrative-num">01 //</span>
-                <span>What Happened</span>
-              </h2>
-              <p class="narrative-p">
-                High above Juneau, Alaska, Suicide Basin—a marginal glacial basin dammed by the towering flank of the Mendenhall Glacier—accumulated tens of millions of cubic meters of subglacial meltwater. Once hydrostatic water pressure overcame the ice dam's structural seal, subglacial drainage conduits ruptured violently, initiating an uncontainable jökulhlaup lake outburst.
-              </p>
-            </section>
-
-            <!-- Section 2: The Damage -->
-            <section class="story-narrative-section">
-              <h2 class="narrative-section-heading font-mono">
-                <span class="narrative-num">02 //</span>
-                <span>The Damage</span>
-              </h2>
-              <p class="narrative-p">
-                More than 31 million cubic meters of glacial discharge surged downstream into Mendenhall Lake and River, setting record-shattering peak flood stages. Extreme bank erosion caused residential homes to collapse into the river, tore out arterial roadway networks, and caused extensive municipal damage across Juneau while cloud cover concealed the basin from ground and aerial view.
-              </p>
-            </section>
-
-            <!-- Section 3: How Radar Saw It -->
-            <section class="story-narrative-section">
-              <h2 class="narrative-section-heading font-mono">
-                <span class="narrative-num">03 //</span>
-                <span>How Radar Saw It</span>
-              </h2>
-              <p class="narrative-p">
-                Heavy Pacific coastal storm fronts and continuous mountain fog kept optical cameras blind, but NISAR's L-band radar pierced directly through the weather. Because calm lake water reflects radar pulses specularly away from the satellite (registering as a pitch-black radar signature below -24 dB), NISAR mapped the sudden loss of 168 hectares of water surface, accurately quantifying flood discharge volumes in real time.
-              </p>
-            </section>
 
           </div>
-
-          <!-- Bottom Call to Action -->
-          <footer class="story-cta-footer">
-            <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')" aria-label="View Radar Data in 3D Dashboard">
-              <span>[</span>
-              <span>VIEW RADAR DATA</span>
-              <span class="cta-arrow">→</span>
-              <span>]</span>
-            </button>
-          </footer>
-
         </article>
 
         <!-- Hidden Legacy Verification Anchors (Preserves full ID integrity) -->
@@ -1532,6 +1590,6 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v58"></script>
+  <script src="app.js?v=20261107_v59"></script>
 </body>
 </html>

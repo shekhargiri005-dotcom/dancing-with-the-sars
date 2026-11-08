@@ -120,10 +120,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data/cases.json?v=20261107_v58');
+    const res = await fetch('data/cases.json?v=20261107_v59');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v58)', {
-      build: '20261107_v58',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v59)', {
+      build: '20261107_v59',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -886,6 +886,7 @@ function switchView(viewName) {
       const lbl = document.getElementById('current-case-label');
       if (lbl) lbl.innerText = 'Story: The Suicide Basin Breach (Alaska)';
       sendClientLog('info', 'STORY_SELECT', 'Selected Alaska GLOF narrative dossier', { story: 'alaska' });
+      initStoryAlaskaMap();
     } else {
       // Default to Himalayas Ice Avalanche
       if (storyAlaska) storyAlaska.classList.add('hidden');
@@ -893,6 +894,7 @@ function switchView(viewName) {
       const lbl = document.getElementById('current-case-label');
       if (lbl) lbl.innerText = 'Story: The Langtang Collapse (Himalayas)';
       sendClientLog('info', 'STORY_SELECT', 'Selected Himalayas Ice Avalanche narrative dossier', { story: 'himalayas' });
+      initStoryHimalayasMap();
     }
 
     const tabIce = document.getElementById('tab-story-ice');
@@ -1774,6 +1776,130 @@ function initStoryMiniMap(c) {
   }
 
   setTimeout(() => storyMiniMap.invalidateSize(), 150);
+}
+
+
+// ==========================================================================
+// 5B. Editorial Story Mini-Maps Controller (CartoDB Dark Matter + Cyan Pulse Marker)
+// ==========================================================================
+let storyMapHimalayas = null;
+let storyMapAlaska = null;
+const mapInteractionStates = {
+  himalayas: false,
+  alaska: false
+};
+
+function initStoryHimalayasMap() {
+  const container = document.getElementById('story-map-himalayas');
+  if (!container) return;
+
+  if (!storyMapHimalayas) {
+    storyMapHimalayas = L.map('story-map-himalayas', {
+      center: [28.25, 85.50],
+      zoom: 7,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      touchZoom: false,
+      zoomControl: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(storyMapHimalayas);
+
+    const cyanPulseIcon = L.divIcon({
+      className: 'cyan-pulse-marker',
+      html: '<div class="marker-pulse-ripple"></div><div class="marker-pulse-core"></div>',
+      iconSize: [28, 28],
+      iconAnchor: [14, 14]
+    });
+
+    L.marker([28.25, 85.50], { icon: cyanPulseIcon })
+      .addTo(storyMapHimalayas)
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">LANGTANG LIRUNG</strong><br><span style="font-size:11px;color:#94a3b8;">Himalayan Ice Avalanche Epicenter<br>28.25°N, 85.50°E</span>')
+      .openPopup();
+  }
+
+  // Handle Leaflet zero-dimension bug when container was previously hidden (display: none)
+  setTimeout(() => {
+    if (storyMapHimalayas) {
+      storyMapHimalayas.invalidateSize();
+      storyMapHimalayas.setView([28.25, 85.50], 7);
+    }
+  }, 120);
+}
+
+function initStoryAlaskaMap() {
+  const container = document.getElementById('story-map-alaska');
+  if (!container) return;
+
+  if (!storyMapAlaska) {
+    storyMapAlaska = L.map('story-map-alaska', {
+      center: [58.46, -134.56],
+      zoom: 7,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      touchZoom: false,
+      zoomControl: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(storyMapAlaska);
+
+    const cyanPulseIcon = L.divIcon({
+      className: 'cyan-pulse-marker',
+      html: '<div class="marker-pulse-ripple"></div><div class="marker-pulse-core"></div>',
+      iconSize: [28, 28],
+      iconAnchor: [14, 14]
+    });
+
+    L.marker([58.46, -134.56], { icon: cyanPulseIcon })
+      .addTo(storyMapAlaska)
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">SUICIDE BASIN</strong><br><span style="font-size:11px;color:#94a3b8;">Glacial Lake Outburst Flood (GLOF)<br>58.46°N, 134.56°W</span>')
+      .openPopup();
+  }
+
+  // Handle Leaflet zero-dimension bug when container was previously hidden (display: none)
+  setTimeout(() => {
+    if (storyMapAlaska) {
+      storyMapAlaska.invalidateSize();
+      storyMapAlaska.setView([58.46, -134.56], 7);
+    }
+  }, 120);
+}
+
+function toggleMapInteraction(region) {
+  const map = region === 'himalayas' ? storyMapHimalayas : storyMapAlaska;
+  const btn = document.getElementById('interact-btn-' + region);
+  if (!map || !btn) return;
+
+  mapInteractionStates[region] = !mapInteractionStates[region];
+  const active = mapInteractionStates[region];
+
+  if (active) {
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+    map.doubleClickZoom.enable();
+    map.touchZoom.enable();
+    btn.innerHTML = '[ Controls Active ✓ ]';
+    btn.classList.add('active');
+    sendClientLog('info', 'MAP_INTERACT_ENABLE', 'Enabled map pan and zoom interaction for ' + region, { region: region });
+  } else {
+    map.dragging.disable();
+    map.scrollWheelZoom.disable();
+    map.doubleClickZoom.disable();
+    map.touchZoom.disable();
+    btn.innerHTML = '[ Click to Interact ]';
+    btn.classList.remove('active');
+    sendClientLog('info', 'MAP_INTERACT_DISABLE', 'Disabled map pan and zoom interaction for ' + region, { region: region });
+  }
 }
 
 // ==========================================================================
