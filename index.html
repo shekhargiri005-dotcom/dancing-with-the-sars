@@ -24,7 +24,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20261107_v56">
+  <link rel="stylesheet" href="style.css?v=20261107_v57">
 </head>
 <body class="view-dashboard">
 
@@ -508,6 +508,14 @@
          ===================================================================== -->
     <section id="dashboard-view" class="view-section active dashboard-view" aria-label="Isometric 3D Cryosphere Command Center">
 
+      <!-- Glassmorphic Return to Launchpad Button -->
+      <button id="dashboard-back-launchpad-btn" class="dashboard-return-btn font-mono" onclick="switchView('launchpad')" aria-label="Return to Mission Launchpad">
+        <span class="btn-bracket">[</span>
+        <span class="btn-arrow">←</span>
+        <span class="btn-text">Return to Launchpad</span>
+        <span class="btn-bracket">]</span>
+      </button>
+
       <!-- Isometric 3D Space Viewport -->
       <div class="isometric-viewport" id="isometric-viewport">
 
@@ -628,7 +636,7 @@
         <div class="dashboard-nodes-layer">
           
           <!-- Station 1: Top-Left - Langtang Canyon Valley (LIVE NISAR) -->
-          <article class="micro-station node-top-left" id="node-langtang" onclick="startMissionTour('langtang')" role="button" tabindex="0" aria-label="Open Langtang Canyon Valley Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('langtang')">
+          <article class="micro-station node-card node-top-left" id="node-langtang" onclick="startMissionTour('langtang')" role="button" tabindex="0" aria-label="Open Langtang Canyon Valley Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('langtang')">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-langtang" title="Langtang Canyon Gorge 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -639,7 +647,7 @@
           </article>
 
           <!-- Station 2: Top-Right - Suicide Glacial Basin (LIVE NISAR) -->
-          <article class="micro-station node-top-right" id="node-suicide" onclick="startMissionTour('suicide_basin')" role="button" tabindex="0" aria-label="Open Suicide Glacial Basin Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('suicide_basin')">
+          <article class="micro-station node-card node-top-right" id="node-suicide" onclick="startMissionTour('suicide_basin')" role="button" tabindex="0" aria-label="Open Suicide Glacial Basin Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('suicide_basin')">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-suicide" title="Suicide Glacial Basin 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -650,7 +658,7 @@
           </article>
 
           <!-- Station 3: Bottom-Left - Chamoli Detachment Peak (HISTORICAL) -->
-          <article class="micro-station node-bottom-left" id="node-chamoli" onclick="openStoryModal('chamoli')" role="button" tabindex="0" aria-label="Open Chamoli Scarp Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('chamoli')">
+          <article class="micro-station node-card node-bottom-left" id="node-chamoli" onclick="openStoryModal('chamoli')" role="button" tabindex="0" aria-label="Open Chamoli Scarp Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('chamoli')">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-chamoli" title="Chamoli Detachment Peak 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -661,7 +669,7 @@
           </article>
 
           <!-- Station 4: Bottom-Right - South Lhonak Moraine Lake (HISTORICAL GLOF) -->
-          <article class="micro-station node-bottom-right" id="node-lhonak" onclick="openStoryModal('south_lhonak')" role="button" tabindex="0" aria-label="Open South Lhonak Moraine Lake Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('south_lhonak')">
+          <article class="micro-station node-card node-bottom-right" id="node-lhonak" onclick="openStoryModal('south_lhonak')" role="button" tabindex="0" aria-label="Open South Lhonak Moraine Lake Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('south_lhonak')">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-lhonak" title="South Lhonak Moraine Lake 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -1479,6 +1487,6 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v56"></script>
+  <script src="app.js?v=20261107_v57"></script>
 </body>
 </html>

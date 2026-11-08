@@ -1001,6 +1001,54 @@ html, body {
    5. VIEW 1: ISOMETRIC 3D COMMAND CENTER (#dashboard-view)
    Editorial IgnitronDev & Kaspersky 2050 Cyber-Command Aesthetic
    -------------------------------------------------------------------------- */
+/* Top-Left Glassmorphic Return to Launchpad Button */
+.dashboard-return-btn {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.15rem;
+  background: rgba(14, 23, 38, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  border-radius: 8px;
+  color: #00FFFF;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65), 0 0 14px rgba(0, 255, 255, 0.15);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dashboard-return-btn:hover {
+  background: rgba(0, 255, 255, 0.15);
+  border-color: #00FFFF;
+  color: #FFFFFF;
+  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.45), inset 0 0 10px rgba(0, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.dashboard-return-btn:active {
+  transform: translateY(0);
+}
+
+.dashboard-return-btn .btn-arrow {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.dashboard-return-btn:hover .btn-arrow {
+  transform: translateX(-3px);
+}
+
 #dashboard-view {
   display: none;
   position: absolute;
@@ -1206,11 +1254,12 @@ html, body {
   transition: stroke 0.3s, filter 0.3s;
 }
 
+.laser-circuit-node.laser-fast .laser-circuit-path,
 .laser-circuit-path.fast {
-  stroke-width: 2.5;
-  stroke: #FFFFFF;
-  filter: drop-shadow(0 0 10px #00FFFF) drop-shadow(0 0 20px #00FFFF);
-  animation: laserPulseFlow 1.2s linear infinite;
+  stroke: #00FFFF !important;
+  stroke-width: 3.5px !important;
+  filter: drop-shadow(0 0 8px #00FFFF) drop-shadow(0 0 20px #00FFFF) !important;
+  animation: laserPulseFlow 0.65s linear infinite !important;
 }
 
 @keyframes laserPulseFlow {
@@ -1334,31 +1383,50 @@ html, body {
   filter: grayscale(85%);
 }
 
+.micro-station,
+.node-card {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
 .micro-station:hover,
-.micro-station:focus-visible {
-  transform: translateY(-5px) scale(1.04);
+.micro-station:focus-visible,
+.node-card:hover,
+.node-card:focus-visible {
+  transform: translateY(-6px) scale(1.05) !important;
   outline: none;
+}
+
+.micro-station:hover .station-name-bracket,
+.node-card:hover .station-name-bracket {
+  border-color: #00FFFF !important;
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.65) !important;
+}
+
+.micro-station:hover .station-name-bracket .station-title,
+.node-card:hover .station-name-bracket .station-title {
+  color: #00FFFF !important;
+  text-shadow: 0 0 8px #00FFFF;
 }
 
 /* Spatial Coordinates around central levitating core */
 .node-top-left {
-  top: 3%;
-  left: 6%;
+  top: 10%;
+  left: 18%;
 }
 
 .node-top-right {
-  top: 3%;
-  right: 6%;
+  top: 10%;
+  right: 18%;
 }
 
 .node-bottom-left {
-  bottom: 4%;
-  left: 6%;
+  bottom: 14%;
+  left: 18%;
 }
 
 .node-bottom-right {
-  bottom: 4%;
-  right: 6%;
+  bottom: 14%;
+  right: 18%;
 }
 
 /* 3D Viewport for procedural Three.js geomorphic terrain */
@@ -4701,27 +4769,31 @@ body.view-dashboard .nav-container {
   pointer-events: none !important;
 }
 
-/* Perfect Symmetrical Coordinates for the 4 Stations (16% side margins for vertical toolbar clearance) */
+/* Symmetrical Coordinates for the 4 Stations (Clear of boundaries, bottom nodes lifted & moved closer to center) */
 .node-top-left {
-  top: 6% !important;
-  left: 16% !important;
+  top: 10% !important;
+  left: 18% !important;
+  right: auto !important;
+  bottom: auto !important;
 }
 
 .node-top-right {
-  top: 6% !important;
-  right: 16% !important;
+  top: 10% !important;
+  right: 18% !important;
   left: auto !important;
+  bottom: auto !important;
 }
 
 .node-bottom-left {
-  bottom: 6% !important;
-  left: 16% !important;
+  bottom: 14% !important;
+  left: 18% !important;
   top: auto !important;
+  right: auto !important;
 }
 
 .node-bottom-right {
-  bottom: 6% !important;
-  right: 16% !important;
+  bottom: 14% !important;
+  right: 18% !important;
   left: auto !important;
   top: auto !important;
 }

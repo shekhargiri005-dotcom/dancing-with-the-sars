@@ -120,10 +120,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data/cases.json?v=20261107_v56');
+    const res = await fetch('data/cases.json?v=20261107_v57');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v56)', {
-      build: '20261107_v56',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v57)', {
+      build: '20261107_v57',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -223,7 +223,7 @@ function initDiorama(containerId, createSceneFn) {
 
   try {
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(33, width / height, 0.1, 100);
     camera.position.set(0, 1.6, 2.7);
     camera.lookAt(0, 0.22, 0);
 
@@ -427,6 +427,16 @@ function initCoreGlobe() {
     coreGlobeGroup.rotation.y = -1.2;
     coreGlobeScene.add(coreGlobeGroup);
 
+    // Cyber Hologram Ambient & Directional Lights
+    const ambLight = new THREE.AmbientLight(0x061826, 2.5);
+    coreGlobeScene.add(ambLight);
+    const keyLight = new THREE.DirectionalLight(0x00ffff, 3.0);
+    keyLight.position.set(3, 4, 5);
+    coreGlobeScene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0x286bff, 2.0);
+    rimLight.position.set(-3, -2, -4);
+    coreGlobeScene.add(rimLight);
+
     const textureLoader = new THREE.TextureLoader();
     // Sleek Holographic Vector Earth Sphere (Aesthetic Geo-Radar Cyber Core)
     const baseGeo = new THREE.SphereGeometry(1.46, 64, 64);
@@ -434,23 +444,73 @@ function initCoreGlobe() {
       if (coreGlobeRenderer) coreGlobeRenderer.render(coreGlobeScene, coreGlobeCamera);
     });
 
-    const baseMat = new THREE.MeshBasicMaterial({
+    // Emissive holographic earth material with physical depth
+    const baseMat = new THREE.MeshStandardMaterial({
       map: earthTexture,
-      color: 0xffffff
+      color: 0xe0f7fa,
+      emissive: 0x003b4d,
+      emissiveIntensity: 0.85,
+      roughness: 0.3,
+      metalness: 0.4
     });
     const baseSphere = new THREE.Mesh(baseGeo, baseMat);
     coreGlobeGroup.add(baseSphere);
 
-    // Atmosphere Glow Backing
-    const atmosGeo = new THREE.SphereGeometry(1.54, 32, 32);
-    const atmosMat = new THREE.MeshBasicMaterial({
-      color: 0x00FFFF,
+    // Inner Cyber Hologram Wireframe Grid
+    const wireGeo = new THREE.SphereGeometry(1.47, 36, 18);
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0x00ffff,
+      wireframe: true,
       transparent: true,
-      opacity: 0.08,
-      side: THREE.BackSide
+      opacity: 0.22,
+      blending: THREE.AdditiveBlending
     });
-    const atmosSphere = new THREE.Mesh(atmosGeo, atmosMat);
-    coreGlobeGroup.add(atmosSphere);
+    const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+    coreGlobeGroup.add(wireMesh);
+
+    // Glowing Neon Cyan Atmosphere Halo Shader (Holographic Projection Aesthetic)
+    const haloGeo = new THREE.SphereGeometry(1.58, 64, 64);
+    const haloMat = new THREE.ShaderMaterial({
+      uniforms: {
+        glowColor: { type: 'c', value: new THREE.Color(0x00ffff) },
+        c: { type: 'f', value: 0.5 },
+        p: { type: 'f', value: 2.8 }
+      },
+      vertexShader: `
+        varying vec3 vNormal;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 glowColor;
+        uniform float c;
+        uniform float p;
+        varying vec3 vNormal;
+        void main() {
+          float intensity = pow(c - dot(vNormal, vec3(0.0, 0.0, 1.0)), p);
+          gl_FragColor = vec4(glowColor, clamp(intensity * 1.4, 0.0, 0.9));
+        }
+      `,
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending,
+      transparent: true
+    });
+    const haloSphere = new THREE.Mesh(haloGeo, haloMat);
+    coreGlobeGroup.add(haloSphere);
+
+    // Outer Volumetric Cyan Glow Shell
+    const outerHaloGeo = new THREE.SphereGeometry(1.72, 36, 36);
+    const outerHaloMat = new THREE.MeshBasicMaterial({
+      color: 0x00ffff,
+      transparent: true,
+      opacity: 0.14,
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending
+    });
+    const outerHalo = new THREE.Mesh(outerHaloGeo, outerHaloMat);
+    coreGlobeGroup.add(outerHalo);
 
     // Dual Concentric Cyan Hologram Boundary Rings (Framing the rotating globe silhouette)
     const ringGroup = new THREE.Group();
@@ -545,8 +605,8 @@ function initCoreGlobe() {
     function animateCore() {
       coreGlobeAnimId = requestAnimationFrame(animateCore);
 
-      if (autoRotate && coreGlobeGroup) {
-        coreGlobeGroup.rotation.y += 0.0035;
+      if (coreGlobeGroup) {
+        coreGlobeGroup.rotation.y += 0.0032;
       }
 
       if (coreGlobeRenderer && coreGlobeScene && coreGlobeCamera) {
@@ -737,14 +797,18 @@ function setupNodeLaserHoverListeners() {
     card.addEventListener('mouseenter', () => {
       const pulse = document.getElementById('pulse-' + id);
       if (pulse) pulse.classList.add('fast');
+      const circuit = document.getElementById('circuit-' + id);
+      if (circuit) circuit.classList.add('laser-fast');
       if (dioramaInstances[dioramaId]) {
-        dioramaInstances[dioramaId].hoverSpeed = 0.016;
+        dioramaInstances[dioramaId].hoverSpeed = 0.024;
       }
     });
 
     card.addEventListener('mouseleave', () => {
       const pulse = document.getElementById('pulse-' + id);
       if (pulse) pulse.classList.remove('fast');
+      const circuit = document.getElementById('circuit-' + id);
+      if (circuit) circuit.classList.remove('laser-fast');
       if (dioramaInstances[dioramaId]) {
         dioramaInstances[dioramaId].hoverSpeed = 0.005;
       }
@@ -763,7 +827,7 @@ function switchView(viewName) {
   });
   document.querySelectorAll('.top-nav-btn').forEach(b => b.classList.remove('active'));
 
-  if (viewName === 'landing') {
+  if (viewName === 'landing' || viewName === 'launchpad') {
     const l = document.getElementById('landing-view');
     if (l) {
       l.classList.remove('hidden');
@@ -788,7 +852,9 @@ function switchView(viewName) {
     initAllDioramas();
     requestAnimationFrame(() => {
       updateConnectingLines();
+      setupNodeLaserHoverListeners();
       setTimeout(updateConnectingLines, 100);
+      setTimeout(setupNodeLaserHoverListeners, 110);
     });
   } else if (viewName === 'globe') {
     const g = document.getElementById('globe-view');
