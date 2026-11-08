@@ -120,10 +120,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data/cases.json?v=20261107_v53');
+    const res = await fetch('data/cases.json?v=20261107_v54');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v53)', {
-      build: '20261107_v53',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v54)', {
+      build: '20261107_v54',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -1196,6 +1196,11 @@ function renderPlaceScreen(c) {
     }).join(', ');
   }
 
+  // 1. Initialize Leaflet Map and Radar Overlays FIRST
+  initPlaceMap(c);
+  initTimelineUI(c);
+
+  // 2. Select initial radar pair and activate default differential swipe layer
   if (c.radar_pairs && c.radar_pairs.length >= 3) {
     const p0 = document.getElementById('pair-date-control');
     const p1 = document.getElementById('pair-date-spans');
@@ -1204,11 +1209,9 @@ function renderPlaceScreen(c) {
     if (p1) p1.innerText = c.radar_pairs[1].dates;
     if (p2) p2.innerText = c.radar_pairs[2].dates;
     selectRadarPair('spans');
+  } else {
+    setSignalLayer('diff');
   }
-
-  initTimelineUI(c);
-  initPlaceMap(c);
-  setSignalLayer('diff');
 }
 
 function selectRadarPair(pairType) {
@@ -1444,6 +1447,7 @@ function toggleSidebar() {
 // 4. Signal Layer Switcher & Swipe Divider Logic
 // ==========================================================================
 function setSignalLayer(mode) {
+  sendClientLog('info', 'RADAR_CHANNEL', 'Radar signal channel set to ' + mode, { channel: mode });
   currentSignal = mode;
   document.querySelectorAll('.sig-pill').forEach(b => b.classList.remove('active'));
 
@@ -1461,94 +1465,105 @@ function setSignalLayer(mode) {
     if (isTimelinePlaying) toggleTimelinePlay();
   }
 
-  [preOverlay, postOverlay, compOverlay, heatOverlay, creepOverlay, hhOverlay, hvOverlay, timelineOverlay].forEach(l => {
-    if (l && placeMap.hasLayer(l)) placeMap.removeLayer(l);
-  });
+  // Remove existing overlays safely if placeMap exists
+  if (placeMap) {
+    [preOverlay, postOverlay, compOverlay, heatOverlay, creepOverlay, hhOverlay, hvOverlay, timelineOverlay].forEach(l => {
+      if (l && placeMap.hasLayer(l)) placeMap.removeLayer(l);
+    });
+  }
 
   if (mode === 'diff') {
-    document.getElementById('pill-diff').classList.add('active');
-    swipeUI.style.display = 'block';
-    legend.classList.add('hidden');
+    const pill = document.getElementById('pill-diff');
+    if (pill) pill.classList.add('active');
+    if (swipeUI) swipeUI.style.display = 'block';
+    if (legend) legend.classList.add('hidden');
 
-    preOverlay.addTo(placeMap);
-    postOverlay.addTo(placeMap);
-    updateSwipePositions();
+    if (placeMap) {
+      if (preOverlay) preOverlay.addTo(placeMap);
+      if (postOverlay) postOverlay.addTo(placeMap);
+      updateSwipePositions();
+    }
 
   } else if (mode === 'composite') {
-    document.getElementById('pill-composite').classList.add('active');
-    swipeUI.style.display = 'none';
-    legend.classList.remove('hidden');
+    const pill = document.getElementById('pill-composite');
+    if (pill) pill.classList.add('active');
+    if (swipeUI) swipeUI.style.display = 'none';
+    if (legend) legend.classList.remove('hidden');
 
-    legendHeadline.innerText = 'Dual-Pol False Color Composite (HH / HV)';
-    legendGrad.style.background = 'linear-gradient(to right, #0077ff 0%, #00d4ff 30%, #ffd700 70%, #ff4400 100%)';
-    scaleMin.innerText = 'Electric Blue (Water)';
-    scaleMax.innerText = 'Golden / Orange (Debris)';
-    legendNote.innerText = 'Colorized Dual-Pol Composite: Water appears electric blue due to specular reflection. Rough avalanche debris & gravel appear golden-orange.';
+    if (legendHeadline) legendHeadline.innerText = 'Dual-Pol False Color Composite (HH / HV)';
+    if (legendGrad) legendGrad.style.background = 'linear-gradient(to right, #0077ff 0%, #00d4ff 30%, #ffd700 70%, #ff4400 100%)';
+    if (scaleMin) scaleMin.innerText = 'Electric Blue (Water)';
+    if (scaleMax) scaleMax.innerText = 'Golden / Orange (Debris)';
+    if (legendNote) legendNote.innerText = 'Colorized Dual-Pol Composite: Water appears electric blue due to specular reflection. Rough avalanche debris & gravel appear golden-orange.';
 
-    compOverlay.addTo(placeMap);
+    if (compOverlay && placeMap) compOverlay.addTo(placeMap);
 
   } else if (mode === 'hh') {
     const btn = document.getElementById('pill-hh');
     if (btn) btn.classList.add('active');
-    swipeUI.style.display = 'none';
-    legend.classList.remove('hidden');
+    if (swipeUI) swipeUI.style.display = 'none';
+    if (legend) legend.classList.remove('hidden');
 
-    legendHeadline.innerText = 'HH Co-Polarization (Dielectric Constant & Specular Mirror)';
-    legendGrad.style.background = 'linear-gradient(to right, #000000 0%, #334155 35%, #94a3b8 70%, #ffffff 100%)';
-    scaleMin.innerText = '≤ -24 dB (Specular Water)';
-    scaleMax.innerText = '≥ 0 dB (Foreshortened Rock)';
-    legendNote.innerText = 'HH co-pol: Sensitive to dielectric permittivity (water = black specular mirror, bedrock/soil = bright surface bounce).';
+    if (legendHeadline) legendHeadline.innerText = 'HH Co-Polarization (Dielectric Constant & Specular Mirror)';
+    if (legendGrad) legendGrad.style.background = 'linear-gradient(to right, #000000 0%, #334155 35%, #94a3b8 70%, #ffffff 100%)';
+    if (scaleMin) scaleMin.innerText = '≤ -24 dB (Specular Water)';
+    if (scaleMax) scaleMax.innerText = '≥ 0 dB (Foreshortened Rock)';
+    if (legendNote) legendNote.innerText = 'HH co-pol: Sensitive to dielectric permittivity (water = black specular mirror, bedrock/soil = bright surface bounce).';
 
-    if (hhOverlay) hhOverlay.addTo(placeMap);
+    if (hhOverlay && placeMap) hhOverlay.addTo(placeMap);
 
   } else if (mode === 'hv') {
     const btn = document.getElementById('pill-hv');
     if (btn) btn.classList.add('active');
-    swipeUI.style.display = 'none';
-    legend.classList.remove('hidden');
+    if (swipeUI) swipeUI.style.display = 'none';
+    if (legend) legend.classList.remove('hidden');
 
-    legendHeadline.innerText = 'HV Cross-Polarization (Surface Roughness & Volumetric Scatter)';
-    legendGrad.style.background = 'linear-gradient(to right, #050505 0%, #3b0764 30%, #7e22ce 60%, #facc15 100%)';
-    scaleMin.innerText = '≤ -30 dB (Calm Water / Noise Floor)';
-    scaleMax.innerText = '≥ -8 dB (Rough Debris Boulders)';
-    legendNote.innerText = 'HV cross-pol: Depolarization occurs when radar pulses hit angular crushed boulders and chaotic ice rubble (k·σ_h ≫ 1).';
+    if (legendHeadline) legendHeadline.innerText = 'HV Cross-Polarization (Surface Roughness & Volumetric Scatter)';
+    if (legendGrad) legendGrad.style.background = 'linear-gradient(to right, #050505 0%, #3b0764 30%, #7e22ce 60%, #facc15 100%)';
+    if (scaleMin) scaleMin.innerText = '≤ -30 dB (Calm Water / Noise Floor)';
+    if (scaleMax) scaleMax.innerText = '≥ -8 dB (Rough Debris Boulders)';
+    if (legendNote) legendNote.innerText = 'HV cross-pol: Depolarization occurs when radar pulses hit angular crushed boulders and chaotic ice rubble (k·σ_h ≫ 1).';
 
-    if (hvOverlay) hvOverlay.addTo(placeMap);
+    if (hvOverlay && placeMap) hvOverlay.addTo(placeMap);
 
   } else if (mode === 'heatmap') {
-    document.getElementById('pill-heatmap').classList.add('active');
-    swipeUI.style.display = 'none';
-    legend.classList.remove('hidden');
+    const pill = document.getElementById('pill-heatmap');
+    if (pill) pill.classList.add('active');
+    if (swipeUI) swipeUI.style.display = 'none';
+    if (legend) legend.classList.remove('hidden');
 
-    legendHeadline.innerText = 'Backscatter Change Intensity (Δσ⁰ dB)';
-    legendGrad.style.background = 'linear-gradient(to right, #0099ff 0%, #0099ff 20%, transparent 20%, transparent 80%, #ff4400 80%, #ff1100 100%)';
-    scaleMin.innerText = '≤ -3 dB (Water)';
-    scaleMax.innerText = '≥ +6 dB (Rough Debris)';
-    legendNote.innerText = 'Transparent pixels = undisturbed terrain within 3σ noise floor (< 2.8 dB).';
+    if (legendHeadline) legendHeadline.innerText = 'Backscatter Change Intensity (Δσ⁰ dB)';
+    if (legendGrad) legendGrad.style.background = 'linear-gradient(to right, #0099ff 0%, #0099ff 20%, transparent 20%, transparent 80%, #ff4400 80%, #ff1100 100%)';
+    if (scaleMin) scaleMin.innerText = '≤ -3 dB (Water)';
+    if (scaleMax) scaleMax.innerText = '≥ +6 dB (Rough Debris)';
+    if (legendNote) legendNote.innerText = 'Transparent pixels = undisturbed terrain within 3σ noise floor (< 2.8 dB).';
 
-    postOverlay.addTo(placeMap);
-    heatOverlay.addTo(placeMap);
-
-    if (postOverlay.getElement()) {
-      postOverlay.getElement().style.clipPath = 'none';
+    if (placeMap) {
+      if (postOverlay) postOverlay.addTo(placeMap);
+      if (heatOverlay) heatOverlay.addTo(placeMap);
+      if (postOverlay && postOverlay.getElement()) {
+        postOverlay.getElement().style.clipPath = 'none';
+      }
     }
 
   } else if (mode === 'creep') {
-    document.getElementById('pill-creep').classList.add('active');
-    swipeUI.style.display = 'none';
-    legend.classList.remove('hidden');
+    const pill = document.getElementById('pill-creep');
+    if (pill) pill.classList.add('active');
+    if (swipeUI) swipeUI.style.display = 'none';
+    if (legend) legend.classList.remove('hidden');
 
-    legendHeadline.innerText = 'Pre-Collapse Creep (InSAR GUNW Phase)';
-    legendGrad.style.background = 'linear-gradient(to right, #facc15, #a855f7, #ec4899)';
-    scaleMin.innerText = '0 cm (Stable)';
-    scaleMax.innerText = '≥ 12 cm (Active Downslope Creep)';
+    if (legendHeadline) legendHeadline.innerText = 'Pre-Collapse Creep (InSAR GUNW Phase)';
+    if (legendGrad) legendGrad.style.background = 'linear-gradient(to right, #facc15, #a855f7, #ec4899)';
+    if (scaleMin) scaleMin.innerText = '0 cm (Stable)';
+    if (scaleMax) scaleMax.innerText = '≥ 12 cm (Active Downslope Creep)';
     legendNote.innerText = 'Computed from interferometric phase: Δr = -(λ/4π)Δϕ. Masked in low-coherence snow.';
 
-    postOverlay.addTo(placeMap);
-    creepOverlay.addTo(placeMap);
-
-    if (postOverlay.getElement()) {
-      postOverlay.getElement().style.clipPath = 'none';
+    if (placeMap) {
+      if (postOverlay) postOverlay.addTo(placeMap);
+      if (creepOverlay) creepOverlay.addTo(placeMap);
+      if (postOverlay && postOverlay.getElement()) {
+        postOverlay.getElement().style.clipPath = 'none';
+      }
     }
 
   } else if (mode === 'timeseries') {
@@ -1557,8 +1572,8 @@ function setSignalLayer(mode) {
     }
     const btn = document.getElementById('pill-timeseries');
     if (btn) btn.classList.add('active');
-    swipeUI.style.display = 'none';
-    legend.classList.add('hidden');
+    if (swipeUI) swipeUI.style.display = 'none';
+    if (legend) legend.classList.add('hidden');
 
     if (tsPlayer) tsPlayer.classList.remove('hidden');
 
@@ -1955,14 +1970,15 @@ function setTimelineStep(index) {
 
   updateTimelineStatus(step, index, currentCase.timeline.length);
 
-  // Update map overlay
-  if (timelineOverlay && placeMap.hasLayer(timelineOverlay)) {
-    placeMap.removeLayer(timelineOverlay);
-  }
-
-  timelineOverlay = L.imageOverlay(step.image + vTag, bounds, { opacity: 1.0 });
-  if (currentSignal === 'timeseries') {
-    timelineOverlay.addTo(placeMap);
+  // Update map overlay safely
+  if (placeMap) {
+    if (timelineOverlay && placeMap.hasLayer(timelineOverlay)) {
+      placeMap.removeLayer(timelineOverlay);
+    }
+    timelineOverlay = L.imageOverlay(step.image + vTag, bounds, { opacity: 1.0 });
+    if (currentSignal === 'timeseries') {
+      timelineOverlay.addTo(placeMap);
+    }
   }
 
   // Update narrative in sidebar
@@ -2382,7 +2398,7 @@ function initCesiumGlobe() {
         // 1. Local Photographic NASA Blue Marble Satellite Base (Instant 0ms load)
         try {
           const localSatellite = new Cesium.SingleTileImageryProvider({
-            url: 'assets/earth_real.jpg?v=20261107_v53'
+            url: 'assets/earth_real.jpg?v=20261107_v54'
           });
           cesiumViewer.imageryLayers.addImageryProvider(localSatellite);
         } catch (localErr) {
@@ -2404,13 +2420,13 @@ function initCesiumGlobe() {
         // 3. High-Resolution Polar Cap Seamless Fillers (Eliminates Web Mercator 85.05° polar clipping)
         try {
           const northPoleCap = new Cesium.SingleTileImageryProvider({
-            url: 'assets/north_pole_cap.png?v=20261107_v53',
+            url: 'assets/north_pole_cap.png?v=20261107_v54',
             rectangle: Cesium.Rectangle.fromDegrees(-180.0, 84.0, 180.0, 90.0)
           });
           cesiumViewer.imageryLayers.addImageryProvider(northPoleCap);
 
           const southPoleCap = new Cesium.SingleTileImageryProvider({
-            url: 'assets/south_pole_cap.png?v=20261107_v53',
+            url: 'assets/south_pole_cap.png?v=20261107_v54',
             rectangle: Cesium.Rectangle.fromDegrees(-180.0, -90.0, 180.0, -84.0)
           });
           cesiumViewer.imageryLayers.addImageryProvider(southPoleCap);
