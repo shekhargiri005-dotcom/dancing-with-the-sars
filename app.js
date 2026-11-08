@@ -120,10 +120,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data/cases.json?v=20261107_v57');
+    const res = await fetch('data/cases.json?v=20261107_v58');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v57)', {
-      build: '20261107_v57',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v58)', {
+      build: '20261107_v58',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -870,36 +870,35 @@ function switchView(viewName) {
     setTimeout(() => {
       initCesiumGlobe();
     }, 50);
-  } else if (viewName === 'story-ice' || viewName === 'story') {
+  } else if (viewName === 'story-himalayas' || viewName === 'story-alaska' || viewName === 'story-ice' || viewName === 'story') {
     const s = document.getElementById('story-view');
     if (s) {
       s.classList.remove('hidden');
       s.classList.add('active');
     }
-    const ice = document.getElementById('story-ice');
-    if (ice) ice.classList.remove('hidden');
+
+    const storyHimalayas = document.getElementById('story-himalayas');
+    const storyAlaska = document.getElementById('story-alaska');
+
+    if (viewName === 'story-alaska') {
+      if (storyHimalayas) storyHimalayas.classList.add('hidden');
+      if (storyAlaska) storyAlaska.classList.remove('hidden');
+      const lbl = document.getElementById('current-case-label');
+      if (lbl) lbl.innerText = 'Story: The Suicide Basin Breach (Alaska)';
+      sendClientLog('info', 'STORY_SELECT', 'Selected Alaska GLOF narrative dossier', { story: 'alaska' });
+    } else {
+      // Default to Himalayas Ice Avalanche
+      if (storyAlaska) storyAlaska.classList.add('hidden');
+      if (storyHimalayas) storyHimalayas.classList.remove('hidden');
+      const lbl = document.getElementById('current-case-label');
+      if (lbl) lbl.innerText = 'Story: The Langtang Collapse (Himalayas)';
+      sendClientLog('info', 'STORY_SELECT', 'Selected Himalayas Ice Avalanche narrative dossier', { story: 'himalayas' });
+    }
 
     const tabIce = document.getElementById('tab-story-ice');
     if (tabIce) {
       tabIce.classList.add('active');
       tabIce.setAttribute('aria-selected', 'true');
-    }
-
-    const lbl = document.getElementById('current-case-label');
-    if (lbl) lbl.innerText = 'Ice Hazard Forensic Dossier';
-
-    if (appData && appData.cases) {
-      const storyCase = (currentCase && currentCase.type === 'story')
-        ? currentCase
-        : (appData.cases.find(x => x.id === 'chamoli') || appData.cases.find(x => x.type === 'story'));
-      if (storyCase) {
-        currentCase = storyCase;
-        renderStoryScreen(storyCase);
-      }
-    }
-
-    if (storyMiniMap) {
-      setTimeout(() => storyMiniMap.invalidateSize(), 150);
     }
   } else if (viewName === 'place') {
     const p = document.getElementById('place-view');
@@ -1718,8 +1717,10 @@ function updateSwipePositions() {
 // 5. Story Screen (Historical Baselines)
 // ==========================================================================
 function renderStoryScreen(c) {
-  document.getElementById('story-article-title').innerText = c.name;
-  document.getElementById('story-event-date').innerText = c.event_date;
+  const titleEl = document.getElementById('story-article-title');
+  if (titleEl) titleEl.innerText = c.name;
+  const dateEl = document.getElementById('story-event-date');
+  if (dateEl) dateEl.innerText = c.event_date;
   
   // Req 3: Explicit "Story - No NISAR Data" badge
   document.getElementById('story-article-pathway').innerHTML = `

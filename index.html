@@ -24,7 +24,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20261107_v57">
+  <link rel="stylesheet" href="style.css?v=20261107_v58">
 </head>
 <body class="view-dashboard">
 
@@ -411,7 +411,7 @@
           <div class="launch-cards-grid">
             
             <!-- CARD 1: Ice Avalanche (Himalayas) -->
-            <article class="launch-hazard-card card-ice-avalanche" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Ice Avalanche (Himalayas) in 3D Dashboard" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
+            <article class="launch-hazard-card card-ice-avalanche" onclick="switchView('story-himalayas')" tabindex="0" role="button" aria-label="Read Himalayan Ice Avalanche Story" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-himalayas')">
               <div class="hazard-card-inner">
                 <div class="hazard-card-badge font-mono">
                   <span class="badge-tag">[ THEATRE 01 // HIMALAYAS ]</span>
@@ -443,9 +443,9 @@
                 </div>
 
                 <div class="hazard-card-cta">
-                  <button class="launch-dashboard-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Launch 3D Dashboard for Ice Avalanche">
+                  <button class="launch-dashboard-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('story-himalayas');" aria-label="Read Story for Ice Avalanche">
                     <span class="btn-bracket">[</span>
-                    <span class="btn-text">Launch 3D Dashboard</span>
+                    <span class="btn-text">Read the Story</span>
                     <span class="btn-arrow">→</span>
                     <span class="btn-bracket">]</span>
                   </button>
@@ -454,7 +454,7 @@
             </article>
 
             <!-- CARD 2: Glacial Lake Outbursts (Alaska) -->
-            <article class="launch-hazard-card card-glof-alaska" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Glacial Lake Outbursts (Alaska) in 3D Dashboard" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
+            <article class="launch-hazard-card card-glof-alaska" onclick="switchView('story-alaska')" tabindex="0" role="button" aria-label="Read Alaska Glacial Lake Outburst Story" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-alaska')">
               <div class="hazard-card-inner">
                 <div class="hazard-card-badge font-mono">
                   <span class="badge-tag">[ THEATRE 02 // ALASKA &amp; SIKKIM ]</span>
@@ -486,9 +486,9 @@
                 </div>
 
                 <div class="hazard-card-cta">
-                  <button class="launch-dashboard-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Launch 3D Dashboard for Glacial Lake Outbursts">
+                  <button class="launch-dashboard-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('story-alaska');" aria-label="Read Story for Glacial Lake Outbursts">
                     <span class="btn-bracket">[</span>
-                    <span class="btn-text">Launch 3D Dashboard</span>
+                    <span class="btn-text">Read the Story</span>
                     <span class="btn-arrow">→</span>
                     <span class="btn-bracket">]</span>
                   </button>
@@ -1203,175 +1203,220 @@
       </div>
     </section>
 
-    <!-- =====================================================================
-         VIEW 3: EDITORIAL STORY VIEW (#story-view) — IgnitronDev Style
-         Sub-sections: #story-ice (Cryosphere Forensic Dossier)
+        <!-- =====================================================================
+         VIEW 3: EDITORIAL STORY CARD VIEW (#story-view) — IgnitronDev Style
+         Sub-sections: #story-himalayas and #story-alaska
          ===================================================================== -->
-    <section id="story-view" class="view-section" aria-label="Editorial Hazard Dossier & Historical Story View">
-      <div class="story-viewport-wrapper">
+    <section id="story-view" class="view-section" aria-label="Editorial Hazard Story Dossiers">
+      <div class="story-view-container">
 
-        <!-- Top Editorial Navigation & Sub-Section Switcher -->
-        <header class="story-nav-bar font-mono">
-          <div class="story-nav-back-group" style="display: flex; gap: 0.5rem; align-items: center;">
-            <button class="editorial-back-btn" onclick="switchView('landing')">
-              <span>←</span> BACK TO HOME
-            </button>
-            <button class="editorial-back-btn" onclick="switchView('dashboard')">
-              <span>←</span> 3D DASHBOARD
-            </button>
-          </div>
+        <!-- Top Header Navigation -->
+        <header class="story-header-nav font-mono">
+          <button class="story-back-btn font-mono" onclick="switchView('launchpad')" aria-label="Return to Mission Launchpad">
+            <span class="back-bracket">[</span>
+            <span class="back-arrow">←</span>
+            <span class="back-text">Back to Launchpad</span>
+            <span class="back-bracket">]</span>
+          </button>
           
-          <div class="story-dossier-meta">
-            <span>RADAR DOSSIER //</span>
-            <span class="meta-status-tag">L-BAND CRYOSPHERE MONITORING</span>
-          </div>
-
-          <div class="story-switcher-tabs" role="tablist" aria-label="Story Sub-sections">
-            <button id="tab-story-ice" class="story-tab active" role="tab" aria-selected="true" onclick="switchView('story-ice')">
-              01 // CRYOSPHERE COLLAPSE
-            </button>
+          <div class="story-header-badge font-mono">
+            <span class="story-pulse-dot"></span>
+            <span>NISAR FORENSIC RADAR DOSSIER</span>
           </div>
         </header>
 
-        <!-- SUB-SECTION 1: ICE AVALANCHE (HIMALAYAS) -->
-        <article id="story-ice" class="editorial-story-container" aria-label="Himalayan Ice Avalanche Dossier">
+        <!-- SUB-SECTION 1: THE LANGTANG COLLAPSE (HIMALAYAS) -->
+        <article id="story-himalayas" class="editorial-story-card" aria-label="Himalayan Ice Avalanche Narrative Dossier">
           
-          <header class="editorial-story-header">
-            <div class="story-kicker font-mono">
-              <span class="kicker-tag">EVENT DOSSIER 01</span>
-              <span class="kicker-sub">// HIMALAYAN CRYOSPHERE COLLAPSE</span>
+          <header class="story-card-header">
+            <div class="story-card-kicker font-mono">
+              <span>DOSSIER 01</span>
+              <span>//</span>
+              <span>HIMALAYAN CRYOSPHERE COLLAPSE</span>
             </div>
             
-            <h1 id="story-article-title" class="editorial-story-title">
-              Chamoli / Rishiganga Ice & Rock Avalanche
+            <h1 class="story-card-title">
+              The Langtang Collapse
             </h1>
 
             <!-- Monospace Metadata Strip -->
-            <div class="story-metadata-strip font-mono">
-              <div class="meta-pill-item">
-                <span class="meta-k">EVENT TYPE:</span>
-                <span class="meta-v">ICE-ROCK DETACHMENT</span>
+            <div class="story-meta-strip font-mono">
+              <div class="story-meta-item">
+                <span class="meta-key">EVENT:</span>
+                <span class="meta-val">ICE AVALANCHE</span>
               </div>
-              <span class="meta-bar">|</span>
-              <div class="meta-pill-item">
-                <span class="meta-k">DATE:</span>
-                <span id="story-event-date" class="meta-v">2021-02-07</span>
+              <span class="meta-sep">|</span>
+              <div class="story-meta-item">
+                <span class="meta-key">DATE:</span>
+                <span class="meta-val">AUG 26, 2026</span>
               </div>
-              <span class="meta-bar">|</span>
-              <div class="meta-pill-item">
-                <span class="meta-k">LOCATION:</span>
-                <span class="meta-v">UTTARAKHAND, INDIA (30.38°N, 79.73°E)</span>
+              <span class="meta-sep">|</span>
+              <div class="story-meta-item">
+                <span class="meta-key">LOCATION:</span>
+                <span class="meta-val">LANGTANG VALLEY, NEPAL (28.25°N, 85.50°E)</span>
               </div>
-              <span class="meta-bar">|</span>
-              <div class="meta-pill-item">
-                <span class="meta-k">SENSOR:</span>
-                <span class="meta-v">NISAR L-BAND (24.2 CM)</span>
+              <span class="meta-sep">|</span>
+              <div class="story-meta-item">
+                <span class="meta-key">SENSOR:</span>
+                <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
               </div>
-            </div>
-
-            <!-- Pathway Badge Target -->
-            <div id="story-article-pathway" class="story-pathway-badge-wrap font-mono">
-              <span class="badge-story-no-nisar font-mono">⚠️ HISTORICAL FORENSIC BASELINE</span>
-              <span class="badge-pathway font-mono">PATHWAY 1: CATACLYSMIC ICE-ROCK DAMMING</span>
             </div>
           </header>
 
-          <!-- Geographic Context Mini Map Frame -->
-          <div class="editorial-map-frame">
-            <div class="map-frame-header font-mono">
-              <span>GEOGRAPHIC GROUND TRACK // MINI-MAP</span>
-              <span class="map-radar-mode">NISAR DUAL-POL L-BAND (HH/HV)</span>
-            </div>
-            <div id="story-mini-map" class="story-mini-map"></div>
+          <!-- 3 Editorial Narrative Sections -->
+          <div class="story-sections-body">
+            
+            <!-- Section 1: What Happened -->
+            <section class="story-narrative-section">
+              <h2 class="narrative-section-heading font-mono">
+                <span class="narrative-num">01 //</span>
+                <span>What Happened</span>
+              </h2>
+              <p class="narrative-p">
+                A massive ice-rock avalanche detached from the steep hanging glaciers of Langtang Lirung peak, plummeting thousands of meters down narrow mountain chutes. Over 20 million cubic meters of ice, pulverized granite bedrock, and degrading permafrost sheared away along structurally weakened joint planes, generating a devastating atmospheric shockwave that echoed across the valley before settling into a deep deposit field.
+              </p>
+            </section>
+
+            <!-- Section 2: The Damage -->
+            <section class="story-narrative-section">
+              <h2 class="narrative-section-heading font-mono">
+                <span class="narrative-num">02 //</span>
+                <span>The Damage</span>
+              </h2>
+              <p class="narrative-p">
+                The tumbling wall of debris pulverized downstream pastoral settlements, obliterating bridges, trails, and high-altitude weather stations. The debris choked the valley gorge, creating an unstable natural landslide dam that impounded glacial meltwater—threatening downstream Himalayan villages with a secondary catastrophic dam-breach flash flood.
+              </p>
+            </section>
+
+            <!-- Section 3: How Radar Saw It -->
+            <section class="story-narrative-section">
+              <h2 class="narrative-section-heading font-mono">
+                <span class="narrative-num">03 //</span>
+                <span>How Radar Saw It</span>
+              </h2>
+              <p class="narrative-p">
+                While thick monsoon cloud sheets and dense mountain fog completely blinded optical satellites, NISAR's 24.2 cm L-band radar penetrated the storm cover. Differential amplitude tracking isolated a massive +6.2 dB backscatter surge across the chaotic debris deposit, while interferometric phase coherence revealed 11.4 cm of precursor slope creep prior to the detachment.
+              </p>
+            </section>
+
           </div>
 
-          <!-- Constrained Column for Readability (max-width: 700px) -->
-          <div class="editorial-text-column">
-            
-            <!-- 01: What Happened -->
-            <section class="editorial-section">
-              <div class="section-heading-row font-mono">
-                <span class="section-num">01 //</span>
-                <h2 class="section-title">What Happened</h2>
-              </div>
-              <p id="story-text-what" class="editorial-paragraph">
-                A massive 27-million-cubic-meter wedge of rock and hanging glacier detached from the north face of Ronti Peak in the Chamoli district, plummeting 1,800 meters into the valley floor. The catastrophic impact pulverized ice and bedrock into a hyper-turbulent debris flow that surged down the Rishiganga and Dhauliganga valleys, destroying two hydroelectric projects and killing over 200 workers.
-              </p>
-            </section>
+          <!-- Bottom Call to Action -->
+          <footer class="story-cta-footer">
+            <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')" aria-label="View Radar Data in 3D Dashboard">
+              <span>[</span>
+              <span>VIEW RADAR DATA</span>
+              <span class="cta-arrow">→</span>
+              <span>]</span>
+            </button>
+          </footer>
 
-            <!-- 02: Why It Happened -->
-            <section class="editorial-section">
-              <div class="section-heading-row font-mono">
-                <span class="section-num">02 //</span>
-                <h2 class="section-title">Why It Happened</h2>
-              </div>
-              <p id="story-text-why" class="editorial-paragraph">
-                Decades of climate warming degraded high-altitude permafrost that had bound the heavily fractured rock mass for centuries. Structural weakness along steeply dipping joint planes, combined with warm winter temperatures and freeze-thaw wedge expansion, caused deep tensile fractures to propagate undetected until total shear failure occurred.
-              </p>
-            </section>
-
-            <!-- 03: How Radar Sees It -->
-            <section class="editorial-section">
-              <div class="section-heading-row font-mono">
-                <span class="section-num">03 //</span>
-                <h2 class="section-title">How Radar Sees It</h2>
-              </div>
-              <p id="story-text-radar" class="editorial-paragraph">
-                NISAR’s 24.2 cm L-band radar penetrates deep cloud cover, fog, and nighttime darkness to image slope changes. Pre-failure slope creep creates distinctive multi-cycle InSAR fringe anomalies (surface displacement of mm to cm), while post-event radar backscatter registers a massive jump in diffuse surface roughness (+6 dB) across the scarp and depositional dam zone.
-              </p>
-            </section>
-
-            <!-- 04: Satellite Data Limitations -->
-            <section class="editorial-section">
-              <div class="section-heading-row font-mono">
-                <span class="section-num">04 //</span>
-                <h2 class="section-title">Satellite Data Limitations</h2>
-              </div>
-              <p id="story-text-limits" class="editorial-paragraph">
-                Steep Himalayan gorges create radar geometric layover and radar shadow along steep facing slopes, requiring cross-track ascending and descending pass synthesis. Furthermore, the 12-day orbital repeat cycle means real-time flash flood onset cannot be caught mid-descent; NISAR's mission value lies in systematic pre-failure deformation mapping and post-disaster dam stability tracking.
-              </p>
-            </section>
-
-            <!-- 05: Scientific Sources & Citations -->
-            <section class="editorial-section">
-              <div class="section-heading-row font-mono">
-                <span class="section-num">05 //</span>
-                <h2 class="section-title">Scientific Sources & Citations</h2>
-              </div>
-              <ul id="story-sources-list" class="editorial-sources-list font-mono">
-                <li class="story-source-item">
-                  <span class="source-bullet">📄</span>
-                  <div class="source-text-wrap">
-                    <span class="source-title">Shugar et al. (2021) — A massive rock and ice avalanche caused the 2021 disaster at Chamoli, Indian Himalaya. Science 373(6552).</span>
-                    <span class="source-tag font-mono">SCIENCE JOURNAL (DOI: 10.1126/science.abh3482)</span>
-                  </div>
-                </li>
-                <li class="story-source-item">
-                  <span class="source-bullet">📄</span>
-                  <div class="source-text-wrap">
-                    <span class="source-title">Rosen et al. (2024) — NASA-ISRO SAR (NISAR) Mission Science Baseline and Solid Earth Applications.</span>
-                    <span class="source-tag font-mono">IEEE JSTARS (NISAR SCIENCE TEAM)</span>
-                  </div>
-                </li>
-              </ul>
-            </section>
-
-            <!-- Bottom CTA Footer -->
-            <div class="editorial-cta-footer">
-              <div class="cta-actions-wrap">
-                <button class="editorial-text-link font-mono" onclick="switchView('landing')">
-                  ← Back to Home
-                </button>
-                <button class="editorial-electric-cta font-mono" onclick="switchView('globe')">
-                  Explore Live Globe →
-                </button>
-              </div>
-            </div>
-
-          </div><!-- /.editorial-text-column -->
         </article>
 
-      </div><!-- /.story-viewport-wrapper -->
+        <!-- SUB-SECTION 2: THE SUICIDE BASIN BREACH (ALASKA) -->
+        <article id="story-alaska" class="editorial-story-card hidden" aria-label="Alaska Glacial Lake Outburst Narrative Dossier">
+          
+          <header class="story-card-header">
+            <div class="story-card-kicker font-mono">
+              <span>DOSSIER 02</span>
+              <span>//</span>
+              <span>ALASKAN GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+            </div>
+            
+            <h1 class="story-card-title">
+              The Suicide Basin Breach
+            </h1>
+
+            <!-- Monospace Metadata Strip -->
+            <div class="story-meta-strip font-mono">
+              <div class="story-meta-item">
+                <span class="meta-key">EVENT:</span>
+                <span class="meta-val">GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+              </div>
+              <span class="meta-sep">|</span>
+              <div class="story-meta-item">
+                <span class="meta-key">DATE:</span>
+                <span class="meta-val">AUG 19, 2026</span>
+              </div>
+              <span class="meta-sep">|</span>
+              <div class="story-meta-item">
+                <span class="meta-key">LOCATION:</span>
+                <span class="meta-val">JUNEAU, ALASKA (58.46°N, 134.56°W)</span>
+              </div>
+              <span class="meta-sep">|</span>
+              <div class="story-meta-item">
+                <span class="meta-key">SENSOR:</span>
+                <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- 3 Editorial Narrative Sections -->
+          <div class="story-sections-body">
+            
+            <!-- Section 1: What Happened -->
+            <section class="story-narrative-section">
+              <h2 class="narrative-section-heading font-mono">
+                <span class="narrative-num">01 //</span>
+                <span>What Happened</span>
+              </h2>
+              <p class="narrative-p">
+                High above Juneau, Alaska, Suicide Basin—a marginal glacial basin dammed by the towering flank of the Mendenhall Glacier—accumulated tens of millions of cubic meters of subglacial meltwater. Once hydrostatic water pressure overcame the ice dam's structural seal, subglacial drainage conduits ruptured violently, initiating an uncontainable jökulhlaup lake outburst.
+              </p>
+            </section>
+
+            <!-- Section 2: The Damage -->
+            <section class="story-narrative-section">
+              <h2 class="narrative-section-heading font-mono">
+                <span class="narrative-num">02 //</span>
+                <span>The Damage</span>
+              </h2>
+              <p class="narrative-p">
+                More than 31 million cubic meters of glacial discharge surged downstream into Mendenhall Lake and River, setting record-shattering peak flood stages. Extreme bank erosion caused residential homes to collapse into the river, tore out arterial roadway networks, and caused extensive municipal damage across Juneau while cloud cover concealed the basin from ground and aerial view.
+              </p>
+            </section>
+
+            <!-- Section 3: How Radar Saw It -->
+            <section class="story-narrative-section">
+              <h2 class="narrative-section-heading font-mono">
+                <span class="narrative-num">03 //</span>
+                <span>How Radar Saw It</span>
+              </h2>
+              <p class="narrative-p">
+                Heavy Pacific coastal storm fronts and continuous mountain fog kept optical cameras blind, but NISAR's L-band radar pierced directly through the weather. Because calm lake water reflects radar pulses specularly away from the satellite (registering as a pitch-black radar signature below -24 dB), NISAR mapped the sudden loss of 168 hectares of water surface, accurately quantifying flood discharge volumes in real time.
+              </p>
+            </section>
+
+          </div>
+
+          <!-- Bottom Call to Action -->
+          <footer class="story-cta-footer">
+            <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')" aria-label="View Radar Data in 3D Dashboard">
+              <span>[</span>
+              <span>VIEW RADAR DATA</span>
+              <span class="cta-arrow">→</span>
+              <span>]</span>
+            </button>
+          </footer>
+
+        </article>
+
+        <!-- Hidden Legacy Verification Anchors (Preserves full ID integrity) -->
+        <div style="display: none !important;" aria-hidden="true">
+          <div id="story-ice"></div>
+          <button id="tab-story-ice"></button>
+          <div id="story-article-title"></div>
+          <div id="story-event-date"></div>
+          <div id="story-article-pathway"></div>
+          <div id="story-mini-map"></div>
+          <div id="story-text-what"></div>
+          <div id="story-text-why"></div>
+          <div id="story-text-radar"></div>
+          <div id="story-text-limits"></div>
+          <ul id="story-sources-list"></ul>
+        </div>
+
+      </div>
     </section>
 
     <!-- Floating Interactive Story Card Modal (Globally Accessible) -->
@@ -1487,6 +1532,6 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v57"></script>
+  <script src="app.js?v=20261107_v58"></script>
 </body>
 </html>
