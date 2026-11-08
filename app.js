@@ -120,10 +120,10 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('data/cases.json?v=20261107_v54');
+    const res = await fetch('data/cases.json?v=20261107_v55');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v54)', {
-      build: '20261107_v54',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v55)', {
+      build: '20261107_v55',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     

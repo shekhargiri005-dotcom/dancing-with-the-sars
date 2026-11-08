@@ -24,7 +24,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20261107_v54">
+  <link rel="stylesheet" href="style.css?v=20261107_v55">
 </head>
 <body class="view-dashboard">
 
@@ -303,7 +303,7 @@
             </h1>
 
             <p class="editorial-dek">
-              Active spaceborne microwave remote sensing across catastrophic planetary hazards. When mountain ice collapses or subterranean magma chambers swell beneath monsoon storms, dense volcanic ash, or total darkness, NISAR's 24.2 cm L-band radar unmasks the physical deformations optical satellites cannot see.
+              Track dangerous mountain glacier collapses and sudden glacial floods from space. When monsoon storms, dense clouds, or total darkness blind ordinary cameras, NISAR's 24.2 cm radar cuts through the clouds to reveal ground movement and sudden water surges in real time.
             </p>
 
             <!-- Technical Mission Metrics Table / Spec Strip -->
@@ -322,20 +322,20 @@
               </div>
               <div class="spec-entry">
                 <span class="spec-label">PENETRATION</span>
-                <span class="spec-val">Cloud & Ash Blind-Proof</span>
+                <span class="spec-val">All-Weather Storm & Night</span>
               </div>
             </div>
 
             <div class="editorial-footer-note font-mono">
-              <span>SELECT AN INVESTIGATION DOMAIN ON THE RIGHT TO INITIALIZE RADAR PIPELINE</span>
+              <span>SELECT A HAZARD DOMAIN ON THE RIGHT TO INITIALIZE 3D RADAR COMMAND CENTER</span>
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: Structural, Thin-Bordered Options Stacked Vertically -->
+          <!-- RIGHT COLUMN: Massive Glowing Glassmorphic Hazard Cards -->
           <div class="editorial-right-col" role="region" aria-label="Hazard Case Options">
             
             <!-- OPTION A: Ice Avalanche (Himalayas) -->
-            <article class="editorial-option-card option-ice" onclick="switchView('story-ice')" tabindex="0" role="button" aria-label="Open Ice Avalanche (Himalayas) Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-ice')">
+            <article class="editorial-option-card card-ice" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Ice Avalanche Data in 3D Command Center" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
               <div class="option-header-row font-mono">
                 <span class="option-cat-code">[ HAZARD 01 // CRYOSPHERE ]</span>
                 <span class="option-sensor-tag">L2 GCOV DUAL-POL</span>
@@ -347,7 +347,7 @@
               </div>
 
               <p class="option-summary">
-                Catastrophic hanging glacier detachment, pulverized rock-ice chutes, canyon debris dams, and sudden lake outburst floods (GLOFs). L-band radar isolates debris deposit roughness (+6.2 dB) and catches pre-collapse slope creep through heavy monsoon cloud cover.
+                Catastrophic hanging glacier detachment, canyon debris dams, and sudden downstream flooding. Spaceborne L-band radar detects subtle slope creep before collapse and maps rough avalanche deposits through heavy monsoon clouds.
               </p>
 
               <div class="option-specs-grid font-mono">
@@ -365,17 +365,23 @@
                 </div>
               </div>
 
-              <div class="option-action-footer font-mono">
-                <span class="action-text">INITIALIZE HIMALAYAN RADAR LAB</span>
-                <span class="action-arrow">→</span>
+              <div class="option-action-footer">
+                <div class="option-action-meta font-mono">
+                  <span class="action-radar-pulse"></span>
+                  <span class="action-text">COMMAND CENTER READY</span>
+                </div>
+                <button class="explore-data-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Explore Ice Avalanche Data">
+                  <span>Explore Data</span>
+                  <span class="btn-arrow">→</span>
+                </button>
               </div>
             </article>
 
             <!-- OPTION B: Glacial Lake Outburst Floods (GLOFs) -->
-            <article class="editorial-option-card option-ice" onclick="selectCase('south_lhonak')" tabindex="0" role="button" aria-label="Open Glacial Lake Outburst Flood (GLOF) Dossier" onkeydown="if(event.key==='Enter'||event.key===' ')selectCase('south_lhonak')">
+            <article class="editorial-option-card card-glof" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Glacial Lake Outbursts Data in 3D Command Center" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
               <div class="option-header-row font-mono">
                 <span class="option-cat-code">[ HAZARD 02 // CRYOSPHERE GLOF ]</span>
-                <span class="option-sensor-tag">L-BAND SPECULAR WATER LOSS</span>
+                <span class="option-sensor-tag">L-BAND WATER DRAINAGE</span>
               </div>
 
               <div class="option-title-block">
@@ -384,7 +390,7 @@
               </div>
 
               <p class="option-summary">
-                Subglacial jökulhlaup lake evacuations and surging moraine-dam collapses. While dense monsoon storm clouds and mountain darkness blind optical sensors, microwave L-band isolates the sudden loss of specular reflection as tens of millions of cubic meters of water drain violently downstream.
+                Subglacial lake drainage and moraine-dam breaches. While torrential mountain storms and pitch darkness blind optical satellites, radar captures the sudden evacuation of millions of cubic meters of water.
               </p>
 
               <div class="option-specs-grid font-mono">
@@ -402,9 +408,15 @@
                 </div>
               </div>
 
-              <div class="option-action-footer font-mono">
-                <span class="action-text">INITIALIZE GLOF RADAR LAB</span>
-                <span class="action-arrow">→</span>
+              <div class="option-action-footer">
+                <div class="option-action-meta font-mono">
+                  <span class="action-radar-pulse pulse-glof"></span>
+                  <span class="action-text">COMMAND CENTER READY</span>
+                </div>
+                <button class="explore-data-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Explore GLOF Data">
+                  <span>Explore Data</span>
+                  <span class="btn-arrow">→</span>
+                </button>
               </div>
             </article>
 
@@ -1392,6 +1404,6 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v54"></script>
+  <script src="app.js?v=20261107_v55"></script>
 </body>
 </html>
