@@ -37,10 +37,95 @@ const OSM_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright
 const ESRI_DARK_GRAY_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
 const ESRI_DARK_GRAY_ATTR = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ';
 
+// ==========================================================================
+// Vercel & Client-Side Telemetry Logger
+// Forwards client-side errors, uncaught exceptions, and user telemetry
+// directly to /api/log so they appear in real-time in the Vercel Dashboard Logs.
+// ==========================================================================
+let isLoggingInternal = false;
+
+function sendClientLog(level, event, message, details = {}) {
+  if (isLoggingInternal) return;
+  try {
+    const payload = JSON.stringify({
+      level: level || 'info',
+      event: event || 'UI_EVENT',
+      message: String(message || ''),
+      details: details || {},
+      url: window.location.pathname + window.location.search,
+      userAgent: (typeof navigator !== 'undefined') ? navigator.userAgent : 'Unknown',
+      timestamp: new Date().toISOString()
+    });
+
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      const blob = new Blob([payload], { type: 'application/json' });
+      const sent = navigator.sendBeacon('/api/log', blob);
+      if (sent) return;
+    }
+
+    if (typeof fetch === 'function') {
+      fetch('/api/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true
+      }).catch(() => {});
+    }
+  } catch (err) {
+    // Non-blocking
+  }
+}
+
+// 1. Capture Uncaught JavaScript Runtime Errors
+window.addEventListener('error', event => {
+  sendClientLog('error', 'UNCAUGHT_EXCEPTION', event.message || 'Script error', {
+    filename: event.filename,
+    lineno: event.lineno,
+    colno: event.colno,
+    stack: event.error ? event.error.stack : null
+  });
+});
+
+// 2. Capture Unhandled Promise Rejections (e.g. Asset 404s, Network timeouts)
+window.addEventListener('unhandledrejection', event => {
+  const reason = event.reason;
+  sendClientLog('error', 'UNHANDLED_REJECTION', reason ? (reason.message || String(reason)) : 'Promise rejected', {
+    stack: (reason && reason.stack) ? reason.stack : null
+  });
+});
+
+// 3. Intercept console.error & console.warn for external library warnings
+try {
+  const originalConsoleError = console.error;
+  const originalConsoleWarn = console.warn;
+
+  console.error = function(...args) {
+    originalConsoleError.apply(console, args);
+    isLoggingInternal = true;
+    try {
+      sendClientLog('error', 'CONSOLE_ERROR', args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' '));
+    } catch (e) {}
+    isLoggingInternal = false;
+  };
+
+  console.warn = function(...args) {
+    originalConsoleWarn.apply(console, args);
+    isLoggingInternal = true;
+    try {
+      sendClientLog('warn', 'CONSOLE_WARN', args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' '));
+    } catch (e) {}
+    isLoggingInternal = false;
+  };
+} catch (e) {}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res = await fetch('data/cases.json?v=20261107_v53');
     appData = await res.json();
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v53)', {
+      build: '20261107_v53',
+      viewport: `${window.innerWidth}x${window.innerHeight}`
+    });
     
     // Set initial view to Landing View
     switchView('landing');
@@ -671,6 +756,7 @@ function setupNodeLaserHoverListeners() {
 // 2. Navigation & Case Routing
 // ==========================================================================
 function switchView(viewName) {
+  sendClientLog('info', 'VIEW_SWITCH', 'Switched view to ' + viewName, { view: viewName });
   document.querySelectorAll('.view-section').forEach(el => {
     el.classList.remove('active');
     el.classList.add('hidden');
@@ -950,6 +1036,7 @@ function launchModalDossier() {
 }
 
 function selectCase(caseId) {
+  sendClientLog('info', 'CASE_SELECT', 'Selected case study ' + caseId, { caseId: caseId });
   if (document.activeElement && typeof document.activeElement.blur === 'function') {
     document.activeElement.blur();
   }
@@ -1125,6 +1212,7 @@ function renderPlaceScreen(c) {
 }
 
 function selectRadarPair(pairType) {
+  sendClientLog('info', 'RADAR_PAIR', 'Radar pair matrix tab: ' + pairType, { pairType: pairType });
   if (!currentCase || !currentCase.radar_pairs) return;
   document.querySelectorAll('.pair-tab-btn').forEach(btn => btn.classList.remove('active'));
   const activeBtn = document.getElementById('pair-btn-' + pairType);
@@ -2202,6 +2290,7 @@ function extractCaseIdFromCesiumPick(picked) {
 }
 
 function handleGlobeBeaconClick(caseId) {
+  sendClientLog('info', 'BEACON_CLICK', '3D Globe beacon clicked: ' + caseId, { caseId: caseId });
   if (!caseId) return;
   const c = appData.cases ? appData.cases.find(x => x.id === caseId) : null;
   if (!c) {
@@ -2555,6 +2644,7 @@ function createPinCanvas(colorHex, isVolcano) {
 }
 
 function applyGlobeFilter(type) {
+  sendClientLog('info', 'GLOBE_FILTER', 'Globe hazard filter set to ' + type, { filter: type });
   currentGlobeFilter = type;
 
   // Update filter button UI states for both floating globe panel and vertical toolbar

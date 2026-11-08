@@ -1,6 +1,7 @@
 {
   "name": "dancing-with-the-sars",
   "version": "1.0.0",
+  "type": "module",
   "description": "NASA-ISRO Synthetic Aperture Radar (NISAR) L-Band Cryosphere & GLOF Forensic Intelligence Platform",
   "main": "index.html",
   "scripts": {
@@ -18,3 +19,4 @@
   "author": "shekhargiri005-dotcom",
   "license": "MIT"
 }
+
