@@ -24,7 +24,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <link rel="stylesheet" href="style.css?v=20261107_v55">
+  <link rel="stylesheet" href="style.css?v=20261107_v56">
 </head>
 <body class="view-dashboard">
 
@@ -265,164 +265,239 @@
   <main class="app-main">
     
     <!-- =====================================================================
-         VIEW 0: EDITORIAL MISSION LAUNCHPAD (#landing-view) — IgnitronDev Style
+         VIEW 0: CINEMATIC MISSION LAUNCHPAD (#landing-view) — Dark Editorial
          ===================================================================== -->
-    <section id="landing-view" class="view-section active editorial-landing" aria-label="Dancing with the SARs Editorial Launchpad">
+    <section id="landing-view" class="view-section active cinematic-launchpad" aria-label="Dancing with the SARs Mission Launchpad">
       
-      <div class="editorial-container">
+      <div class="launchpad-container">
         
-        <!-- Top Editorial Metadata Header Bar -->
-        <div class="editorial-meta-header font-mono">
-          <div class="meta-col-left">
-            <span class="editorial-tag-bracket">[</span>
-            <span class="meta-sys-name">NISAR // L-BAND ORBITAL SURVEILLANCE</span>
-            <span class="editorial-tag-bracket">]</span>
-            <span class="meta-bullet">•</span>
-            <span class="meta-sub">NASA-ISRO EARTH OBSERVATION PROGRAM</span>
+        <!-- Top Editorial Telemetry Metadata Bar -->
+        <header class="launchpad-meta-bar font-mono">
+          <div class="meta-left">
+            <span class="meta-bracket">[</span>
+            <span class="meta-nisar">NISAR // SPACEBORNE RADAR OBSERVATORY</span>
+            <span class="meta-bracket">]</span>
+            <span class="meta-dot">•</span>
+            <span class="meta-sub">NASA-ISRO EARTH SCIENCE MISSION</span>
           </div>
-          <div class="meta-col-right">
-            <span class="meta-code">DOSSIER REF: SAR-2026-GEOINT</span>
-            <span class="meta-bullet">•</span>
-            <span class="meta-status">ACTIVE TELEMETRY</span>
+          <div class="meta-right">
+            <span class="meta-pulse-dot"></span>
+            <span class="meta-status">RADAR TELEMETRY: ONLINE</span>
+            <span class="meta-dot">•</span>
+            <span class="meta-code">DOSSIER REF: 2026-CRYOSPHERE</span>
           </div>
-        </div>
+        </header>
 
-        <!-- Asymmetric Two-Column Magazine Grid -->
-        <div class="editorial-grid">
-          
-          <!-- LEFT COLUMN: Oversized Typography & Editorial Mission Text -->
-          <div class="editorial-left-col">
-            <div class="editorial-kicker font-mono">
-              <span class="kicker-index">VOL. 2026</span>
-              <span class="kicker-divider">/</span>
-              <span class="kicker-label">FORENSIC RADAR DOSSIER</span>
-            </div>
-
-            <h1 class="editorial-headline">
-              Dancing with the SARs.
-            </h1>
-
-            <p class="editorial-dek">
-              Track dangerous mountain glacier collapses and sudden glacial floods from space. When monsoon storms, dense clouds, or total darkness blind ordinary cameras, NISAR's 24.2 cm radar cuts through the clouds to reveal ground movement and sudden water surges in real time.
-            </p>
-
-            <!-- Technical Mission Metrics Table / Spec Strip -->
-            <div class="editorial-spec-strip font-mono">
-              <div class="spec-entry">
-                <span class="spec-label">RADAR BAND</span>
-                <span class="spec-val">L-Band (24.2 cm)</span>
-              </div>
-              <div class="spec-entry">
-                <span class="spec-label">REPEAT PASS</span>
-                <span class="spec-val">12-Day Orbit</span>
-              </div>
-              <div class="spec-entry">
-                <span class="spec-label">DEFORMATION</span>
-                <span class="spec-val">3 mm/yr LOS</span>
-              </div>
-              <div class="spec-entry">
-                <span class="spec-label">PENETRATION</span>
-                <span class="spec-val">All-Weather Storm & Night</span>
-              </div>
-            </div>
-
-            <div class="editorial-footer-note font-mono">
-              <span>SELECT A HAZARD DOMAIN ON THE RIGHT TO INITIALIZE 3D RADAR COMMAND CENTER</span>
-            </div>
+        <!-- ===================================================================
+             SECTION 1: THE PROBLEM
+             =================================================================== -->
+        <section class="launchpad-section section-problem">
+          <div class="section-kicker font-mono">
+            <span class="kicker-num">01</span>
+            <span class="kicker-sep">/</span>
+            <span class="kicker-title">THE CRITICAL THREAT</span>
           </div>
 
-          <!-- RIGHT COLUMN: Massive Glowing Glassmorphic Hazard Cards -->
-          <div class="editorial-right-col" role="region" aria-label="Hazard Case Options">
+          <h1 class="section-headline headline-problem">
+            When Mountains Collapse, Clouds Hide the Truth.
+          </h1>
+
+          <p class="section-lead lead-problem">
+            Across steep glacial valleys in the Himalayas and Alaska, hanging ice towers detach without warning and moraine dams breach catastrophically. When disaster strikes during torrential monsoon downpours, severe mountain storms, or dead of night, conventional optical satellites are completely blinded by cloud cover—leaving downstream river basins with zero warning as lethal avalanches and glacial outburst floods destroy everything in their path.
+          </p>
+
+          <div class="problem-visual-strip font-mono">
+            <div class="problem-strip-item item-danger">
+              <span class="strip-icon">⚠</span>
+              <span class="strip-label">OPTICAL SATELLITE LIMITATION:</span>
+              <span class="strip-val">100% BLINDED BY MONSOON CLOUDS & NIGHT</span>
+            </div>
+            <div class="problem-strip-item item-alert">
+              <span class="strip-label">HAZARD DYNAMICS:</span>
+              <span class="strip-val">MILLIONS OF TONS OF ROCK, ICE & WATER ACCELERATING AT &gt;120 KM/H</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             SECTION 2: THE CAPABILITY (NISAR)
+             =================================================================== -->
+        <section class="launchpad-section section-capability">
+          <div class="section-kicker font-mono">
+            <span class="kicker-num">02</span>
+            <span class="kicker-sep">/</span>
+            <span class="kicker-title">THE SPACEBORNE CAPABILITY</span>
+          </div>
+
+          <h2 class="section-headline headline-capability">
+            NISAR Sees What Others Can't.
+          </h2>
+
+          <p class="section-lead lead-capability">
+            Equipped with a monumental 12-meter deployable mesh reflector transmitting active 24.2 cm L-band microwave radar pulses, NISAR pierces through dense monsoon cloud sheets, driving rain, and midnight darkness. By analyzing backscatter intensity and interferometric phase coherence, it tracks millimeters of precursor slope creep and sudden lake drainage days before disastrous breaches occur.
+          </p>
+
+          <!-- 4 Glowing Monospace Telemetry Chips -->
+          <div class="telemetry-chips-grid font-mono">
+            <div class="telemetry-chip">
+              <div class="chip-glow-header">
+                <span class="chip-dot"></span>
+                <span class="chip-kicker">TELEMETRY // BAND</span>
+              </div>
+              <div class="chip-metric">
+                <span class="chip-label">RADAR BAND</span>
+                <span class="chip-val">L-Band (24.2 cm)</span>
+              </div>
+              <div class="chip-sub">Co-Pol &amp; Cross-Pol Penetration</div>
+            </div>
+
+            <div class="telemetry-chip">
+              <div class="chip-glow-header">
+                <span class="chip-dot"></span>
+                <span class="chip-kicker">TELEMETRY // ORBIT</span>
+              </div>
+              <div class="chip-metric">
+                <span class="chip-label">REPEAT PASS</span>
+                <span class="chip-val">12-Day Orbit</span>
+              </div>
+              <div class="chip-sub">Exact-Track InSAR Interferometry</div>
+            </div>
+
+            <div class="telemetry-chip">
+              <div class="chip-glow-header">
+                <span class="chip-dot"></span>
+                <span class="chip-kicker">TELEMETRY // SENSITIVITY</span>
+              </div>
+              <div class="chip-metric">
+                <span class="chip-label">DEFORMATION</span>
+                <span class="chip-val">3 mm/yr LOS</span>
+              </div>
+              <div class="chip-sub">Millimetric Slope Creep Detection</div>
+            </div>
+
+            <div class="telemetry-chip">
+              <div class="chip-glow-header">
+                <span class="chip-dot"></span>
+                <span class="chip-kicker">TELEMETRY // ALL-WEATHER</span>
+              </div>
+              <div class="chip-metric">
+                <span class="chip-label">PENETRATION</span>
+                <span class="chip-val">100% Cloud &amp; Storm Blind-Proof</span>
+              </div>
+              <div class="chip-sub">Day &amp; Night Uninterrupted Vision</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             SECTION 3: THE LAUNCH
+             =================================================================== -->
+        <section class="launchpad-section section-launch">
+          <div class="section-kicker font-mono">
+            <span class="kicker-num">03</span>
+            <span class="kicker-sep">/</span>
+            <span class="kicker-title">FORENSIC RADAR LAB</span>
+          </div>
+
+          <h2 class="section-headline headline-launch">
+            Explore the Hazards.
+          </h2>
+
+          <p class="section-sublead">
+            Select a critical hazard theatre below to open the interactive 3D Isometric Command Center and analyze orbital SAR telemetry.
+          </p>
+
+          <!-- TWO MASSIVE Clickable Glassmorphic Cards Side-by-Side -->
+          <div class="launch-cards-grid">
             
-            <!-- OPTION A: Ice Avalanche (Himalayas) -->
-            <article class="editorial-option-card card-ice" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Ice Avalanche Data in 3D Command Center" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
-              <div class="option-header-row font-mono">
-                <span class="option-cat-code">[ HAZARD 01 // CRYOSPHERE ]</span>
-                <span class="option-sensor-tag">L2 GCOV DUAL-POL</span>
-              </div>
-
-              <div class="option-title-block">
-                <h2 class="option-title">Ice Avalanche (Himalayas)</h2>
-                <span class="option-locale font-mono">LANGTANG VALLEY & CHAMOLI CORRIDORS // 28.25°N, 85.50°E</span>
-              </div>
-
-              <p class="option-summary">
-                Catastrophic hanging glacier detachment, canyon debris dams, and sudden downstream flooding. Spaceborne L-band radar detects subtle slope creep before collapse and maps rough avalanche deposits through heavy monsoon clouds.
-              </p>
-
-              <div class="option-specs-grid font-mono">
-                <div class="option-stat">
-                  <span class="stat-k">+6.2 dB</span>
-                  <span class="stat-v">Debris Surge</span>
+            <!-- CARD 1: Ice Avalanche (Himalayas) -->
+            <article class="launch-hazard-card card-ice-avalanche" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Ice Avalanche (Himalayas) in 3D Dashboard" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
+              <div class="hazard-card-inner">
+                <div class="hazard-card-badge font-mono">
+                  <span class="badge-tag">[ THEATRE 01 // HIMALAYAS ]</span>
+                  <span class="badge-tech">L2 GCOV DUAL-POL</span>
                 </div>
-                <div class="option-stat">
-                  <span class="stat-k">11.4 cm</span>
-                  <span class="stat-v">InSAR Creep (LOS)</span>
-                </div>
-                <div class="option-stat">
-                  <span class="stat-k">3.42 km²</span>
-                  <span class="stat-v">Debris Footprint</span>
-                </div>
-              </div>
 
-              <div class="option-action-footer">
-                <div class="option-action-meta font-mono">
-                  <span class="action-radar-pulse"></span>
-                  <span class="action-text">COMMAND CENTER READY</span>
+                <div class="hazard-card-title-block">
+                  <h3 class="hazard-card-title">Ice Avalanche (Himalayas)</h3>
+                  <span class="hazard-card-geo font-mono">LANGTANG VALLEY &amp; CHAMOLI // 28.25°N, 85.50°E</span>
                 </div>
-                <button class="explore-data-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Explore Ice Avalanche Data">
-                  <span>Explore Data</span>
-                  <span class="btn-arrow">→</span>
-                </button>
+
+                <p class="hazard-card-desc">
+                  Catastrophic hanging glacier detachment, pulverized rock-ice chutes, and sudden river blockages. Spaceborne L-band radar isolates rough debris deposit textures (+6.2 dB backscatter surge) and catches pre-collapse slope creep through heavy monsoon cloud cover.
+                </p>
+
+                <div class="hazard-card-stats font-mono">
+                  <div class="card-stat">
+                    <span class="stat-number">+6.2 dB</span>
+                    <span class="stat-name">Debris Surge</span>
+                  </div>
+                  <div class="card-stat">
+                    <span class="stat-number">11.4 cm</span>
+                    <span class="stat-name">InSAR Slope Creep</span>
+                  </div>
+                  <div class="card-stat">
+                    <span class="stat-number">27M m³</span>
+                    <span class="stat-name">Displaced Ice/Rock</span>
+                  </div>
+                </div>
+
+                <div class="hazard-card-cta">
+                  <button class="launch-dashboard-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Launch 3D Dashboard for Ice Avalanche">
+                    <span class="btn-bracket">[</span>
+                    <span class="btn-text">Launch 3D Dashboard</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="btn-bracket">]</span>
+                  </button>
+                </div>
               </div>
             </article>
 
-            <!-- OPTION B: Glacial Lake Outburst Floods (GLOFs) -->
-            <article class="editorial-option-card card-glof" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Glacial Lake Outbursts Data in 3D Command Center" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
-              <div class="option-header-row font-mono">
-                <span class="option-cat-code">[ HAZARD 02 // CRYOSPHERE GLOF ]</span>
-                <span class="option-sensor-tag">L-BAND WATER DRAINAGE</span>
-              </div>
-
-              <div class="option-title-block">
-                <h2 class="option-title">Glacial Lake Outbursts (GLOFs)</h2>
-                <span class="option-locale font-mono">SUICIDE BASIN & SOUTH LHONAK LAKES // 58.46°N, 27.91°N</span>
-              </div>
-
-              <p class="option-summary">
-                Subglacial lake drainage and moraine-dam breaches. While torrential mountain storms and pitch darkness blind optical satellites, radar captures the sudden evacuation of millions of cubic meters of water.
-              </p>
-
-              <div class="option-specs-grid font-mono">
-                <div class="option-stat">
-                  <span class="stat-k">31M m³</span>
-                  <span class="stat-v">Peak Discharge</span>
+            <!-- CARD 2: Glacial Lake Outbursts (Alaska) -->
+            <article class="launch-hazard-card card-glof-alaska" onclick="switchView('dashboard')" tabindex="0" role="button" aria-label="Explore Glacial Lake Outbursts (Alaska) in 3D Dashboard" onkeydown="if(event.key==='Enter'||event.key===' ')switchView('dashboard')">
+              <div class="hazard-card-inner">
+                <div class="hazard-card-badge font-mono">
+                  <span class="badge-tag">[ THEATRE 02 // ALASKA &amp; SIKKIM ]</span>
+                  <span class="badge-tech">L-BAND WATER LOSS</span>
                 </div>
-                <div class="option-stat">
-                  <span class="stat-k">168 ha</span>
-                  <span class="stat-v">Lake Loss</span>
-                </div>
-                <div class="option-stat">
-                  <span class="stat-k">100%</span>
-                  <span class="stat-v">Cloud Penetration</span>
-                </div>
-              </div>
 
-              <div class="option-action-footer">
-                <div class="option-action-meta font-mono">
-                  <span class="action-radar-pulse pulse-glof"></span>
-                  <span class="action-text">COMMAND CENTER READY</span>
+                <div class="hazard-card-title-block">
+                  <h3 class="hazard-card-title">Glacial Lake Outbursts (Alaska)</h3>
+                  <span class="hazard-card-geo font-mono">SUICIDE BASIN &amp; MENDENHALL // 58.46°N, 134.56°W</span>
                 </div>
-                <button class="explore-data-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Explore GLOF Data">
-                  <span>Explore Data</span>
-                  <span class="btn-arrow">→</span>
-                </button>
+
+                <p class="hazard-card-desc">
+                  Subglacial jökulhlaup lake evacuations and surging moraine-dam breaches. While torrential mountain storms and pitch darkness blind optical satellites, radar captures the sudden drainage of tens of millions of cubic meters of water as calm specular reflection vanishes.
+                </p>
+
+                <div class="hazard-card-stats font-mono">
+                  <div class="card-stat">
+                    <span class="stat-number">31M m³</span>
+                    <span class="stat-name">Peak Discharge</span>
+                  </div>
+                  <div class="card-stat">
+                    <span class="stat-number">168 ha</span>
+                    <span class="stat-name">Lake Area Lost</span>
+                  </div>
+                  <div class="card-stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-name">All-Weather Track</span>
+                  </div>
+                </div>
+
+                <div class="hazard-card-cta">
+                  <button class="launch-dashboard-btn font-mono" type="button" onclick="event.stopPropagation(); switchView('dashboard');" aria-label="Launch 3D Dashboard for Glacial Lake Outbursts">
+                    <span class="btn-bracket">[</span>
+                    <span class="btn-text">Launch 3D Dashboard</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="btn-bracket">]</span>
+                  </button>
+                </div>
               </div>
             </article>
 
           </div>
-
-        </div>
+        </section>
 
       </div>
 
@@ -1404,6 +1479,6 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v55"></script>
+  <script src="app.js?v=20261107_v56"></script>
 </body>
 </html>
