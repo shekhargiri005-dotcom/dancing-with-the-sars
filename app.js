@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v70');
+    const res = await fetch('data/cases.json?v=20261107_v73');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v70)', {
-      build: '20261107_v70',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v73)', {
+      build: '20261107_v73',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     

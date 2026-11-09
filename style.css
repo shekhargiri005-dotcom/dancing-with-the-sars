@@ -1884,14 +1884,16 @@ body.view-story-himalayas #dashboard-view {
   background: #02050b;
 }
 
-/* Floating Signal Layer Toolbar (Top Center) */
+/* Floating Signal Layer Toolbar (Positioned cleanly after the 3D Globe back button to prevent overlap) */
 .signal-toolbar-wrapper {
   position: absolute;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0.85rem;
+  left: 145px;
+  right: 1rem;
   z-index: 600;
   pointer-events: none;
+  display: flex;
+  justify-content: center;
 }
 
 .signal-toolbar {
@@ -1906,8 +1908,14 @@ body.view-story-himalayas #dashboard-view {
   border: 1px solid var(--border-medium);
   box-shadow: var(--shadow-panel);
   pointer-events: auto;
-  max-width: 95vw;
+  max-width: 100%;
   overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.signal-toolbar::-webkit-scrollbar {
+  display: none;
 }
 
 .signal-pill {
@@ -5968,11 +5976,9 @@ body.view-dashboard .nav-container {
   .place-nav-bar {
     top: 0.5rem;
     left: 0.5rem;
-    right: 0.5rem;
-    display: flex;
-    justify-content: space-between;
+    display: inline-flex;
     padding: 3px 5px;
-    gap: 3px;
+    width: auto;
   }
   .place-nav-btn {
     padding: 6px 8px;
@@ -6049,5 +6055,194 @@ body.view-dashboard .nav-container {
     padding: 0.75rem !important;
     font-size: 0.8rem !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 255, 255, 0.25) !important;
+  }
+}
+
+/* ==========================================================================
+   OFFICIAL APP LOGO & BRAND SHOWCASE STYLING (v71)
+   ========================================================================== */
+
+/* Launchpad Brand Hero Showcase */
+.launchpad-brand-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 1.5rem 2rem;
+  background: rgba(14, 24, 42, 0.65);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(0, 255, 255, 0.08);
+  margin-bottom: -1rem;
+}
+
+.brand-hero-badge-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+
+.brand-hero-logo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 16px rgba(0, 255, 255, 0.55));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.launchpad-brand-hero:hover .brand-hero-logo {
+  transform: scale(1.08) rotate(6deg);
+}
+
+.brand-hero-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  animation: logoAuraPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes logoAuraPulse {
+  0% { transform: scale(0.92); opacity: 0.4; }
+  100% { transform: scale(1.15); opacity: 0.85; }
+}
+
+.brand-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.brand-hero-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.brand-tag-nasa {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.brand-tag-nisar {
+  background: rgba(2, 132, 199, 0.2);
+  color: #7DD3FC;
+  border: 1px solid rgba(2, 132, 199, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.brand-tag-live {
+  background: rgba(0, 255, 255, 0.15);
+  color: #00FFFF;
+  border: 1px solid rgba(0, 255, 255, 0.45);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+}
+
+.brand-hero-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #F8FAFC;
+  margin: 0;
+  line-height: 1.15;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.brand-hero-tagline {
+  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
+  color: #94A3B8;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.brand-hero-tagline .hero-sep {
+  color: #00FFFF;
+  margin: 0 4px;
+}
+
+/* Vertical HUD Header Logo */
+.command-toolbar.vertical-toolbar .vtoolbar-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 7px 10px !important;
+}
+
+.hud-logo-icon {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.5)) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.vtoolbar-header:hover .hud-logo-icon {
+  transform: rotate(20deg) scale(1.1) !important;
+}
+
+.vtoolbar-title-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+}
+
+.vtoolbar-sub {
+  font-size: 8px !important;
+  letter-spacing: 0.12em !important;
+  color: #38BDF8 !important;
+  opacity: 0.85 !important;
+}
+
+/* Drawer Logo Icon */
+.drawer-logo-icon {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4)) !important;
+  flex-shrink: 0 !important;
+}
+
+.drawer-header-text {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+}
+
+.drawer-sub {
+  font-size: 9px !important;
+  letter-spacing: 0.08em !important;
+  color: #38BDF8 !important;
+}
+
+@media (max-width: 640px) {
+  .launchpad-brand-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+  .brand-hero-tags {
+    justify-content: center;
+  }
+  .brand-hero-badge-wrap {
+    width: 76px;
+    height: 76px;
   }
 }

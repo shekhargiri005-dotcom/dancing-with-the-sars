@@ -9,7 +9,8 @@
   <meta http-equiv="Expires" content="0">
   <title>Dancing with the SARs: How Ice Becomes a Flood | NISAR Radar Explorer</title>
 
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="alternate icon" type="image/png" href="assets/logo_badge.png">
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -28,7 +29,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v70">
+  <link rel="stylesheet" href="style.css?v=20261107_v73">
 </head>
 
 <body class="view-dashboard">
@@ -39,10 +40,13 @@
   <header class="app-header command-toolbar vertical-toolbar toolbar-minimized" id="app-toolbar">
     <div class="nav-container">
 
-      <!-- Vertical HUD Header Badge -->
-      <div class="vtoolbar-header font-mono">
-        <span class="vtoolbar-pulse-dot"></span>
-        <span class="vtoolbar-title">NISAR HUD</span>
+      <!-- Vertical HUD Header Badge with Official Emblem -->
+      <div class="vtoolbar-header font-mono" onclick="switchView('launchpad')" style="cursor: pointer;" title="Dancing with the SARs • Mission Launchpad">
+        <img src="assets/logo.svg" alt="Dancing with the SARs Emblem" class="hud-logo-icon" />
+        <div class="vtoolbar-title-wrap">
+          <span class="vtoolbar-title">NISAR HUD</span>
+          <span class="vtoolbar-sub font-mono">SAR OBSERVATORY</span>
+        </div>
       </div>
 
       <!-- Action Navigation & Telemetry Selectors -->
@@ -267,6 +271,27 @@
             <span class="meta-code">DOSSIER REF: 2026-CRYOSPHERE</span>
           </div>
         </header>
+
+        <!-- Official Mission Brand Hero Showcase -->
+        <div class="launchpad-brand-hero">
+          <div class="brand-hero-badge-wrap">
+            <img src="assets/logo.svg" alt="Dancing with the SARs Emblem" class="brand-hero-logo" />
+            <div class="brand-hero-glow" aria-hidden="true"></div>
+          </div>
+          <div class="brand-hero-text">
+            <div class="brand-hero-tags font-mono">
+              <span class="brand-tag-nasa">NASA SPACE APPS 2026</span>
+              <span class="brand-tag-nisar">NISAR L-BAND 24.2cm</span>
+              <span class="brand-tag-live">OPERATIONAL SENSOR</span>
+            </div>
+            <h1 class="brand-hero-title">
+              Dancing with the SARs
+            </h1>
+            <p class="brand-hero-tagline font-mono">
+              HOW ICE BECOMES A FLOOD <span class="hero-sep">//</span> SPACEBORNE RADAR CRYOSPHERE EXPLORER
+            </p>
+          </div>
+        </div>
 
         <!-- ===================================================================
              SECTION 1: THE PROBLEM
@@ -713,24 +738,14 @@
       <!-- LEFT COLUMN: Map Viewport & Floating Glass Overlays -->
       <div class="place-viewport-column sar-viewport-col">
 
-        <!-- Navigation & Go Back Bar (Launchpad, Dashboard, Globe, Menu) -->
-        <div class="place-nav-bar font-mono" role="navigation" aria-label="Radar Lab Navigation and Return">
-          <button class="place-nav-btn primary-back" onclick="switchView('launchpad')" title="Return to Mission Launchpad">
+        <!-- Navigation: Only Back to 3D Globe (No overlap with signal toolbar) -->
+        <div class="place-nav-bar font-mono" role="navigation" aria-label="Return to 3D Hazard Globe">
+          <button class="place-nav-btn primary-back" onclick="switchView('globe')" title="Return to 3D Hazard Globe">
             <span class="nav-arrow">←</span>
-            <span class="nav-text">LAUNCHPAD</span>
-          </button>
-          <button class="place-nav-btn" onclick="switchView('dashboard')" title="Go to 3D Command Center Dashboard" style="display: none !important;">
-            <span class="nav-icon">🧊</span>
-            <span class="nav-text">3D DASHBOARD</span>
-          </button>
-          <button class="place-nav-btn" onclick="switchView('globe')" title="Go to 3D Hazard Globe">
             <span class="nav-icon">🌐</span>
             <span class="nav-text">3D GLOBE</span>
           </button>
-          <button id="btn-mobile-nav-toggle" class="place-nav-btn mobile-menu-btn" onclick="toggleMobileNavDrawer()" title="Open Mission Menu">
-            <span class="nav-icon">❖</span>
-            <span class="nav-text">MENU</span>
-          </button>
+          <button id="btn-mobile-nav-toggle" style="display: none !important;"></button>
         </div>
 
         <!-- Signal Layer Filter Toolbar (Floating Glass Pills) -->
@@ -1393,19 +1408,12 @@
 
               </div>
 
-              <!-- Bottom Call to Action (Open Forensic Dossier & View 3D Dashboard) -->
+              <!-- Bottom Call to Action (Open Forensic Dossier) -->
               <footer class="story-cta-footer">
                 <button class="story-cta-dashboard-btn font-mono" onclick="openDossierModal('chamoli')"
                   aria-label="Open Forensic Dossier Modal for Chamoli">
                   <span>[</span>
                   <span>OPEN FORENSIC DOSSIER</span>
-                  <span class="cta-arrow">→</span>
-                  <span>]</span>
-                </button>
-                <button class="story-cta-dashboard-btn secondary font-mono" onclick="switchView('dashboard')"
-                  aria-label="View in 3D Command Center">
-                  <span>[</span>
-                  <span>3D COMMAND CENTER</span>
                   <span class="cta-arrow">→</span>
                   <span>]</span>
                 </button>
@@ -1542,19 +1550,12 @@
 
               </div>
 
-              <!-- Bottom Call to Action (Open Forensic Dossier & View 3D Dashboard) -->
+              <!-- Bottom Call to Action (Open Forensic Dossier) -->
               <footer class="story-cta-footer">
                 <button class="story-cta-dashboard-btn font-mono" onclick="openDossierModal('south_lhonak')"
                   aria-label="Open Forensic Dossier Modal for South Lhonak">
                   <span>[</span>
                   <span>OPEN FORENSIC DOSSIER</span>
-                  <span class="cta-arrow">→</span>
-                  <span>]</span>
-                </button>
-                <button class="story-cta-dashboard-btn secondary font-mono" onclick="switchView('dashboard')"
-                  aria-label="View in 3D Command Center">
-                  <span>[</span>
-                  <span>3D COMMAND CENTER</span>
                   <span class="cta-arrow">→</span>
                   <span>]</span>
                 </button>
@@ -1917,8 +1918,11 @@
     <div class="mobile-drawer-panel font-mono">
       <div class="drawer-header">
         <div class="drawer-title-wrap">
-          <span class="drawer-pulse-dot"></span>
-          <span class="drawer-title">MISSION COMMAND // NAVIGATION</span>
+          <img src="assets/logo.svg" alt="Emblem" class="drawer-logo-icon" />
+          <div class="drawer-header-text">
+            <span class="drawer-title">DANCING WITH THE SARS</span>
+            <span class="drawer-sub font-mono">NISAR RADAR EXPLORER</span>
+          </div>
         </div>
         <button class="drawer-close-btn" onclick="closeMobileNavDrawer()" aria-label="Close Navigation Menu">[ ✕ CLOSE ]</button>
       </div>
@@ -2076,7 +2080,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v70"></script>
+  <script src="app.js?v=20261107_v73"></script>
 </body>
 
 </html>
