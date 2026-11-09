@@ -28,7 +28,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v64">
+  <link rel="stylesheet" href="style.css?v=20261107_v65">
 </head>
 
 <body class="view-dashboard">
@@ -487,46 +487,46 @@
               </div>
             </article>
 
-            <!-- CARD 2: Mendenhall Glacier Outburst (Alaska) -->
-            <article class="launch-hazard-card card-glof-alaska" onclick="switchView('story-mendenhall')" tabindex="0"
-              role="button" aria-label="Read Mendenhall Glacier Outburst Story Dossier"
-              onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-mendenhall')">
+            <!-- CARD 2: South Lhonak Moraine Burst (Sikkim) -->
+            <article class="launch-hazard-card card-glof-sikkim" onclick="switchView('story-lhonak')" tabindex="0"
+              role="button" aria-label="Read South Lhonak Moraine Burst Story Dossier"
+              onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-lhonak')">
               <div class="hazard-card-inner">
                 <div class="hazard-card-badge font-mono">
-                  <span class="badge-tag">[ HISTORICAL DOSSIER // ALASKA ]</span>
-                  <span class="badge-tech">L-BAND WATER LOSS</span>
+                  <span class="badge-tag">[ HISTORICAL DOSSIER // SIKKIM ]</span>
+                  <span class="badge-tech">RISAT &amp; SENTINEL-1 SAR</span>
                 </div>
 
                 <div class="hazard-card-title-block">
-                  <h3 class="hazard-card-title">Mendenhall Glacier Outburst (Alaska)</h3>
-                  <span class="hazard-card-geo font-mono">MENDENHALL GLACIER &amp; SUICIDE BASIN // 58.46°N, 134.56°W</span>
+                  <h3 class="hazard-card-title">South Lhonak Moraine Burst (Sikkim)</h3>
+                  <span class="hazard-card-geo font-mono">SOUTH LHONAK LAKE &amp; TEESTA VALLEY // 27.91°N, 88.20°E</span>
                 </div>
 
                 <p class="hazard-card-desc">
-                  Subglacial jökulhlaup lake evacuations beneath Mendenhall Glacier, releasing 31 million m³ of impounded
-                  meltwater into Juneau within 36 hours. While torrential coastal storms and darkness blind optical sensors,
-                  radar captures the sudden drainage as calm specular reflection vanishes from the exposed bedrock bed.
+                  Catastrophic nocturnal moraine dam breach at 5,200 m altitude, releasing over 50 million m³ of impounded
+                  meltwater down the Teesta River gorge. Spaceborne radar penetrates storm cloudbursts, capturing the sudden
+                  loss of 105 hectares of calm water as specular reflection vanished.
                 </p>
 
                 <div class="hazard-card-stats font-mono">
                   <div class="card-stat">
-                    <span class="stat-number">31M m³</span>
-                    <span class="stat-name">Peak Discharge</span>
+                    <span class="stat-number">105 ha</span>
+                    <span class="stat-name">Lake Area Lost</span>
                   </div>
                   <div class="card-stat">
-                    <span class="stat-number">168 ha</span>
-                    <span class="stat-name">Basin Area Lost</span>
+                    <span class="stat-number">50M m³</span>
+                    <span class="stat-name">GLOF Discharge</span>
                   </div>
                   <div class="card-stat">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-name">All-Weather Track</span>
+                    <span class="stat-number">1,200 MW</span>
+                    <span class="stat-name">Teesta Dam Lost</span>
                   </div>
                 </div>
 
                 <div class="hazard-card-cta">
                   <button class="launch-dashboard-btn font-mono" type="button"
-                    onclick="event.stopPropagation(); switchView('story-mendenhall');"
-                    aria-label="Read Story for Mendenhall Glacier Outburst">
+                    onclick="event.stopPropagation(); switchView('story-lhonak');"
+                    aria-label="Read Story for South Lhonak Moraine Burst">
                     <span class="btn-bracket">[</span>
                     <span class="btn-text">Read the Story</span>
                     <span class="btn-arrow">→</span>
@@ -1503,9 +1503,9 @@
           </div>
         </article>
 
-        <!-- SUB-SECTION 2: THE MENDENHALL GLACIER OUTBURST (ALASKA) -->
+        <!-- SUB-SECTION 2: THE SOUTH LHONAK MORAINE BURST (SIKKIM) -->
         <article id="story-alaska" class="editorial-story-card hidden"
-          aria-label="Mendenhall Glacier Outburst Narrative Dossier">
+          aria-label="South Lhonak Moraine Burst Narrative Dossier">
           <div class="story-card-grid">
 
             <!-- Left Column (60% width): Text Narrative & CTA -->
@@ -1514,33 +1514,33 @@
                 <div class="story-card-kicker font-mono">
                   <span>DOSSIER 02</span>
                   <span>//</span>
-                  <span>ALASKAN GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+                  <span>EASTERN HIMALAYAN GLOF CATASTROPHE</span>
                 </div>
 
                 <h1 class="story-card-title">
-                  The Mendenhall Glacier Outburst: Subglacial Jökulhlaup
+                  The South Lhonak Moraine Burst: Teesta Basin GLOF
                 </h1>
 
                 <!-- Monospace Metadata Strip -->
                 <div class="story-meta-strip font-mono">
                   <div class="story-meta-item">
                     <span class="meta-key">EVENT:</span>
-                    <span class="meta-val">SUBGLACIAL JÖKULHLAUP (GLOF)</span>
+                    <span class="meta-val">MORAINE-DAMMED LAKE BURST (GLOF)</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">DATE:</span>
-                    <span class="meta-val">ANNUAL RECURRENT (AUG 2023–2024)</span>
+                    <span class="meta-val">OCT 04, 2023</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">LOCATION:</span>
-                    <span class="meta-val">MENDENHALL GLACIER &amp; SUICIDE BASIN, JUNEAU (58.46°N, 134.56°W)</span>
+                    <span class="meta-val">SOUTH LHONAK LAKE, SIKKIM (27.91°N, 88.20°E)</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">SENSOR:</span>
-                    <span class="meta-val">NISAR L-BAND / AIRSAR (24.2 CM)</span>
+                    <span class="meta-val">RISAT-1A / SENTINEL-1 SAR</span>
                   </div>
                 </div>
               </header>
@@ -1555,11 +1555,11 @@
                     <span>What Happened</span>
                   </h2>
                   <p class="narrative-p">
-                    High above Juneau, Alaska, Suicide Basin is an ice-dammed marginal glacier depression held back
-                    by the sheer western flank of the massive Mendenhall Glacier. During late spring and summer, rainfall
-                    and melting glaciers fill the basin with over 31 million cubic meters of meltwater. Once hydrostatic
-                    buoyancy lifts the glacier dam from its bedrock seal, subglacial tunnels rupture catastrophically,
-                    initiating a violent jökulhlaup lake outburst lasting 36 to 48 hours.
+                    Near midnight on October 3–4, 2023, following intense cloudburst precipitation, a massive lateral
+                    moraine slump plunged into South Lhonak Lake (elevation 5,200 m) in North Sikkim. The resulting
+                    displacement tsunami wave surged over and catastrophically breached the fragile, unconsolidated terminal
+                    moraine dam. Within hours, over 50 million cubic meters of impounded glacial meltwater evacuated down
+                    the Lachen valley at speeds exceeding 50 km/h.
                   </p>
                 </section>
 
@@ -1570,10 +1570,11 @@
                     <span>The Damage</span>
                   </h2>
                   <p class="narrative-p">
-                    The sudden subglacial deluge surges through Mendenhall Lake and pours down the Mendenhall River
-                    directly into Juneau's residential districts. Record-shattering crest stages in August 2023 and 2024
-                    undermined riverbanks by tens of meters, collapsing multi-story homes into the torrent, tearing out
-                    arterial roadways, severing municipal utilities, and prompting emergency city-wide evacuations.
+                    The raging floodwaters roared 67 km down the gorge in less than 2.5 hours, completely overwhelming and
+                    demolishing the 1,200 MW Teesta-III Hydroelectric Project dam at Chungthang within minutes. Over 100
+                    people lost their lives or remained permanently missing—including 23 Indian Army personnel swept away at
+                    the Bardang military station—while 15 arterial bridges were destroyed, severing National Highway 10 and
+                    isolating North Sikkim communities for months.
                   </p>
                 </section>
 
@@ -1584,11 +1585,11 @@
                     <span>How Radar Saw It</span>
                   </h2>
                   <p class="narrative-p">
-                    Torrential maritime rainstorms and low cloud sheets continuously blind optical cameras across coastal
-                    Alaska, but spaceborne L-band SAR penetrates weather and darkness without attenuation. Calm water in the
-                    filled basin reflects radar pulses specularly away (appearing pitch-black below -20 dB). As the water
-                    evacuates, the exposed rocky basin floor and stranded ice blocks scatter radar pulses directly back
-                    (+12 dB backscatter surge), allowing glaciologists to map lake discharge volumes in real time.
+                    Because the disaster struck in pitch darkness beneath thick monsoon cloudburst sheets, optical cameras
+                    were completely blinded. Microwave Synthetic Aperture Radar (ISRO's RISAT-1A and ESA's Sentinel-1)
+                    penetrated the storm front. Multi-temporal SAR difference mapping quantified the instantaneous drainage
+                    of approximately 105 hectares of the lake body: calm water's specular reflection (below -22 dB) vanished,
+                    replaced by intense diffuse backscatter (+12 dB surge) from the newly exposed muddy lakebed and boulder sediment.
                   </p>
                 </section>
 
@@ -1596,8 +1597,8 @@
 
               <!-- Bottom Call to Action (Open Forensic Dossier & View 3D Dashboard) -->
               <footer class="story-cta-footer">
-                <button class="story-cta-dashboard-btn font-mono" onclick="openDossierModal('mendenhall')"
-                  aria-label="Open Forensic Dossier Modal for Mendenhall">
+                <button class="story-cta-dashboard-btn font-mono" onclick="openDossierModal('south_lhonak')"
+                  aria-label="Open Forensic Dossier Modal for South Lhonak">
                   <span>[</span>
                   <span>OPEN FORENSIC DOSSIER</span>
                   <span class="cta-arrow">→</span>
@@ -1619,7 +1620,7 @@
                 <div class="story-map-hud-header font-mono">
                   <div class="hud-target-indicator">
                     <span class="hud-dot-pulse"></span>
-                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // JUNEAU, ALASKA</span>
+                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // SIKKIM, INDIA</span>
                   </div>
                   <div class="hud-header-right">
                     <div class="map-layer-toggles font-mono">
@@ -1629,13 +1630,13 @@
                       <button class="layer-toggle-btn" id="btn-layer-dark-alaska"
                         onclick="setStoryMapLayer('alaska', 'dark')" title="Show Dark Canvas">DARK</button>
                     </div>
-                    <span class="hud-coords-tag">58.46°N, 134.56°W</span>
+                    <span class="hud-coords-tag">27.91°N, 88.20°E</span>
                   </div>
                 </div>
 
                 <div class="story-map-frame">
                   <div id="story-map-alaska" class="story-leaflet-map" role="region"
-                    aria-label="Mendenhall Glacier Suicide Basin Juneau Alaska geographic context mini-map"></div>
+                    aria-label="South Lhonak Lake Sikkim geographic context mini-map"></div>
                   <button id="interact-btn-alaska" class="map-interact-btn font-mono"
                     onclick="toggleMapInteraction('alaska')" aria-label="Toggle map pan and zoom interaction">
                     [ Click to Interact ]
@@ -1643,7 +1644,7 @@
                 </div>
 
                 <div class="story-map-hud-footer font-mono">
-                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • NISAR L-BAND 24CM • 58.46°N, 134.56°W</span>
+                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • RISAT-1A &amp; SENTINEL-1 SAR • 27.91°N, 88.20°E</span>
                 </div>
               </div>
             </div>
@@ -2125,7 +2126,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v64"></script>
+  <script src="app.js?v=20261107_v65"></script>
 </body>
 
 </html>

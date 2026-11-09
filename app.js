@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v64');
+    const res = await fetch('data/cases.json?v=20261107_v65');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v64)', {
-      build: '20261107_v64',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v65)', {
+      build: '20261107_v65',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -874,7 +874,7 @@ function switchView(viewName) {
     setTimeout(() => {
       initCesiumGlobe();
     }, 50);
-  } else if (viewName === 'story-himalayas' || viewName === 'story-alaska' || viewName === 'story-ice' || viewName === 'story' || viewName === 'story-chamoli' || viewName === 'story-mendenhall') {
+  } else if (viewName === 'story-himalayas' || viewName === 'story-alaska' || viewName === 'story-ice' || viewName === 'story' || viewName === 'story-chamoli' || viewName === 'story-mendenhall' || viewName === 'story-lhonak' || viewName === 'story-sikkim') {
     const s = document.getElementById('story-view');
     if (s) {
       s.classList.remove('hidden');
@@ -884,12 +884,12 @@ function switchView(viewName) {
     const storyHimalayas = document.getElementById('story-himalayas');
     const storyAlaska = document.getElementById('story-alaska');
 
-    if (viewName === 'story-alaska' || viewName === 'story-mendenhall') {
+    if (viewName === 'story-alaska' || viewName === 'story-lhonak' || viewName === 'story-sikkim' || viewName === 'story-mendenhall') {
       if (storyHimalayas) storyHimalayas.classList.add('hidden');
       if (storyAlaska) storyAlaska.classList.remove('hidden');
       const lbl = document.getElementById('current-case-label');
-      if (lbl) lbl.innerText = 'Story: The Mendenhall Glacier Outburst (Alaska)';
-      sendClientLog('info', 'STORY_SELECT', 'Selected Mendenhall Glacier GLOF narrative dossier', { story: 'mendenhall' });
+      if (lbl) lbl.innerText = 'Story: South Lhonak Moraine Burst (Sikkim)';
+      sendClientLog('info', 'STORY_SELECT', 'Selected South Lhonak Moraine Burst narrative dossier', { story: 'south_lhonak' });
       initStoryAlaskaMap();
     } else {
       // Default to Chamoli Rock-Ice Avalanche (Himalayas)
@@ -1104,11 +1104,11 @@ function launchModalDossier() {
   if (activeModalCaseId === 'chamoli') {
     switchView('story-chamoli');
     openDossierModal('chamoli');
-  } else if (activeModalCaseId === 'suicide_basin' || activeModalCaseId === 'mendenhall') {
-    switchView('story-mendenhall');
-    openDossierModal('mendenhall');
   } else if (activeModalCaseId === 'south_lhonak') {
+    switchView('story-lhonak');
     openDossierModal('south_lhonak');
+  } else if (activeModalCaseId === 'suicide_basin' || activeModalCaseId === 'mendenhall') {
+    openDossierModal('mendenhall');
   } else {
     openDossierModal(activeModalCaseId || 'chamoli');
   }
@@ -1140,8 +1140,8 @@ function selectCase(caseId) {
     } else {
       if (c.id === 'chamoli') {
         switchView('story-chamoli');
-      } else if (c.id === 'suicide_basin' || c.id === 'mendenhall') {
-        switchView('story-mendenhall');
+      } else if (c.id === 'south_lhonak') {
+        switchView('story-lhonak');
       } else {
         switchView('story');
         renderStoryScreen(c);
@@ -1884,8 +1884,8 @@ function initStoryAlaskaMap() {
 
   if (!storyMapAlaska) {
     storyMapAlaska = L.map('story-map-alaska', {
-      center: [58.46, -134.56],
-      zoom: 9,
+      center: [27.91, 88.20],
+      zoom: 10,
       minZoom: 4,
       maxZoom: 18,
       dragging: false,
@@ -1918,9 +1918,9 @@ function initStoryAlaskaMap() {
       popupAnchor: [0, -14]
     });
 
-    L.marker([58.46, -134.56], { icon: cyanPulseIcon })
+    L.marker([27.91, 88.20], { icon: cyanPulseIcon })
       .addTo(storyMapAlaska)
-      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">MENDENHALL GLACIER</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Subglacial Jökulhlaup & Suicide Basin<br>58.46°N, 134.56°W</span>', {
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">SOUTH LHONAK LAKE & CHUNGTHANG</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Epicenter of 105 ha Moraine Dam Breach<br>27.91°N, 88.20°E</span>', {
         autoPan: false
       })
       .openPopup();
@@ -1939,7 +1939,7 @@ function initStoryAlaskaMap() {
     setTimeout(() => {
       if (storyMapAlaska) {
         storyMapAlaska.invalidateSize();
-        storyMapAlaska.setView([58.46, -134.56], storyMapAlaska.getZoom() || 9);
+        storyMapAlaska.setView([27.91, 88.20], storyMapAlaska.getZoom() || 10);
       }
     }, delay);
   });
@@ -3551,8 +3551,14 @@ function switchViewAndCloseDrawer(viewName) {
 
 function selectCaseAndCloseDrawer(caseId) {
   closeMobileNavDrawer();
-  selectCase(caseId);
-  switchView('place');
+  if (caseId === 'chamoli') {
+    switchView('story-chamoli');
+  } else if (caseId === 'south_lhonak') {
+    switchView('story-lhonak');
+  } else {
+    selectCase(caseId);
+    switchView('place');
+  }
 }
 
 function openDossierAndCloseDrawer(caseId) {

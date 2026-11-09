@@ -3,7 +3,7 @@
 > **"How Ice Becomes a Flood"** 🌊❄️  
 > An interactive cyber-intelligence dashboard that translates complex **NASA-ISRO Synthetic Aperture Radar (NISAR)** microwave observations into actionable insights across catastrophic cryosphere hazards: subglacial lake outbursts (GLOFs) and massive rock-ice slope detachments.
 
-[![Build Status](https://img.shields.io/badge/build-v64%20passed-00E5FF?style=flat-square&logo=github)](https://github.com/shekhargiri005-dotcom/dancing-with-the-sars)
+[![Build Status](https://img.shields.io/badge/build-v65%20passed-00E5FF?style=flat-square&logo=github)](https://github.com/shekhargiri005-dotcom/dancing-with-the-sars)
 [![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-00FFFF?style=flat-square&logo=vercel)](https://dancing-with-the-sars-one.vercel.app/)
 [![Radar Band](https://img.shields.io/badge/Sensor-NISAR%20L--Band%20(24.2%20cm)-0284c7?style=flat-square)](https://nisar.jpl.nasa.gov/)
 [![NASA Space Apps](https://img.shields.io/badge/NASA%20Space%20Apps-2026-38bdf8?style=flat-square)](https://www.spaceappschallenge.org/)
@@ -67,7 +67,7 @@ The application is structured into five integrated cyber-intelligence modules ac
 ### 1. View 0: Editorial Mission Launchpad (`#landing-view`)
 - Minimalist aerospace dark-editorial layout with active surveillance telemetry readouts.
 - High-level executive briefing on spaceborne microwave monitoring.
-- Direct story cards with route triggers into **Himalayas (Langtang)** and **Alaska (Suicide Basin)**.
+- Direct historical story dossiers with route triggers into **Chamoli Disaster (Uttarakhand)** and **South Lhonak Moraine Burst (Sikkim)**.
 
 ### 2. View 1: 3D Command Center Dashboard (`#dashboard-view`)
 - Isometric holographic cyber diorama powered by Three.js with slow-rotating planetary core and atmospheric halo.
