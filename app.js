@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v65');
+    const res = await fetch('data/cases.json?v=20261107_v69');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v65)', {
-      build: '20261107_v65',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v69)', {
+      build: '20261107_v69',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -931,14 +931,10 @@ function switchView(viewName) {
     document.body.classList.add('view-' + viewName);
   }
 
-  // Discard brand identity block on 3D Dashboard header
+  // Brand identity block permanently removed from vertical HUD
   const brandGroup = document.querySelector('.brand-group');
   if (brandGroup) {
-    if (viewName === 'dashboard' || viewName === 'world') {
-      brandGroup.style.display = 'none';
-    } else {
-      brandGroup.style.display = 'flex';
-    }
+    brandGroup.style.display = 'none';
   }
 
   updateToolbarContext(viewName);
@@ -2028,34 +2024,34 @@ const DOSSIER_DATA = {
     },
     timeline: [
       {
-        time: 'PHASE 1 • BASIN IMPOUNDMENT',
-        title: 'Suicide Basin Water Accumulation',
-        desc: 'Over 31 million cubic meters of meltwater and precipitation impound inside Suicide Basin, structurally dammed by the western flank of Mendenhall Glacier.'
+        time: 'STAGE 1 • WATER ACCUMULATION',
+        title: 'Seasonal Basin Filling',
+        desc: 'Over 31 million cubic meters of summer meltwater and rainfall accumulate inside Suicide Basin, held back by the western ice wall of Mendenhall Glacier.'
       },
       {
-        time: 'PHASE 2 • SUBGLACIAL BREACH',
-        title: 'Hydrostatic Seal Rupture & Conduit Carving',
-        desc: 'Rising lake levels reach critical buoyant threshold, floating the ice dam and opening pressurized subglacial conduits along the glacier bed.'
+        time: 'STAGE 2 • SUBGLACIAL BREACH',
+        title: 'Ice Dam Flotation & Tunnel Carving',
+        desc: 'Rising lake levels reach the buoyant threshold, lifting the ice dam and opening high-pressure subglacial tunnels along the glacier bed.'
       },
       {
-        time: 'PHASE 3 • DISCHARGE PEAK',
-        title: 'Violent Jökulhlaup Evacuation',
-        desc: 'Discharge rates surge past 31,000 cubic feet per second into Mendenhall Lake and River, draining over 100 vertical meters of water in under 36 hours.'
+        time: 'STAGE 3 • PEAK DISCHARGE',
+        title: 'Rapid Lake Evacuation',
+        desc: 'Discharge rates exceed 31,000 cubic feet per second, draining over 100 vertical meters of impounded lake water in under 36 hours.'
       },
       {
-        time: 'PHASE 4 • CREST & INUNDATION',
-        title: 'Downstream Residential Flood Crest',
-        desc: 'Mendenhall River crests at unprecedented record stages, severely undercutting riverbanks, undermining foundations, and collapsing homes into the channel.'
+        time: 'STAGE 4 • DOWNSTREAM INUNDATION',
+        title: 'Residential River Flooding',
+        desc: 'The surge empties into Mendenhall Lake and pours down the Mendenhall River, eroding riverbanks and causing homes to collapse into the channel.'
       },
       {
-        time: 'PHASE 5 • POST-FLOOD EXPOSURE',
-        title: 'Rough Bedrock Exposure',
-        desc: 'The emptied basin reveals stranded icebergs and boulder-strewn moraines, shifting radar backscatter abruptly from specular loss to intense diffuse reflection.'
+        time: 'STAGE 5 • POST-FLOOD EXPOSURE',
+        title: 'Exposed Rocky Basin Floor',
+        desc: 'With the water gone, rough bedrock and stranded ice blocks reflect radar signals directly back to space, registering an abrupt +12 dB surge in radar brightness.'
       }
     ],
-    impact: 'Catastrophic annual outbursts in August 2023 and August 2024 caused unprecedented structural destruction along the Mendenhall River corridor in Juneau. Rapid bank erosion collapsed multi-story homes directly into the torrent, severed critical arterial roadways, damaged municipal water infrastructure, and prompted state-level disaster emergencies and residential evacuations.',
-    physics: 'L-band microwave radar penetrates pervasive coastal fog sheets and continuous precipitation without signal attenuation. Calm surface water in the filled basin acts as a specular reflector (radar backscatter σ° ≤ -20 dB, appearing pitch black). As tens of millions of cubic meters of water drain subglacially, rough exposed bedrock and stranded calved ice scatter microwave energy directly back to the sensor (σ° ≥ -8 dB, an abrupt +12 dB surge), allowing remote glaciologists to quantify drainage progress in real time.',
-    limits: 'High-latitude coastal terrain experiences severe atmospheric moisture variations. L-band dual-polarization (HH/HV) is utilized to decouple surface roughness from soil dielectric moisture changes.',
+    impact: 'Catastrophic annual outburst floods in August 2023 and 2024 caused severe structural damage along the Mendenhall River in Juneau, Alaska. Rapid bank erosion collapsed multi-story homes into the river, tore away roadways, undermined municipal utilities, and prompted citywide emergency evacuations.',
+    physics: 'L-band microwave radar penetrates coastal fog and rain without attenuation. Calm water acts like a flat mirror, reflecting radar pulses away from the satellite (appearing dark, below -20 dB). When the lake drains, the rough, boulder-strewn basin floor scatters radar pulses strongly back (bright, above -8 dB), allowing scientists to calculate water loss in real time.',
+    limits: 'High-latitude coastal terrain experiences significant weather variations. Dual-polarization radar (HH/HV) is used to separate surface roughness from soil moisture changes.',
     sources: [
       {
         title: 'USGS Alaska Science Center — "Suicide Basin Glacier Outburst Flood Monitoring"',
@@ -2074,12 +2070,11 @@ const DOSSIER_DATA = {
       }
     ]
   },
-
   chamoli: {
     classification: 'HISTORICAL RADAR FORENSIC RECONSTRUCTION',
     title: 'FORENSIC DOSSIER: CHAMOLI / RISHIGANGA',
     meta: {
-      event: 'ICE-ROCK AVALANCHE & FLASH FLOOD',
+      event: 'ROCK-ICE AVALANCHE & FLASH FLOOD',
       date: 'FEB 07, 2021',
       location: 'UTTARAKHAND, INDIA (30.38°N, 79.73°E)',
       sensor: 'SENTINEL-1 C-BAND / NISAR RETROSPECTIVE'
@@ -2087,33 +2082,33 @@ const DOSSIER_DATA = {
     timeline: [
       {
         time: '06:45 IST • PRE-COLLAPSE',
-        title: 'Precursory Slope Destabilization',
-        desc: 'Deep permafrost degradation in bedrock joints and sub-surface fracture dilation along the 5,600m crown ridge of Ronti peak trigger catastrophic brittle shear stress.'
+        title: 'Precursor Slope Creep',
+        desc: 'Permafrost degradation in deep bedrock joints weakens the 5,600 m ridge of Ronti Peak, accelerating internal shear stress along the fault plane.'
       },
       {
         time: '10:21 IST • DETACHMENT',
-        title: 'Massive Bedrock & Hanging Glacier Failure',
-        desc: 'A ~27 million m³ triangular wedge composed of 80% quartz-mica gneiss and 20% glacial ice detaches instantaneously, free-falling 1,800m down vertical chutes onto the Ronti glacier floor.'
+        title: 'Catastrophic Mountain Detachment',
+        desc: 'Approximately 27 million cubic meters of bedrock and glacier ice detach instantaneously, free-falling 1,800 meters into the Ronti Gad canyon.'
       },
       {
         time: '10:25 IST • TRANSFORMATION',
-        title: 'Hyper-Concentrated Debris Slurry Mobilization',
-        desc: 'Frictional heat generated by kinetic impact pulverizes and melts the glacier ice, converting dry rock mass into a hyper-concentrated slurry travelling at over 60 m/s (216 km/h) down Ronti Gad valley.'
+        title: 'Debris Flow Mobilization',
+        desc: 'The pulverizing impact and frictional heat melt the glacier ice, turning dry rock into a violent, high-speed slurry traveling at over 50 km/h.'
       },
       {
         time: '10:32 IST • FIRST IMPACT',
-        title: 'Destruction of Rishiganga Hydroelectric Plant',
-        desc: 'The 20-meter mud-rock wall slams into the 13.2 MW Rishiganga power project, demolishing concrete headworks and sweeping away the arterial valley bridge in seconds.'
+        title: 'Rishiganga Plant Destruction',
+        desc: 'The 20-meter mud and rock surge slams into the 13.2 MW Rishiganga small hydro project, demolishing concrete headworks in seconds.'
       },
       {
         time: '10:45 IST • SECOND IMPACT',
-        title: 'Inundation of NTPC Tapovan Vishnugad Tunnels',
-        desc: 'The floodwave surges into the 520 MW NTPC Tapovan Vishnugad dam site, burying the intake barrage and choking underground headrace tunnels with tens of thousands of tons of sediment.'
+        title: 'Tapovan Vishnugad Barrage Inundation',
+        desc: 'The flood surges into the 520 MW Tapovan Vishnugad dam site, burying the barrage and filling underground tunnels with sediment.'
       }
     ],
-    impact: 'The disaster resulted in over 200 fatalities and missing persons, predominantly engineers and labor crews trapped inside the subterranean tunnel network of the NTPC Tapovan Vishnugad hydroelectric facility. Both the 13.2 MW Rishiganga project and the 520 MW Tapovan Vishnugad barrage suffered total or near-total destruction, inflicting an estimated $180 million in direct infrastructural damages. Over a dozen high-altitude Himalayan villages across the Chamoli district were completely isolated following the destruction of bridges and roads, prompting a massive joint military and civil disaster response under harsh alpine conditions.',
-    physics: 'Retrospective InSAR (Interferometric Synthetic Aperture Radar) processing revealed progressive, accelerated slope creep of up to 12.8 cm over the 3.5 years leading up to the 2021 failure along the crown fracture of Ronti peak. Following the collapse, multi-temporal radar backscatter (γ°) showed a dramatic surge of up to <strong>+8.4 dB</strong> across the valley deposition zone due to rough surface volume scattering from fractured blocky rubble. Simultaneously, interferometric coherence dropped precipitously across the 30 km flood track, isolating the scoured path where high-velocity debris stripped soil and riparian vegetation down to polished bedrock.',
-    limits: 'This event occurred on February 7, 2021, four years prior to the operational deployment of the NASA-ISRO Synthetic Aperture Radar (NISAR) satellite. Spaceborne radar reconstruction is based on retrospective European Space Agency (ESA) Sentinel-1 C-band (5.6 cm) acquisitions and ISRO digital elevation models. NISAR’s dual-frequency L-band (24.2 cm) radar was specifically engineered with deep vegetation and permafrost penetration capabilities to detect precursory slope creep of this magnitude before catastrophic collapse occurs.',
+    impact: 'Over 200 workers and local residents tragically lost their lives or went missing, primarily in underground hydroelectric tunnels. Both the 13.2 MW Rishiganga and 520 MW Tapovan Vishnugad power projects suffered catastrophic damage exceeding $180 million. Thirteen bridges were washed away, cutting off road access to high-altitude border villages.',
+    physics: 'Retrospective satellite radar processing revealed gradual slope creep of up to 11.4 cm along the ridge fracture in the months before failure. After the collapse, deposited boulders created a sharp +6.2 dB to +8.4 dB increase in radar backscatter, while loss of radar coherence clearly outlined the entire 30-kilometer flood path.',
+    limits: 'This disaster occurred in February 2021, before the operational deployment of NISAR. Reconstructions use European Sentinel-1 C-band radar and ISRO terrain models. NISAR’s 24.2 cm L-band radar is specifically designed to detect this type of millimeter-scale slope creep before failure occurs.',
     sources: [
       {
         title: 'Shugar, D. H., et al. (Science, 2021) — "A massive rock and ice avalanche in the Indian Himalaya"',
@@ -2144,33 +2139,33 @@ const DOSSIER_DATA = {
     timeline: [
       {
         time: '22:30 IST • PRECURSOR',
-        title: 'Torrential Basin Cloudburst',
-        desc: 'Unprecedented nocturnal precipitation over North Sikkim saturates high-altitude permafrost and destabilizes the lateral moraine hanging above South Lhonak lake.'
+        title: 'Nocturnal Cloudburst',
+        desc: 'Torrential rainfall saturates high-altitude permafrost and destabilizes the steep lateral moraine above South Lhonak Lake (5,200 m).'
       },
       {
         time: '23:45 IST • BREACH',
-        title: 'Moraine Slide & Displacement Wave',
-        desc: 'A massive lateral moraine slump plunges into the lake, generating an immense displacement seiche that overtops and breaches the fragile unconsolidated terminal moraine dam.'
+        title: 'Moraine Landslide & Displacement Wave',
+        desc: 'A massive moraine slide collapses into the lake, creating a tsunami-like displacement wave that overtops and breaches the natural moraine dam.'
       },
       {
         time: '00:30 IST • SURGE',
-        title: 'Catastrophic GLOF Release',
-        desc: 'Over 60 million m³ of impounded glacial meltwater discharges down the Lachen valley at speeds exceeding 50 km/h, scouring canyon walls down to bare bedrock.'
+        title: 'GLOF Discharge Down Teesta Valley',
+        desc: 'Over 50 million cubic meters of glacial meltwater evacuate down the valley at speeds exceeding 50 km/h, scouring canyon walls down to bedrock.'
       },
       {
         time: '01:15 IST • IMPACT',
         title: 'Destruction of 1,200 MW Teesta-III Dam',
-        desc: 'The catastrophic flood wave overwhelms the Teesta-III hydroelectric barrage at Chungthang, destroying spillways and completely washing away the powerhouse.'
+        desc: 'The raging floodwaters overwhelm the Teesta-III Hydroelectric Project dam at Chungthang, destroying spillways and power facilities.'
       },
       {
         time: '02:00 IST • DOWNSTREAM',
-        title: 'Inundation of Teesta Basin Settlements',
-        desc: 'Surge waters submerge towns of Dikchu, Singtam, and Rangpo, wiping out 15 major bridges, inundating military cantonments, and severing NH-10.'
+        title: 'Inundation of Valley Settlements',
+        desc: 'Surge waters flood towns along the Teesta basin, destroying 15 arterial bridges, inundating military cantonments, and severing NH-10.'
       }
     ],
-    impact: 'Over 100 people lost their lives or remained permanently missing across Sikkim, including 23 Indian Army personnel swept away at the Bardang military installation. The 1,200 MW Teesta-III hydro project, the state’s crown infrastructure asset, suffered catastrophic total failure. Fifteen critical bridges were severed, cutting off northern military outposts and mountain communities for months, with economic losses exceeding $300 million.',
-    physics: 'Multi-temporal SAR difference mapping quantified the instantaneous drainage of ~105 hectares of South Lhonak lake within 12 hours. Because calm water produces specular reflection (radar backscatter < -22 dB) while drained muddy lakebed sediment yields rough diffuse scattering (> -11 dB), dual-polarized radar precisely mapped the volumetric discharge despite continuous monsoon cloud cover. Wide-area interferometric coherence loss demarcated the entire 80 km river canyon scour corridor.',
-    limits: 'This event occurred in October 2023, preceding the launch and operational commissioning of NISAR. Spaceborne radar analysis utilizes European Sentinel-1 C-band SAR and ISRO RISAT data. NISAR’s L-band (24.2 cm) radar is specifically configured to monitor ongoing unconsolidated moraine dam subsidence at millimeter accuracy every 12 days, providing earlier GLOF risk forecasting.',
+    impact: 'Over 100 people lost their lives or remained missing across Sikkim, including 23 Indian Army personnel at Bardang. The 1,200 MW Teesta-III dam suffered total failure. Fifteen bridges were destroyed, cutting off northern mountain communities and military outposts for months, with economic damage exceeding $300 million.',
+    physics: 'Satellite radar difference mapping quantified the rapid drainage of ~105 hectares of lake water within hours. Smooth water reflects radar signals away (appearing dark, below -22 dB). As the lake emptied, the newly exposed rough mud and boulder lakebed scattered radar signals back (bright, above -10 dB), enabling precise calculation of water loss through cloud cover.',
+    limits: 'This event occurred in October 2023, prior to the launch of NISAR. Radar monitoring was conducted using European Sentinel-1 and ISRO RISAT satellites. NISAR’s L-band radar is specifically designed to detect ongoing moraine dam settling every 12 days for early warning.',
     sources: [
       {
         title: 'ISRO National Remote Sensing Centre (NRSC, 2023) — "Satellite-based Monitoring of South Lhonak Glacial Lake Outburst Flood"',

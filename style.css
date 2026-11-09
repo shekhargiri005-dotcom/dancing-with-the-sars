@@ -1,3 +1,7 @@
+.brand-group,
+.command-toolbar.vertical-toolbar .brand-group {
+  display: none !important;
+}
 /* ==========================================================================
    DANCING WITH THE SARS: HOW ICE BECOMES A FLOOD
    NASA Space Apps Challenge 2026 — NISAR Radar Explorer
@@ -4463,16 +4467,14 @@ body.view-dashboard .nav-container {
   top: 50% !important;
   left: 12px !important;
   right: auto !important;
-  transform: translateY(-50%) !important;
+  transform: translateY(-50%) translateZ(0) !important;
   width: 195px !important;
   height: auto !important;
   max-height: calc(100vh - 40px);
-  background: rgba(6, 12, 22, 0.94) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
-  border: 1px solid rgba(0, 255, 255, 0.35) !important;
+  background: #060B14 !important;
+  border: 1px solid #00FFFF !important;
   border-radius: 14px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 255, 0.15) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 255, 255, 0.25) !important;
   z-index: 1000 !important;
   display: flex !important;
   flex-direction: column !important;
@@ -4481,6 +4483,11 @@ body.view-dashboard .nav-container {
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
   overflow-y: auto !important;
   scrollbar-width: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .command-toolbar.vertical-toolbar::before {
@@ -4577,10 +4584,12 @@ body.view-dashboard .nav-container {
 
 .command-toolbar.vertical-toolbar .toolbar-context-heading {
   font-size: 9px !important;
-  letter-spacing: 0.08em !important;
-  color: rgba(148, 163, 184, 0.75) !important;
-  padding: 2px 4px !important;
+  letter-spacing: 0.1em !important;
+  color: #38BDF8 !important;
+  font-weight: 700 !important;
+  padding: 4px 4px 2px 4px !important;
   user-select: none !important;
+  text-transform: uppercase !important;
 }
 
 .command-toolbar.vertical-toolbar .toolbar-context-btn {
@@ -4588,15 +4597,17 @@ body.view-dashboard .nav-container {
   align-items: center !important;
   gap: 6px !important;
   width: 100% !important;
-  background: rgba(15, 23, 42, 0.65) !important;
-  border: 1px solid rgba(0, 229, 255, 0.22) !important;
-  color: #94A3B8 !important;
+  background: #0E182A !important;
+  border: 1px solid rgba(0, 255, 255, 0.3) !important;
+  color: #E2E8F0 !important;
   font-size: 10px !important;
+  font-weight: 700 !important;
   padding: 6px 8px !important;
-  border-radius: 4px !important;
+  border-radius: 5px !important;
   text-align: left !important;
   cursor: pointer !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  -webkit-font-smoothing: antialiased !important;
 }
 
 .command-toolbar.vertical-toolbar .toolbar-context-btn:hover {
@@ -4656,7 +4667,7 @@ body.view-dashboard .nav-container {
   top: 50% !important;
   left: 0 !important;
   right: auto !important;
-  transform: translateY(-50%) !important;
+  transform: translateY(-50%) translateZ(0) !important;
   border-radius: 0 14px 14px 0 !important;
   border-left: none !important;
   padding: 16px 8px !important;
@@ -4664,12 +4675,17 @@ body.view-dashboard .nav-container {
   flex-direction: column !important;
   align-items: center !important;
   gap: 10px !important;
-  background: rgba(6, 14, 26, 0.95) !important;
+  background: #060E1A !important;
   border: 1px solid rgba(0, 255, 255, 0.5) !important;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.4) !important;
   color: #00FFFF !important;
   cursor: pointer !important;
   z-index: 1001 !important;
+}
+
+.toolbar-restore-pill.hidden,
+.toolbar-restore-pill.vertical-restore-dock.hidden {
+  display: none !important;
 }
 
 .toolbar-restore-pill.vertical-restore-dock:hover {

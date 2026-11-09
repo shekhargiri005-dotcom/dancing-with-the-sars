@@ -28,7 +28,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v65">
+  <link rel="stylesheet" href="style.css?v=20261107_v69">
 </head>
 
 <body class="view-dashboard">
@@ -43,28 +43,6 @@
       <div class="vtoolbar-header font-mono">
         <span class="vtoolbar-pulse-dot"></span>
         <span class="vtoolbar-title">NISAR HUD</span>
-      </div>
-
-      <!-- Brand & Mission Identity -->
-      <div class="brand-group" onclick="switchView('landing')" style="cursor: pointer;"
-        title="Back to Mission Launchpad">
-        <div class="brand-radar-mark" aria-hidden="true">
-          <span class="radar-ping"></span>
-          <span class="radar-core"></span>
-        </div>
-        <div class="brand-text">
-          <div class="brand-title-wrap">
-            <span class="brand-title">Dancing with the SARs</span>
-            <span class="brand-divider">/</span>
-            <span class="brand-subtitle">Hazard Radar Explorer</span>
-          </div>
-          <div class="brand-badges-row">
-            <span class="badge-tech">NISAR L-BAND 24cm</span>
-            <span class="badge-provisional font-mono"
-              title="Data Maturity: PROVISIONAL (NASA-ISRO Science Team)">PROVISIONAL DATA</span>
-            <span class="badge-mission">NASA SPACE APPS 2026</span>
-          </div>
-        </div>
       </div>
 
       <!-- Action Navigation & Telemetry Selectors -->
@@ -152,26 +130,8 @@
           </div>
         </div>
 
-        <!-- CONTEXTUAL SUBPANEL 1: Editorial Landing View -->
-        <div class="toolbar-context-panel font-mono" id="toolbar-landing-context">
-          <span class="toolbar-context-heading">MISSION SCENARIOS //</span>
-          <button class="toolbar-context-btn font-mono" onclick="selectCase('langtang')">
-            <span class="beacon-dot live"></span>
-            <span>LANGTANG [LIVE]</span>
-          </button>
-          <button class="toolbar-context-btn font-mono" onclick="selectCase('suicide_basin')">
-            <span class="beacon-dot live"></span>
-            <span>SUICIDE BASIN [LIVE]</span>
-          </button>
-          <button class="toolbar-context-btn font-mono" onclick="selectCase('chamoli')">
-            <span class="beacon-dot story"></span>
-            <span>CHAMOLI [STORY]</span>
-          </button>
-          <button class="toolbar-context-btn font-mono" onclick="selectCase('south_lhonak')">
-            <span class="beacon-dot story"></span>
-            <span>SOUTH LHONAK [STORY]</span>
-          </button>
-        </div>
+        <!-- CONTEXTUAL SUBPANEL 1: Editorial Landing View (Mission Scenarios removed) -->
+        <div class="toolbar-context-panel font-mono hidden" id="toolbar-landing-context" style="display: none !important;"></div>
 
         <!-- CONTEXTUAL SUBPANEL 2: 3D Command Dashboard Diorama Filters -->
         <div class="toolbar-dashboard-filters toolbar-context-panel font-mono hidden" id="toolbar-dashboard-filters">
@@ -323,11 +283,11 @@
           </h1>
 
           <p class="section-lead lead-problem">
-            Across steep glacial valleys in the Himalayas and Alaska, hanging ice towers detach without warning and
-            moraine dams breach catastrophically. When disaster strikes during torrential monsoon downpours, severe
-            mountain storms, or dead of night, conventional optical satellites are completely blinded by cloud
-            cover—leaving downstream river basins with zero warning as lethal avalanches and glacial outburst floods
-            destroy everything in their path.
+            Mountain cryospheres are among the most sensitive and rapidly changing environments on Earth. In regions
+            like the Himalayas and coastal Alaska, retreating glaciers and thawing permafrost weaken steep rock faces,
+            triggering massive ice avalanches and Glacial Lake Outburst Floods (GLOFs). Because these events frequently
+            occur during torrential monsoon storms, dense cloud cover, or total darkness, conventional optical satellites
+            cannot see through the atmosphere—leaving downstream communities and critical infrastructure without timely warning.
           </p>
 
           <div class="problem-visual-strip font-mono">
@@ -358,10 +318,12 @@
           </h2>
 
           <p class="section-lead lead-capability">
-            Equipped with a monumental 12-meter deployable mesh reflector transmitting active 24.2 cm L-band microwave
-            radar pulses, NISAR pierces through dense monsoon cloud sheets, driving rain, and midnight darkness. By
-            analyzing backscatter intensity and interferometric phase coherence, it tracks millimeters of precursor
-            slope creep and sudden lake drainage days before disastrous breaches occur.
+            The NASA-ISRO Synthetic Aperture Radar (NISAR) mission overcomes this environmental barrier using active
+            24.2 cm L-band microwave radar. Unlike optical cameras that require clear skies and sunlight, radar transmits
+            its own signals directly through clouds, rain, and darkness to illuminate the surface day and night. By
+            measuring radar wave reflections and tracking millimeter-scale surface displacements over 12-day orbital
+            cycles (repeat-pass interferometry), NISAR detects gradual slope movement before catastrophic collapse and maps
+            sudden lake drainage in real time.
           </p>
 
           <!-- 4 Glowing Monospace Telemetry Chips -->
@@ -431,8 +393,8 @@
           </h2>
 
           <p class="section-sublead">
-            Select a critical hazard theatre below to open the interactive 3D Isometric Command Center and analyze
-            orbital SAR telemetry.
+            Explore peer-reviewed forensic case studies below to understand how spaceborne radar monitors cryospheric
+            instabilities and reveals ground changes hidden beneath cloud cover.
           </p>
 
           <!-- TWO MASSIVE Clickable Glassmorphic Historical Story Cards Side-by-Side -->
@@ -454,9 +416,10 @@
                 </div>
 
                 <p class="hazard-card-desc">
-                  Catastrophic detachment of a 27 million m³ rock-ice wedge from Ronti Peak, triggering a devastating
-                  flash flood down Rishiganga and Dhauliganga gorges. Spaceborne SAR isolates rough debris deposit textures
-                  (+6.2 dB backscatter surge) and detects precursor slope creep through dense cloud cover.
+                  A 27 million cubic meter wedge of bedrock and hanging glacier sheared from Ronti Peak in Uttarakhand,
+                  triggering a devastating high-speed debris flood down the Rishiganga valley. Spaceborne radar penetrated
+                  dense mountain cloud cover to detect precursor slope creep of up to 11.4 cm and clearly mapped the
+                  resulting 30 km boulder deposit field.
                 </p>
 
                 <div class="hazard-card-stats font-mono">
@@ -503,9 +466,9 @@
                 </div>
 
                 <p class="hazard-card-desc">
-                  Catastrophic nocturnal moraine dam breach at 5,200 m altitude, releasing over 50 million m³ of impounded
-                  meltwater down the Teesta River gorge. Spaceborne radar penetrates storm cloudbursts, capturing the sudden
-                  loss of 105 hectares of calm water as specular reflection vanished.
+                  An intense midnight cloudburst triggered a massive lateral moraine slump into South Lhonak Lake (5,200 m),
+                  breaching the natural moraine dam and releasing over 50 million cubic meters of water down the Teesta valley.
+                  Satellite radar pierced storm clouds to track the rapid drainage of 105 hectares of lake water in real time.
                 </p>
 
                 <div class="hazard-card-stats font-mono">
@@ -956,8 +919,7 @@
 
             <div class="probe-desc-wrap">
               <p id="probe-mech-desc" class="probe-desc">
-                Click anywhere on the SAR image to inspect calibrated dielectric backscatter and physical surface
-                scattering.
+                Click anywhere on the radar map to measure ground surface roughness and compare satellite radar readings before and after the event.
               </p>
             </div>
           </div>
@@ -1403,29 +1365,30 @@
                 <section class="story-narrative-section">
                   <h2 class="narrative-section-heading font-mono">
                     <span class="narrative-num">01 //</span>
-                    <span>What Happened</span>
+                    <span>The Event Mechanism</span>
                   </h2>
                   <p class="narrative-p">
-                    On the morning of February 7, 2021, a massive wedge of glacier ice and frozen bedrock—measuring
-                    approximately 27 million cubic meters—detached from the north face of Ronti Peak (~5,600 m) in
-                    Uttarakhand's Chamoli district. Free-falling nearly 1,800 meters into the narrow Ronti Gad valley,
-                    the kinetic impact shattered granite bedrock and frictional heating instantly melted glacial ice,
-                    transforming the avalanche into a catastrophic, high-velocity debris slurry racing downstream.
+                    On February 7, 2021, a massive geological detachment occurred on the north face of Ronti Peak (~5,600 m)
+                    in Uttarakhand's Chamoli district. Approximately 27 million cubic meters of bedrock and hanging glacier
+                    sheared along a weakened structural joint plane, plunging nearly 1,800 vertical meters into the Ronti Gad
+                    canyon. The kinetic energy pulverized the granite into fine rock flour, while frictional heating melted the
+                    glacier ice, transforming the dry avalanche into a high-speed, hyper-concentrated debris flow that surged
+                    downstream at over 50 km/h.
                   </p>
                 </section>
 
-                <!-- Section 2: The Damage -->
+                <!-- Section 2: The Impact -->
                 <section class="story-narrative-section">
                   <h2 class="narrative-section-heading font-mono">
                     <span class="narrative-num">02 //</span>
-                    <span>The Damage</span>
+                    <span>Human &amp; Infrastructure Impact</span>
                   </h2>
                   <p class="narrative-p">
-                    The hyper-concentrated deluge swept down the Rishiganga and Dhauliganga gorges at over 50 km/h,
-                    completely obliterating the 13.2 MW Rishiganga Small Hydro Project and smashing the 520 MW Tapovan
-                    Vishnugad Hydropower barrage downstream. More than 200 workers and residents tragically lost their lives
-                    or went missing in the inundated tunnel networks, and 13 arterial bridges were swept away, severing
-                    connectivity to high-altitude border villages.
+                    The high-energy torrent rushed through the Rishiganga and Dhauliganga gorges, completely washing away the
+                    13.2 MW Rishiganga Small Hydro Project and heavily damaging the 520 MW Tapovan Vishnugad hydroelectric barrage.
+                    Tragically, over 200 workers and local residents lost their lives or remained missing in flooded tunnel networks.
+                    Thirteen bridges were destroyed, cutting off access to remote alpine communities and prompting a major civil
+                    and military disaster relief response.
                   </p>
                 </section>
 
@@ -1433,14 +1396,14 @@
                 <section class="story-narrative-section">
                   <h2 class="narrative-section-heading font-mono">
                     <span class="narrative-num">03 //</span>
-                    <span>How Radar Saw It</span>
+                    <span>Radar Science Observations</span>
                   </h2>
                   <p class="narrative-p">
-                    While heavy mountain cloud sheets and steep topographic shadows hindered conventional optical satellites,
-                    spaceborne Synthetic Aperture Radar peered directly through atmospheric occlusion. Retrospective InSAR
-                    analysis identified up to 11.4 cm of precursor slope creep along the crown scarp during preceding seasons,
-                    while post-event radar amplitude tracking isolated a massive +6.2 dB backscatter surge across the chaotic,
-                    boulder-strewn valley floor.
+                    Steep terrain shadows and dense mountain clouds concealed the slope failure from optical satellite cameras.
+                    Synthetic Aperture Radar (SAR) pierced the cloud cover by actively transmitting microwave pulses. Retrospective
+                    interferometric analysis (InSAR) revealed subtle pre-collapse slope displacement of up to 11.4 cm along the ridge
+                    over preceding months. Following the collapse, newly deposited rough boulders scattered microwave signals strongly
+                    back to the satellite, creating an observable +6.2 dB backscatter surge that mapped the entire 30 km flood corridor.
                   </p>
                 </section>
 
@@ -1552,29 +1515,29 @@
                 <section class="story-narrative-section">
                   <h2 class="narrative-section-heading font-mono">
                     <span class="narrative-num">01 //</span>
-                    <span>What Happened</span>
+                    <span>The Event Mechanism</span>
                   </h2>
                   <p class="narrative-p">
-                    Near midnight on October 3–4, 2023, following intense cloudburst precipitation, a massive lateral
-                    moraine slump plunged into South Lhonak Lake (elevation 5,200 m) in North Sikkim. The resulting
-                    displacement tsunami wave surged over and catastrophically breached the fragile, unconsolidated terminal
-                    moraine dam. Within hours, over 50 million cubic meters of impounded glacial meltwater evacuated down
-                    the Lachen valley at speeds exceeding 50 km/h.
+                    Near midnight on October 3–4, 2023, extreme cloudburst rainfall saturated high-altitude slopes surrounding
+                    South Lhonak Lake (elevation 5,200 m) in North Sikkim. The destabilized lateral moraine collapsed directly
+                    into the proglacial lake, generating a powerful displacement wave that overtopped and rapidly breached the
+                    fragile terminal moraine dam. In just hours, over 50 million cubic meters of impounded meltwater escaped,
+                    sending a massive Glacial Lake Outburst Flood (GLOF) racing down the Teesta river basin.
                   </p>
                 </section>
 
-                <!-- Section 2: The Damage -->
+                <!-- Section 2: The Impact -->
                 <section class="story-narrative-section">
                   <h2 class="narrative-section-heading font-mono">
                     <span class="narrative-num">02 //</span>
-                    <span>The Damage</span>
+                    <span>Human &amp; Infrastructure Impact</span>
                   </h2>
                   <p class="narrative-p">
-                    The raging floodwaters roared 67 km down the gorge in less than 2.5 hours, completely overwhelming and
-                    demolishing the 1,200 MW Teesta-III Hydroelectric Project dam at Chungthang within minutes. Over 100
-                    people lost their lives or remained permanently missing—including 23 Indian Army personnel swept away at
-                    the Bardang military station—while 15 arterial bridges were destroyed, severing National Highway 10 and
-                    isolating North Sikkim communities for months.
+                    The flood surge traveled 67 km downstream in under 2.5 hours, reaching speeds of over 50 km/h. At Chungthang,
+                    the torrent overwhelmed and destroyed the 1,200 MW Teesta-III Hydroelectric Project dam within minutes.
+                    More than 100 people were killed or went missing, including 23 Indian Army soldiers stationed along the river.
+                    Fifteen critical bridges washed out, severing National Highway 10 and cutting off communication and supplies
+                    to North Sikkim communities for months.
                   </p>
                 </section>
 
@@ -1582,14 +1545,14 @@
                 <section class="story-narrative-section">
                   <h2 class="narrative-section-heading font-mono">
                     <span class="narrative-num">03 //</span>
-                    <span>How Radar Saw It</span>
+                    <span>Radar Science Observations</span>
                   </h2>
                   <p class="narrative-p">
-                    Because the disaster struck in pitch darkness beneath thick monsoon cloudburst sheets, optical cameras
-                    were completely blinded. Microwave Synthetic Aperture Radar (ISRO's RISAT-1A and ESA's Sentinel-1)
-                    penetrated the storm front. Multi-temporal SAR difference mapping quantified the instantaneous drainage
-                    of approximately 105 hectares of the lake body: calm water's specular reflection (below -22 dB) vanished,
-                    replaced by intense diffuse backscatter (+12 dB surge) from the newly exposed muddy lakebed and boulder sediment.
+                    Because the breach occurred at night under dense monsoon cloud cover, optical satellites could not see the
+                    disaster. Earth-observing radar satellites (ISRO's RISAT-1A and ESA's Sentinel-1) pierced the storms to
+                    measure surface changes. Calm lake water acts like a mirror, reflecting radar pulses away and appearing dark.
+                    When 105 hectares of the lake drained, the newly exposed rough mud and rock scattered microwave pulses directly
+                    back to the satellite, producing a sharp +12 dB backscatter surge that allowed scientists to calculate exact water loss.
                   </p>
                 </section>
 
@@ -2091,25 +2054,28 @@
         <div class="guide-pathway-card">
           <div class="pathway-num font-mono">01</div>
           <div class="pathway-text">
-            <h4>Ice-Rock Avalanche Dam</h4>
-            <p>A mass collapse of hanging glacier and bedrock fills a canyon, impounding a temporary reservoir that
-              later over-tops or bursts (e.g. Langtang, Chamoli).</p>
+            <h4>Ice-Rock Avalanche &amp; River Damming (Slope Failure)</h4>
+            <p>Steep mountain slopes can collapse when warming degrades the permafrost holding bedrock and hanging glaciers
+              together. Millions of tons of rock and ice tumble into a narrow river canyon, forming an unstable natural dam.
+              Water rises rapidly until it overtops or bursts through the rubble, causing a dangerous flash flood downstream (e.g., Chamoli and Langtang).</p>
           </div>
         </div>
         <div class="guide-pathway-card">
           <div class="pathway-num font-mono">02</div>
           <div class="pathway-text">
-            <h4>Subglacial Lake Outburst (Jökulhlaup)</h4>
-            <p>A glacier dam impounds seasonal meltwater. When water pressure overcomes the ice dam weight, the lake
-              drains catastrophically beneath the glacier (e.g. Suicide Basin / Mendenhall).</p>
+            <h4>Subglacial Lake Outburst (Hidden Glacial Drainage / Jökulhlaup)</h4>
+            <p>Some glacial lakes are held back by the solid ice wall of a larger glacier. As summer meltwater fills the side-basin,
+              water pressure eventually lifts the glacier ice off the bedrock. The lake then drains rapidly through hidden subglacial
+              tunnels beneath the glacier in under 36 hours (e.g., Suicide Basin &amp; Mendenhall Glacier).</p>
           </div>
         </div>
         <div class="guide-pathway-card">
           <div class="pathway-num font-mono">03</div>
           <div class="pathway-text">
-            <h4>Moraine Dam Failure (GLOF)</h4>
-            <p>A retreating glacier leaves an unstable moraine holding back a deep proglacial lake. Landslides, waves,
-              or ice melt breach the moraine wall (e.g. South Lhonak).</p>
+            <h4>Moraine Dam Failure (Glacial Lake Outburst Flood / GLOF)</h4>
+            <p>As mountain glaciers retreat, meltwater collects behind natural dams made of loose rock, gravel, and ice cores (moraines).
+              If heavy rainfall, a rockslide, or ice melting weakens the moraine, the dam breaches suddenly, releasing tens of millions
+              of cubic meters of floodwater into populated river valleys below (e.g., South Lhonak Lake in Sikkim).</p>
           </div>
         </div>
       </div>
@@ -2126,7 +2092,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v65"></script>
+  <script src="app.js?v=20261107_v69"></script>
 </body>
 
 </html>
