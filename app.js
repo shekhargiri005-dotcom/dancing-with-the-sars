@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v75');
+    const res = await fetch('data/cases.json?v=20261107_v76');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v75)', {
-      build: '20261107_v75',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v76)', {
+      build: '20261107_v76',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -868,8 +868,11 @@ function switchView(viewName) {
     const lbl = document.getElementById('current-case-label');
     if (lbl) lbl.innerText = '3D Hazard Globe';
 
+    // Keep 3D Globe by default on ALL HAZARDS mode
+    currentGlobeFilter = 'all';
     setTimeout(() => {
       initCesiumGlobe();
+      applyGlobeFilter('all');
     }, 50);
   } else if (viewName === 'story-merzbacher') {
     openDossierModal('merzbacher');
@@ -2894,6 +2897,16 @@ const GLOBE_PINS_DATA = [
     color: '#38BDF8',
     label: 'SOUTH LHONAK [STORY]',
     labelOffset: [48, 14]
+  },
+  {
+    id: 'merzbacher',
+    name: 'Lake Merzbacher Outburst',
+    category: 'ice',
+    lat: 42.22,
+    lon: 79.86,
+    color: '#10B981',
+    label: 'MERZBACHER [STORY]',
+    labelOffset: [0, 16]
   }
 ];
 
@@ -2926,6 +2939,10 @@ function extractCaseIdFromCesiumPick(picked) {
 function handleGlobeBeaconClick(caseId) {
   sendClientLog('info', 'BEACON_CLICK', '3D Globe beacon clicked: ' + caseId, { caseId: caseId });
   if (!caseId) return;
+  if (caseId === 'merzbacher') {
+    openDossierModal('merzbacher');
+    return;
+  }
   const c = appData.cases ? appData.cases.find(x => x.id === caseId) : null;
   if (!c) {
     selectCase(caseId);
@@ -3135,6 +3152,7 @@ function initCesiumGlobe() {
       }
     } else {
       cesiumViewer.resize();
+      applyGlobeFilter('all');
     }
   } else {
     initFallbackGlobe();
