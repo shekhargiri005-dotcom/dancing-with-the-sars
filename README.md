@@ -3,7 +3,7 @@
 > **"How Ice Becomes a Flood"** 🌊❄️  
 > An interactive cyber-intelligence dashboard that translates complex **NASA-ISRO Synthetic Aperture Radar (NISAR)** microwave observations into actionable insights across catastrophic cryosphere hazards: subglacial lake outbursts (GLOFs) and massive rock-ice slope detachments.
 
-[![Build Status](https://img.shields.io/badge/build-v62%20passed-00E5FF?style=flat-square&logo=github)](https://github.com/shekhargiri005-dotcom/dancing-with-the-sars)
+[![Build Status](https://img.shields.io/badge/build-v63%20passed-00E5FF?style=flat-square&logo=github)](https://github.com/shekhargiri005-dotcom/dancing-with-the-sars)
 [![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-00FFFF?style=flat-square&logo=vercel)](https://dancing-with-the-sars-one.vercel.app/)
 [![Radar Band](https://img.shields.io/badge/Sensor-NISAR%20L--Band%20(24.2%20cm)-0284c7?style=flat-square)](https://nisar.jpl.nasa.gov/)
 [![NASA Space Apps](https://img.shields.io/badge/NASA%20Space%20Apps-2026-38bdf8?style=flat-square)](https://www.spaceappschallenge.org/)
@@ -239,7 +239,12 @@ python pipeline_stage1_2.py --target suicide_basin --product GUNW
 
 ## 🎮 UI Controls & Navigation
 
-- **Left Vertical Cyber HUD Toolbar**:
+- **Mobile Navigation Drawer & Universal Back-Bar**:
+  - **Universal Go-Back Navigation**: Dedicated multi-destination navigation bar in Radar Lab (`← LAUNCHPAD`, `🧊 3D DASHBOARD`, `🌐 3D GLOBE`, `❖ MENU`) ensuring effortless switching and direct returns on mobile devices.
+  - **Full Mobile Mission Drawer (`#mobile-nav-drawer`)**: Glassmorphic bottom slide-up drawer granting 100% full mobile access to all 4 core modules, all 4 hazard scenarios (Langtang, Suicide Basin, Chamoli, South Lhonak), Mission Tour, and Glaciology Guide.
+  - **Touch-Optimized Bottom HUD Pill**: Restyles the vertical HUD tab into a floating bottom pill with direct tap handling on touchscreens (`max-width: 768px`).
+  - **Streamlined Mobile Telemetry**: Repositions the physics probe HUD at the bottom to prevent viewport obstruction.
+- **Left Vertical Cyber HUD Toolbar (Desktop)**:
   - **Default Closed & Smart Hover**: Starts minimized to keep views unobstructed; hover cursor over the left edge tab (`❖ HUD · EXPAND ▸`) to automatically slide out the HUD; auto-collapses on mouse leave.
   - `Launchpad`: Jump to the editorial dossier intro.
   - `3D Dashboard`: Enter the isometric command room.

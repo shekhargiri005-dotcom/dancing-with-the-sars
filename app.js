@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v62');
+    const res = await fetch('data/cases.json?v=20261107_v63');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v62)', {
-      build: '20261107_v62',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v63)', {
+      build: '20261107_v63',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         case 'Escape':
           closeStoryModal();
           closeDossierModal();
+          closeMobileNavDrawer();
           if (isTourActive) exitStoryTour();
           closeStoryGuide();
           resetPhysicsProbe();
@@ -3445,6 +3446,60 @@ function initFallbackGlobe() {
 
 
 // ==========================================================================
+// 17B. Mobile Mission Navigation Drawer Controller
+// ==========================================================================
+function openMobileNavDrawer() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.remove('hidden');
+    drawer.setAttribute('aria-hidden', 'false');
+    sendClientLog('info', 'MOBILE_DRAWER_OPEN', 'Opened mobile navigation drawer');
+  }
+}
+
+function closeMobileNavDrawer() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.add('hidden');
+    drawer.setAttribute('aria-hidden', 'true');
+    sendClientLog('info', 'MOBILE_DRAWER_CLOSE', 'Closed mobile navigation drawer');
+  }
+}
+
+function toggleMobileNavDrawer() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (!drawer) return;
+  if (drawer.classList.contains('hidden')) {
+    openMobileNavDrawer();
+  } else {
+    closeMobileNavDrawer();
+  }
+}
+
+function switchViewAndCloseDrawer(viewName) {
+  closeMobileNavDrawer();
+  switchView(viewName);
+}
+
+function selectCaseAndCloseDrawer(caseId) {
+  closeMobileNavDrawer();
+  selectCase(caseId);
+  switchView('place');
+}
+
+function openDossierAndCloseDrawer(caseId) {
+  closeMobileNavDrawer();
+  openDossierModal(caseId);
+}
+
+window.openMobileNavDrawer = openMobileNavDrawer;
+window.closeMobileNavDrawer = closeMobileNavDrawer;
+window.toggleMobileNavDrawer = toggleMobileNavDrawer;
+window.switchViewAndCloseDrawer = switchViewAndCloseDrawer;
+window.selectCaseAndCloseDrawer = selectCaseAndCloseDrawer;
+window.openDossierAndCloseDrawer = openDossierAndCloseDrawer;
+
+// ==========================================================================
 // 17. COMMAND TOOLBAR MINIMIZATION CONTROLLER (Default Closed & Hover Expand)
 // ==========================================================================
 let isToolbarMinimized = true; // Closed by default
@@ -3500,10 +3555,21 @@ function setupToolbarHoverListeners() {
   const toolbar = document.getElementById('app-toolbar');
   const restorePill = document.getElementById('toolbar-restore-pill');
 
-  // When cursor hovers over the left restore tab/pill, open the HUD
+  // When cursor hovers over the left restore tab/pill, open the HUD (or on mobile tap, open drawer)
   if (restorePill) {
     restorePill.addEventListener('mouseenter', () => {
-      expandToolbar();
+      if (window.innerWidth > 768) {
+        expandToolbar();
+      }
+    });
+
+    restorePill.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (window.innerWidth <= 768) {
+        openMobileNavDrawer();
+      } else {
+        toggleToolbarMinimization();
+      }
     });
   }
 
@@ -3516,12 +3582,14 @@ function setupToolbarHoverListeners() {
       }
     });
 
-    // When cursor leaves the HUD toolbar, auto-close after a 300ms debounce
+    // When cursor leaves the HUD toolbar, auto-close after a 300ms debounce (desktop only)
     toolbar.addEventListener('mouseleave', () => {
-      if (toolbarHoverCloseTimer) clearTimeout(toolbarHoverCloseTimer);
-      toolbarHoverCloseTimer = setTimeout(() => {
-        minimizeToolbar();
-      }, 300);
+      if (window.innerWidth > 768) {
+        if (toolbarHoverCloseTimer) clearTimeout(toolbarHoverCloseTimer);
+        toolbarHoverCloseTimer = setTimeout(() => {
+          minimizeToolbar();
+        }, 300);
+      }
     });
   }
 }
@@ -3542,5 +3610,6 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' || e.keyCode === 27) {
     closeDossierModal();
+          closeMobileNavDrawer();
   }
 });

@@ -5594,3 +5594,401 @@ body.view-dashboard .nav-container {
     display: none;
   }
 }
+
+/* Navigation & Go Back Bar for Place Explorer (#place-view) */
+.place-nav-bar {
+  position: absolute;
+  top: 0.85rem;
+  left: 1rem;
+  z-index: 650;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(8, 12, 20, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 4px 6px;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.75), 0 0 12px rgba(0, 255, 255, 0.15);
+}
+
+.place-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 6px 12px;
+  background: rgba(14, 23, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #94A3B8;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.place-nav-btn:hover {
+  background: rgba(0, 255, 255, 0.15);
+  border-color: #00FFFF;
+  color: #00FFFF;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.place-nav-btn.primary-back {
+  background: rgba(0, 255, 255, 0.14);
+  border-color: rgba(0, 255, 255, 0.55);
+  color: #00FFFF;
+}
+
+.place-nav-btn.primary-back:hover {
+  background: #00FFFF;
+  color: #040914;
+}
+
+.dashboard-top-nav {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.globe-top-left-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-menu-btn {
+  display: inline-flex;
+}
+
+/* ==========================================================================
+   Full-Featured Mobile Navigation Drawer (#mobile-nav-drawer)
+   ========================================================================== */
+.mobile-nav-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.mobile-nav-drawer.hidden {
+  opacity: 0;
+  pointer-events: none;
+  display: none !important;
+}
+
+.mobile-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-drawer-panel {
+  position: relative;
+  width: 100%;
+  max-height: 85vh;
+  background: #08090B;
+  border-top: 1px solid #00FFFF;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-nav-drawer.hidden .mobile-drawer-panel {
+  transform: translateY(100%);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(14, 23, 38, 0.6);
+}
+
+.drawer-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: #00FFFF;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.drawer-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00FFFF;
+  box-shadow: 0 0 8px #00FFFF;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+.drawer-close-btn {
+  padding: 4px 10px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  border-radius: 4px;
+  color: #00FFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.drawer-sections-scroll {
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: calc(85vh - 60px);
+}
+
+.drawer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.drawer-group-heading {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #64748B;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.drawer-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.drawer-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 0.75rem;
+  background: rgba(14, 23, 38, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #FFFFFF;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drawer-nav-btn:hover,
+.drawer-nav-btn:active {
+  border-color: #00FFFF;
+  background: rgba(0, 255, 255, 0.12);
+  color: #00FFFF;
+}
+
+.drawer-nav-btn .btn-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.drawer-nav-btn .btn-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.drawer-nav-btn .btn-primary {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.drawer-nav-btn:hover .btn-primary,
+.drawer-nav-btn:active .btn-primary {
+  color: #00FFFF;
+}
+
+.drawer-nav-btn .btn-secondary {
+  font-size: 0.65rem;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-scenarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drawer-scenario-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(14, 23, 38, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.drawer-scenario-btn:hover,
+.drawer-scenario-btn:active {
+  border-color: #00FFFF;
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.drawer-scenario-btn .scen-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.drawer-scenario-btn .scen-dot.live {
+  background: #00FFFF;
+  box-shadow: 0 0 8px #00FFFF;
+}
+.drawer-scenario-btn .scen-dot.story {
+  background: #F59E0B;
+  box-shadow: 0 0 8px #F59E0B;
+}
+
+.drawer-scenario-btn .scen-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.drawer-scenario-btn .scen-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.drawer-scenario-btn .scen-tag {
+  font-size: 0.65rem;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+}
+
+.drawer-scenario-btn .scen-arrow {
+  color: #00FFFF;
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness Overrides for Place Explorer & Global Controls */
+@media (max-width: 768px) {
+  .place-nav-bar {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 5px;
+    gap: 3px;
+  }
+  .place-nav-btn {
+    padding: 6px 8px;
+    font-size: 0.65rem;
+    gap: 2px;
+  }
+  .signal-toolbar-wrapper {
+    top: 3.25rem !important;
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    transform: none !important;
+    width: calc(100% - 1rem) !important;
+  }
+  .signal-toolbar {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 3px 5px !important;
+    gap: 4px !important;
+  }
+  .signal-toolbar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .signal-pill {
+    flex-shrink: 0 !important;
+    height: 30px !important;
+    padding: 0 7px !important;
+    font-size: 0.65rem !important;
+  }
+  .map-utility-toolbar {
+    bottom: 0.5rem !important;
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    background: rgba(8, 12, 20, 0.9) !important;
+    padding: 3px 5px !important;
+    border-radius: 8px !important;
+  }
+  .map-util-btn {
+    padding: 5px 8px !important;
+    font-size: 0.65rem !important;
+  }
+  /* Floating HUD Pill on Mobile: Dock to Bottom-Left */
+  .toolbar-restore-pill.vertical-restore-dock {
+    top: auto !important;
+    bottom: 3.5rem !important;
+    left: 0.75rem !important;
+    right: auto !important;
+    transform: none !important;
+    border-radius: 20px !important;
+    border: 1px solid #00FFFF !important;
+    padding: 7px 12px !important;
+    flex-direction: row !important;
+    gap: 6px !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85), 0 0 12px rgba(0, 255, 255, 0.4) !important;
+  }
+  .toolbar-restore-pill.vertical-restore-dock .restore-label {
+    writing-mode: horizontal-tb !important;
+    font-size: 10px !important;
+  }
+  /* Physics Probe HUD on mobile: positioned neatly at bottom */
+  .physics-probe-hud {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 3.25rem !important;
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0.75rem !important;
+    font-size: 0.8rem !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 255, 255, 0.25) !important;
+  }
+}

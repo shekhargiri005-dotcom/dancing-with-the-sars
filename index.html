@@ -28,7 +28,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v62">
+  <link rel="stylesheet" href="style.css?v=20261107_v63">
 </head>
 
 <body class="view-dashboard">
@@ -549,14 +549,21 @@
     <section id="dashboard-view" class="view-section active dashboard-view"
       aria-label="Isometric 3D Cryosphere Command Center">
 
-      <!-- Glassmorphic Return to Launchpad Button -->
-      <button id="dashboard-back-launchpad-btn" class="dashboard-return-btn font-mono" onclick="switchView('launchpad')"
-        aria-label="Return to Mission Launchpad">
-        <span class="btn-bracket">[</span>
-        <span class="btn-arrow">←</span>
-        <span class="btn-text">Return to Launchpad</span>
-        <span class="btn-bracket">]</span>
-      </button>
+      <!-- Glassmorphic Return to Launchpad & Mobile Menu Group -->
+      <div class="dashboard-top-nav font-mono">
+        <button id="dashboard-back-launchpad-btn" class="dashboard-return-btn font-mono" onclick="switchView('launchpad')"
+          aria-label="Return to Mission Launchpad">
+          <span class="btn-bracket">[</span>
+          <span class="btn-arrow">←</span>
+          <span class="btn-text">Return to Launchpad</span>
+          <span class="btn-bracket">]</span>
+        </button>
+        <button class="dashboard-return-btn mobile-menu-btn font-mono" onclick="toggleMobileNavDrawer()" aria-label="Open Mission Menu">
+          <span class="btn-bracket">[</span>
+          <span class="btn-text">❖ Menu</span>
+          <span class="btn-bracket">]</span>
+        </button>
+      </div>
 
       <!-- Isometric 3D Space Viewport -->
       <div class="isometric-viewport" id="isometric-viewport">
@@ -759,12 +766,28 @@
       <!-- LEFT COLUMN: Map Viewport & Floating Glass Overlays -->
       <div class="place-viewport-column sar-viewport-col">
 
+        <!-- Navigation & Go Back Bar (Launchpad, Dashboard, Globe, Menu) -->
+        <div class="place-nav-bar font-mono" role="navigation" aria-label="Radar Lab Navigation and Return">
+          <button class="place-nav-btn primary-back" onclick="switchView('launchpad')" title="Return to Mission Launchpad">
+            <span class="nav-arrow">←</span>
+            <span class="nav-text">LAUNCHPAD</span>
+          </button>
+          <button class="place-nav-btn" onclick="switchView('dashboard')" title="Go to 3D Command Center Dashboard">
+            <span class="nav-icon">🧊</span>
+            <span class="nav-text">3D DASHBOARD</span>
+          </button>
+          <button class="place-nav-btn" onclick="switchView('globe')" title="Go to 3D Hazard Globe">
+            <span class="nav-icon">🌐</span>
+            <span class="nav-text">3D GLOBE</span>
+          </button>
+          <button id="btn-mobile-nav-toggle" class="place-nav-btn mobile-menu-btn" onclick="toggleMobileNavDrawer()" title="Open Mission Menu">
+            <span class="nav-icon">❖</span>
+            <span class="nav-text">MENU</span>
+          </button>
+        </div>
+
         <!-- Signal Layer Filter Toolbar (Floating Glass Pills) -->
         <div class="signal-toolbar-wrapper" role="toolbar" aria-label="Radar Signal Channel Switcher">
-          <button class="place-back-btn font-mono" onclick="switchView('dashboard')"
-            title="Return to 3D Command Center Dashboard">
-            ← 3D DASHBOARD
-          </button>
           <div class="signal-toolbar">
             <button id="pill-composite" class="signal-pill sig-pill active font-mono"
               onclick="setSignalLayer('composite')" title="Polarimetric Decomposition (HH+HV+Ratio)">
@@ -1259,15 +1282,18 @@
          ===================================================================== -->
     <section id="globe-view" class="view-section hidden" aria-label="3D Cesium Hazard Globe">
 
-      <!-- Top-Left: Minimalist Monospace Return Button -->
+      <!-- Top-Left: Navigation & Return Group -->
       <div class="globe-top-left-bar">
+        <button class="globe-back-btn font-mono" onclick="switchView('launchpad')"
+          title="Return to Mission Launchpad">
+          ← Launchpad
+        </button>
         <button class="globe-back-btn font-mono" onclick="switchView('dashboard')"
           title="Return to 3D Command Center Dashboard">
-          ← Return to Dashboard
+          ← Dashboard
         </button>
-        <button class="globe-back-btn font-mono" onclick="switchView('story-ice')" title="Return to Story Dossier"
-          style="margin-left: 0.5rem;">
-          ← Story Dossier
+        <button class="globe-back-btn mobile-menu-btn font-mono" onclick="toggleMobileNavDrawer()" title="Open Mission Menu">
+          ❖ Menu
         </button>
       </div>
 
@@ -1918,6 +1944,120 @@
   </div>
 
   <!-- =====================================================================
+       5. FULL-FEATURED MOBILE NAVIGATION DRAWER (#mobile-nav-drawer)
+       Provides 100% full feature access and universal back-navigation on mobile phones
+       ===================================================================== -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+    <div class="mobile-drawer-backdrop" onclick="closeMobileNavDrawer()" aria-hidden="true"></div>
+    <div class="mobile-drawer-panel font-mono">
+      <div class="drawer-header">
+        <div class="drawer-title-wrap">
+          <span class="drawer-pulse-dot"></span>
+          <span class="drawer-title">MISSION COMMAND // NAVIGATION</span>
+        </div>
+        <button class="drawer-close-btn" onclick="closeMobileNavDrawer()" aria-label="Close Navigation Menu">[ ✕ CLOSE ]</button>
+      </div>
+
+      <div class="drawer-sections-scroll">
+        <!-- Core Views -->
+        <div class="drawer-group">
+          <span class="drawer-group-heading">CORE MODULES</span>
+          <div class="drawer-btn-grid">
+            <button class="drawer-nav-btn" onclick="switchViewAndCloseDrawer('landing')">
+              <span class="btn-icon">🚀</span>
+              <div class="btn-text">
+                <span class="btn-primary">Launchpad</span>
+                <span class="btn-secondary">Editorial Intro</span>
+              </div>
+            </button>
+            <button class="drawer-nav-btn" onclick="switchViewAndCloseDrawer('dashboard')">
+              <span class="btn-icon">🧊</span>
+              <div class="btn-text">
+                <span class="btn-primary">3D Dashboard</span>
+                <span class="btn-secondary">Command Center</span>
+              </div>
+            </button>
+            <button class="drawer-nav-btn" onclick="switchViewAndCloseDrawer('globe')">
+              <span class="btn-icon">🌐</span>
+              <div class="btn-text">
+                <span class="btn-primary">3D Globe</span>
+                <span class="btn-secondary">Cesium Orbit</span>
+              </div>
+            </button>
+            <button class="drawer-nav-btn" onclick="switchViewAndCloseDrawer('place')">
+              <span class="btn-icon">🛰️</span>
+              <div class="btn-text">
+                <span class="btn-primary">Radar Lab</span>
+                <span class="btn-secondary">Swipe &amp; Channels</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scenarios -->
+        <div class="drawer-group">
+          <span class="drawer-group-heading">HAZARD SCENARIOS</span>
+          <div class="drawer-scenarios-list">
+            <button class="drawer-scenario-btn" onclick="selectCaseAndCloseDrawer('langtang')">
+              <span class="scen-dot live"></span>
+              <div class="scen-info">
+                <span class="scen-name">Langtang Canyon, Nepal</span>
+                <span class="scen-tag">LIVE NISAR • ICE AVALANCHE</span>
+              </div>
+              <span class="scen-arrow">→</span>
+            </button>
+            <button class="drawer-scenario-btn" onclick="selectCaseAndCloseDrawer('suicide_basin')">
+              <span class="scen-dot live"></span>
+              <div class="scen-info">
+                <span class="scen-name">Suicide Basin, Juneau</span>
+                <span class="scen-tag">LIVE NISAR • SUBGLACIAL GLOF</span>
+              </div>
+              <span class="scen-arrow">→</span>
+            </button>
+            <button class="drawer-scenario-btn" onclick="openDossierAndCloseDrawer('chamoli')">
+              <span class="scen-dot story"></span>
+              <div class="scen-info">
+                <span class="scen-name">Chamoli / Rishiganga</span>
+                <span class="scen-tag">HISTORICAL • FORENSIC DOSSIER</span>
+              </div>
+              <span class="scen-arrow">→</span>
+            </button>
+            <button class="drawer-scenario-btn" onclick="openDossierAndCloseDrawer('south_lhonak')">
+              <span class="scen-dot story"></span>
+              <div class="scen-info">
+                <span class="scen-name">South Lhonak, Sikkim</span>
+                <span class="scen-tag">HISTORICAL • FORENSIC DOSSIER</span>
+              </div>
+              <span class="scen-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Utilities & Guide -->
+        <div class="drawer-group">
+          <span class="drawer-group-heading">MISSION UTILITIES</span>
+          <div class="drawer-btn-grid">
+            <button class="drawer-nav-btn" onclick="startMissionTour(); closeMobileNavDrawer();">
+              <span class="btn-icon">▶</span>
+              <div class="btn-text">
+                <span class="btn-primary">Mission Tour</span>
+                <span class="btn-secondary">Guided Walkthrough</span>
+              </div>
+            </button>
+            <button class="drawer-nav-btn" onclick="openStoryGuide(); closeMobileNavDrawer();">
+              <span class="btn-icon">📖</span>
+              <div class="btn-text">
+                <span class="btn-primary">Flood Pathways</span>
+                <span class="btn-secondary">Glaciology Guide</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
        3. 3 FLOOD PATHWAYS MODAL (#guide-modal)
        ===================================================================== -->
   <div id="guide-modal" class="modal-backdrop hidden" aria-hidden="true" role="dialog" aria-modal="true">
@@ -1968,7 +2108,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v62"></script>
+  <script src="app.js?v=20261107_v63"></script>
 </body>
 
 </html>
