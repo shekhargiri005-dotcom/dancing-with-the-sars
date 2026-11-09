@@ -1,5 +1,5 @@
 {
-  "build_id": "20261107_v69",
+  "build_id": "20261107_v70",
   "title": "Dancing with the SARs: How Ice Becomes a Flood",
   "subtitle": "Interactive NISAR Radar Explorer for Mountain Glacier Hazards",
   "challenge": "NASA Space Apps Challenge 2026",
@@ -13,7 +13,7 @@
   "cases": [
     {
       "id": "langtang",
-      "name": "Langtang Valley, Nepal\u2013Tibet Border",
+      "name": "Langtang Valley, Nepal–Tibet Border",
       "type": "live",
       "pathway": "Ice-rock avalanche and flood",
       "badge": "NISAR Measurement",
@@ -61,10 +61,10 @@
         {
           "cycle": 2,
           "date": "2026-07-26",
-          "label": "Control Pass (Jul 14 \u2192 Jul 26)",
+          "label": "Control Pass (Jul 14 → Jul 26)",
           "phase": "Control Pair End",
           "image": "assets/langtang_t2.png",
-          "note": "Completes the no-event control pair (Jul 14 \u2192 Jul 26); confirms standard 12-day seasonal creep."
+          "note": "Completes the no-event control pair (Jul 14 → Jul 26); confirms standard 12-day seasonal creep."
         },
         {
           "cycle": 3,
@@ -80,7 +80,7 @@
           "label": "Post-Event Deposit (Aug 31)",
           "phase": "River Impoundment",
           "image": "assets/langtang_t4.png",
-          "note": "Immediate post-event GCOV pass (5 days after Aug 26 event): 3.42 km\u00b2 debris dam blocks canyon; 0.88 km\u00b2 lake forms."
+          "note": "Immediate post-event GCOV pass (5 days after Aug 26 event): 3.42 km² debris dam blocks canyon; 0.88 km² lake forms."
         },
         {
           "cycle": 5,
@@ -88,7 +88,7 @@
           "label": "Post-Breach Response (Sep 12)",
           "phase": "Dam Breach Drainage",
           "image": "assets/langtang_t5.png",
-          "note": "Completes the post-event pair (Aug 31 \u2192 Sep 12): shows how the surface behaves as lake overtops and scours canyon."
+          "note": "Completes the post-event pair (Aug 31 → Sep 12): shows how the surface behaves as lake overtops and scours canyon."
         },
         {
           "cycle": 6,
@@ -101,28 +101,28 @@
       ],
       "features": [
         {
-          "title": "\ud83c\udfd4\ufe0f Detachment Scarp",
+          "title": "🏔️ Detachment Scarp",
           "lat": 28.34,
           "lon": 85.42,
           "desc": "High-altitude rockwall (3,800m) where thawing permafrost weakened bedrock joints, triggering catastrophic ice & rock detachment."
         },
         {
-          "title": "\u26a1 Avalanche Chute",
+          "title": "⚡ Avalanche Chute",
           "lat": 28.28,
           "lon": 85.46,
           "desc": "Narrow 1.5 km mountain couloir through which millions of tons of pulverized ice and rock accelerated down into the valley canyon."
         },
         {
-          "title": "\ud83d\udca5 Debris Dam",
+          "title": "💥 Debris Dam",
           "lat": 28.21,
           "lon": 85.53,
-          "desc": "3.42 km\u00b2 of jumbled, angular boulders and pulverized ice chokes the river canyon floor, causing intense diffuse radar backscatter (+6 dB)."
+          "desc": "3.42 km² of jumbled, angular boulders and pulverized ice chokes the river canyon floor, causing intense diffuse radar backscatter (+6 dB)."
         },
         {
-          "title": "\ud83c\udf0a Impounded River Lake",
+          "title": "🌊 Impounded River Lake",
           "lat": 28.25,
           "lon": 85.5,
-          "desc": "0.88 km\u00b2 flooded reservoir trapped behind the temporary debris dam. Water reflects radar pulses away specularly, appearing jet black (-6 dB)."
+          "desc": "0.88 km² flooded reservoir trapped behind the temporary debris dam. Water reflects radar pulses away specularly, appearing jet black (-6 dB)."
         }
       ],
       "metrics": {
@@ -136,7 +136,7 @@
         "what_happened": "A high-altitude rock and ice avalanche collapsed from the steep slopes of Langtang Lirung into the valley riverbed, forming a natural debris dam that impounded glacial meltwater before breaching downstream.",
         "why_it_happened": "Rising temperatures and permafrost degradation weakened bedrock fractures along the mountain headwall, causing hanging glacier ice and fractured granite to detach under gravity.",
         "what_radar_shows": "L-band radar penetrated dense monsoon cloud cover to measure a +6.2 dB surge in surface roughness over the boulder deposit field, while 12-day repeat interferometry tracked pre-detachment slope creep.",
-        "pre_failure_signal": "GUNW & GOFF interferometric pairs: control pair (Jul 14 \u2192 Jul 26) verified 1.8 cm/month background creep. The critical spanning pair (Aug 19 \u2192 Aug 31) confirmed catastrophic slope collapse, while post-event pair (Aug 31 \u2192 Sep 12) captured dam overtopping."
+        "pre_failure_signal": "GUNW & GOFF interferometric pairs: control pair (Jul 14 → Jul 26) verified 1.8 cm/month background creep. The critical spanning pair (Aug 19 → Aug 31) confirmed catastrophic slope collapse, while post-event pair (Aug 31 → Sep 12) captured dam overtopping."
       },
       "limits": {
         "radar_limits": "Steep north-facing slopes suffer from geometric layover and radar shadow. GUNW phase coherence was lost across snow-covered peaks, so displacement is masked and only reported on stable rock flanks.",
@@ -158,21 +158,21 @@
         {
           "type": "control",
           "name": "No-Event Control Pair",
-          "dates": "Jul 14 \u2192 Jul 26",
+          "dates": "Jul 14 → Jul 26",
           "products": "GUNW + GOFF",
           "role": "Normal radar brightness and baseline background creep prior to acceleration."
         },
         {
           "type": "spans",
           "name": "Event Spanning Pair",
-          "dates": "Aug 19 \u2192 Aug 31",
+          "dates": "Aug 19 → Aug 31",
           "products": "GUNW + GOFF + GCOV",
           "role": "The primary pair containing the Aug 26 collapse; detects massive debris avalanche and impounded lake."
         },
         {
           "type": "after",
           "name": "Post-Event Response Pair",
-          "dates": "Aug 31 \u2192 Sep 12",
+          "dates": "Aug 31 → Sep 12",
           "products": "GUNW + GOFF",
           "role": "Tracks how the surface behaves and settles after dam breach and downstream drainage."
         }
@@ -228,10 +228,10 @@
         {
           "cycle": 2,
           "date": "2026-07-18",
-          "label": "Control Pass (Jul 6 \u2192 Jul 18)",
+          "label": "Control Pass (Jul 6 → Jul 18)",
           "phase": "Control Pair End",
           "image": "assets/suicide_basin_t2.png",
-          "note": "Completes the no-event control pair (Jul 6 \u2192 Jul 18); normal ice flow and lake level rise."
+          "note": "Completes the no-event control pair (Jul 6 → Jul 18); normal ice flow and lake level rise."
         },
         {
           "cycle": 3,
@@ -239,7 +239,7 @@
           "label": "Peak Lake Volume (Aug 11)",
           "phase": "Pre-Outburst Peak",
           "image": "assets/suicide_basin_t3.png",
-          "note": "Immediate pre-drain GCOV pass (2 days before crest): basin at maximum 31M m\u00b3; specular black radar return (-18 dB)."
+          "note": "Immediate pre-drain GCOV pass (2 days before crest): basin at maximum 31M m³; specular black radar return (-18 dB)."
         },
         {
           "cycle": 4,
@@ -247,15 +247,15 @@
           "label": "Drained Lake Floor (Aug 23)",
           "phase": "Post-Outburst Bed",
           "image": "assets/suicide_basin_t4.png",
-          "note": "Immediate post-drain GCOV pass: 31M m\u00b3 drained subglacially; exposed boulder bed and stranded seracs (+6.8 dB jump)."
+          "note": "Immediate post-drain GCOV pass: 31M m³ drained subglacially; exposed boulder bed and stranded seracs (+6.8 dB jump)."
         },
         {
           "cycle": 5,
           "date": "2026-09-04",
-          "label": "Ice Response (Aug 23 \u2192 Sep 4)",
+          "label": "Ice Response (Aug 23 → Sep 4)",
           "phase": "Ice Dam Settling",
           "image": "assets/suicide_basin_t5.png",
-          "note": "Completes the post-drainage response pair (Aug 23 \u2192 Sep 4): ice dam subsidence and braided gravel channels."
+          "note": "Completes the post-drainage response pair (Aug 23 → Sep 4): ice dam subsidence and braided gravel channels."
         },
         {
           "cycle": 6,
@@ -268,25 +268,25 @@
       ],
       "features": [
         {
-          "title": "\u2744\ufe0f Mendenhall Ice Dam",
+          "title": "❄️ Mendenhall Ice Dam",
           "lat": 58.485,
           "lon": -134.572,
           "desc": "Lateral ice dam of Mendenhall Glacier blocking the mouth of Suicide Basin. When meltwater reaches 90% of ice thickness, hydrostatic flotation unseals subglacial tunnels."
         },
         {
-          "title": "\ud83d\udd73\ufe0f Drained Suicide Basin Floor",
+          "title": "🕳️ Drained Suicide Basin Floor",
           "lat": 58.483,
           "lon": -134.56,
-          "desc": "1.12 km\u00b2 marginal basin drained of 31 million m\u00b3 in 36 hours. Radar backscatter jumps +6.8 dB from dark specular water (-18.2 dB) to bright rough stranded ice seracs & boulder moraine."
+          "desc": "1.12 km² marginal basin drained of 31 million m³ in 36 hours. Radar backscatter jumps +6.8 dB from dark specular water (-18.2 dB) to bright rough stranded ice seracs & boulder moraine."
         },
         {
-          "title": "\u26a1 Subglacial Drainage Channel",
+          "title": "⚡ Subglacial Drainage Channel",
           "lat": 58.455,
           "lon": -134.57,
           "desc": "6 km pressurized subglacial conduit carved beneath the 300m-thick Mendenhall Glacier trunk, conveying peak discharge of 34,000 cfs."
         },
         {
-          "title": "\ud83c\udf0a Mendenhall Lake Inundation",
+          "title": "🌊 Mendenhall Lake Inundation",
           "lat": 58.428,
           "lon": -134.568,
           "desc": "Proglacial lake terminus where flood discharge crested at record 15.99 ft, inundating riverbanks across the Mendenhall Valley in Juneau."
@@ -294,7 +294,7 @@
       ],
       "metrics": {
         "drained_basin_km2": 1.12,
-        "lake_volume_m3": "31M m\u00b3",
+        "lake_volume_m3": "31M m³",
         "peak_discharge_cfs": "34,000 cfs",
         "radar_contrast_db": "+6.8 dB",
         "water_drop_m": 118,
@@ -303,9 +303,9 @@
       },
       "story": {
         "what_happened": "Suicide Basin, dammed by the ice wall of Mendenhall Glacier, filled with seasonal meltwater until water pressure floated the ice dam, releasing a sudden subglacial flood into the Mendenhall River in Juneau, Alaska.",
-        "why_it_happened": "As Mendenhall Glacier thinned and retreated, it left an ice-free marginal basin that impounds millions of cubic meters of water each summer until hydrostatic pressure triggers a subglacial outburst flood (j\u00f6kulhlaup).",
+        "why_it_happened": "As Mendenhall Glacier thinned and retreated, it left an ice-free marginal basin that impounds millions of cubic meters of water each summer until hydrostatic pressure triggers a subglacial outburst flood (jökulhlaup).",
         "what_radar_shows": "Radar microwaves pass through maritime clouds and rain to observe the rapid loss of water: smooth lake water reflects radar away (dark), while the newly exposed rocky lakebed scatters radar back strongly (bright), tracking drainage in real time.",
-        "pre_failure_signal": "GUNW & GOFF pairs: control pair (Jul 6 \u2192 Jul 18) documented normal subglacial storage. The event spanning pair (Aug 11 \u2192 Aug 23) captured the subglacial j\u00f6kulhlaup release, and post-drainage pair (Aug 23 \u2192 Sep 4) quantified ice dam subsidence."
+        "pre_failure_signal": "GUNW & GOFF pairs: control pair (Jul 6 → Jul 18) documented normal subglacial storage. The event spanning pair (Aug 11 → Aug 23) captured the subglacial jökulhlaup release, and post-drainage pair (Aug 23 → Sep 4) quantified ice dam subsidence."
       },
       "limits": {
         "radar_limits": "Radar directly quantifies surface water boundary and exposed roughness; estimating discharge volume requires integrating NISAR extent with USGS lidar bathymetry models.",
@@ -327,21 +327,21 @@
         {
           "type": "control",
           "name": "No-Event Control Pair",
-          "dates": "Jul 06 \u2192 Jul 18",
+          "dates": "Jul 06 → Jul 18",
           "products": "GUNW + GOFF",
           "role": "Normal background baseline; monitors seasonal meltwater accumulation and normal glacier flow."
         },
         {
           "type": "spans",
           "name": "Event Spanning Pair",
-          "dates": "Aug 11 \u2192 Aug 23",
+          "dates": "Aug 11 → Aug 23",
           "products": "GUNW + GOFF + GCOV",
-          "role": "The critical pair containing the Aug 13 crest; captures subglacial drainage of 31M m\u00b3 meltwater."
+          "role": "The critical pair containing the Aug 13 crest; captures subglacial drainage of 31M m³ meltwater."
         },
         {
           "type": "after",
           "name": "Post-Drainage Response Pair",
-          "dates": "Aug 23 \u2192 Sep 04",
+          "dates": "Aug 23 → Sep 04",
           "products": "GUNW + GOFF",
           "role": "Monitors how the ice dam behaves after drainage; ice dam flexure, moraine subsidence, and crevasse closing."
         }

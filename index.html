@@ -28,7 +28,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v69">
+  <link rel="stylesheet" href="style.css?v=20261107_v70">
 </head>
 
 <body class="view-dashboard">
@@ -59,7 +59,7 @@
         </button>
 
         <button id="nav-btn-dashboard" class="nav-pill top-nav-btn" onclick="switchView('dashboard')"
-          title="Isometric 3D Command Center Dashboard">
+          title="Isometric 3D Command Center Dashboard" style="display: none !important;">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -134,7 +134,7 @@
         <div class="toolbar-context-panel font-mono hidden" id="toolbar-landing-context" style="display: none !important;"></div>
 
         <!-- CONTEXTUAL SUBPANEL 2: 3D Command Dashboard Diorama Filters -->
-        <div class="toolbar-dashboard-filters toolbar-context-panel font-mono hidden" id="toolbar-dashboard-filters">
+        <div class="toolbar-dashboard-filters toolbar-context-panel font-mono hidden" id="toolbar-dashboard-filters" style="display: none !important;">
           <span class="toolbar-context-heading">3D DIORAMA NODES //</span>
           <button class="dash-filter-btn active font-mono" id="dash-filter-all" onclick="filterDashboardNodes('all')">[
             ALL ICE NODES (4) ]</button>
@@ -173,8 +173,8 @@
         <!-- CONTEXTUAL SUBPANEL 4: Place Explorer / Multi-Channel Radar Lab -->
         <div class="toolbar-context-panel font-mono hidden" id="toolbar-place-context">
           <span class="toolbar-context-heading">RADAR LAB ACTIONS //</span>
-          <button class="toolbar-context-btn font-mono" onclick="switchView('dashboard')">
-            <span>← 3D COMMAND CENTER</span>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('landing')">
+            <span>← MISSION LAUNCHPAD</span>
           </button>
           <button class="toolbar-context-btn font-mono" onclick="switchView('globe')">
             <span>🌐 3D HAZARD GLOBE</span>
@@ -191,8 +191,8 @@
         <!-- CONTEXTUAL SUBPANEL 5: Editorial Story View -->
         <div class="toolbar-context-panel font-mono hidden" id="toolbar-story-context">
           <span class="toolbar-context-heading">DOSSIER NAVIGATION //</span>
-          <button class="toolbar-context-btn font-mono" onclick="switchView('dashboard')">
-            <span>← 3D DASHBOARD</span>
+          <button class="toolbar-context-btn font-mono" onclick="switchView('landing')">
+            <span>← MISSION LAUNCHPAD</span>
           </button>
           <button class="toolbar-context-btn font-mono" onclick="switchView('globe')">
             <span>🌐 3D HAZARD GLOBE</span>
@@ -512,18 +512,13 @@
     <section id="dashboard-view" class="view-section active dashboard-view"
       aria-label="Isometric 3D Cryosphere Command Center">
 
-      <!-- Glassmorphic Return to Launchpad & Mobile Menu Group -->
-      <div class="dashboard-top-nav font-mono">
+      <!-- Glassmorphic Return to Launchpad & Mobile Menu Group (Hidden in background mode) -->
+      <div class="dashboard-top-nav font-mono" style="display: none !important;">
         <button id="dashboard-back-launchpad-btn" class="dashboard-return-btn font-mono" onclick="switchView('launchpad')"
-          aria-label="Return to Mission Launchpad">
+          aria-label="Return to Mission Launchpad" style="display: none !important;">
           <span class="btn-bracket">[</span>
           <span class="btn-arrow">←</span>
           <span class="btn-text">Return to Launchpad</span>
-          <span class="btn-bracket">]</span>
-        </button>
-        <button class="dashboard-return-btn mobile-menu-btn font-mono" onclick="toggleMobileNavDrawer()" aria-label="Open Mission Menu">
-          <span class="btn-bracket">[</span>
-          <span class="btn-text">❖ Menu</span>
           <span class="btn-bracket">]</span>
         </button>
       </div>
@@ -657,11 +652,8 @@
         <!-- 4. The 4 3D Micro-Environment Stations (Merouane Bali Minimalist Aesthetic) -->
         <div class="dashboard-nodes-layer">
 
-          <!-- Station 1: Top-Left - Langtang Canyon Valley (LIVE NISAR) -->
-          <article class="micro-station node-card node-top-left" id="node-langtang"
-            onclick="startMissionTour('langtang')" role="button" tabindex="0"
-            aria-label="Open Langtang Canyon Valley Dossier"
-            onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('langtang')">
+          <!-- Station 1: Top-Left - Langtang Canyon Valley (Holographic Ambient Model) -->
+          <article class="micro-station node-card node-top-left" id="node-langtang">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-langtang" title="Langtang Canyon Gorge 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -671,11 +663,8 @@
             </div>
           </article>
 
-          <!-- Station 2: Top-Right - Suicide Glacial Basin (LIVE NISAR) -->
-          <article class="micro-station node-card node-top-right" id="node-suicide"
-            onclick="startMissionTour('suicide_basin')" role="button" tabindex="0"
-            aria-label="Open Suicide Glacial Basin Dossier"
-            onkeydown="if(event.key==='Enter'||event.key===' ')startMissionTour('suicide_basin')">
+          <!-- Station 2: Top-Right - Suicide Glacial Basin (Holographic Ambient Model) -->
+          <article class="micro-station node-card node-top-right" id="node-suicide">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-suicide" title="Suicide Glacial Basin 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -685,10 +674,8 @@
             </div>
           </article>
 
-          <!-- Station 3: Bottom-Left - Chamoli Detachment Peak (HISTORICAL) -->
-          <article class="micro-station node-card node-bottom-left" id="node-chamoli"
-            onclick="openStoryModal('chamoli')" role="button" tabindex="0" aria-label="Open Chamoli Scarp Dossier"
-            onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('chamoli')">
+          <!-- Station 3: Bottom-Left - Chamoli Detachment Peak (Holographic Ambient Model) -->
+          <article class="micro-station node-card node-bottom-left" id="node-chamoli">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-chamoli" title="Chamoli Detachment Peak 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -698,11 +685,8 @@
             </div>
           </article>
 
-          <!-- Station 4: Bottom-Right - South Lhonak Moraine Lake (HISTORICAL GLOF) -->
-          <article class="micro-station node-card node-bottom-right" id="node-lhonak"
-            onclick="openStoryModal('south_lhonak')" role="button" tabindex="0"
-            aria-label="Open South Lhonak Moraine Lake Dossier"
-            onkeydown="if(event.key==='Enter'||event.key===' ')openStoryModal('south_lhonak')">
+          <!-- Station 4: Bottom-Right - South Lhonak Moraine Lake (Holographic Ambient Model) -->
+          <article class="micro-station node-card node-bottom-right" id="node-lhonak">
             <div class="station-pedestal-glow" aria-hidden="true"></div>
             <div class="station-3d-viewport" id="diorama-lhonak" title="South Lhonak Moraine Lake 3D Model"></div>
             <div class="station-name-bracket font-mono">
@@ -735,7 +719,7 @@
             <span class="nav-arrow">←</span>
             <span class="nav-text">LAUNCHPAD</span>
           </button>
-          <button class="place-nav-btn" onclick="switchView('dashboard')" title="Go to 3D Command Center Dashboard">
+          <button class="place-nav-btn" onclick="switchView('dashboard')" title="Go to 3D Command Center Dashboard" style="display: none !important;">
             <span class="nav-icon">🧊</span>
             <span class="nav-text">3D DASHBOARD</span>
           </button>
@@ -2092,7 +2076,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v69"></script>
+  <script src="app.js?v=20261107_v70"></script>
 </body>
 
 </html>

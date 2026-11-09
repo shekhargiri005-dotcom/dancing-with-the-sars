@@ -122,17 +122,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v69');
+    const res = await fetch('data/cases.json?v=20261107_v70');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v69)', {
-      build: '20261107_v69',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v70)', {
+      build: '20261107_v70',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
-    // Set initial view to Landing View
+    // Set initial view to Landing View with 3D background animation
     switchView('landing');
     setupSwipeControl();
-    setupNodeLaserHoverListeners();
+    initCoreGlobe();
+    initAllDioramas();
+    requestAnimationFrame(() => {
+      updateConnectingLines();
+    });
     window.addEventListener('resize', () => {
       updateConnectingLines();
       initAllDioramas();
@@ -831,34 +835,27 @@ function switchView(viewName) {
   });
   document.querySelectorAll('.top-nav-btn').forEach(b => b.classList.remove('active'));
 
-  if (viewName === 'landing' || viewName === 'launchpad') {
+  if (viewName === 'landing' || viewName === 'launchpad' || viewName === 'dashboard' || viewName === 'world') {
     const l = document.getElementById('landing-view');
     if (l) {
       l.classList.remove('hidden');
       l.classList.add('active');
     }
+    const d = document.getElementById('dashboard-view');
+    if (d) {
+      d.classList.remove('hidden');
+      d.classList.add('active', 'active-bg');
+    }
     const btnLanding = document.getElementById('nav-btn-landing');
     if (btnLanding) btnLanding.classList.add('active');
     const lbl = document.getElementById('current-case-label');
     if (lbl) lbl.innerText = 'Mission Launchpad';
-  } else if (viewName === 'dashboard' || viewName === 'world') {
-    const d = document.getElementById('dashboard-view');
-    if (d) {
-      d.classList.remove('hidden');
-      d.classList.add('active');
-    }
-    const btnDash = document.getElementById('nav-btn-dashboard');
-    if (btnDash) btnDash.classList.add('active');
-    const lbl = document.getElementById('current-case-label');
-    if (lbl) lbl.innerText = '3D Cryosphere Command Center';
 
     initCoreGlobe();
     initAllDioramas();
     requestAnimationFrame(() => {
       updateConnectingLines();
-      setupNodeLaserHoverListeners();
       setTimeout(updateConnectingLines, 100);
-      setTimeout(setupNodeLaserHoverListeners, 110);
     });
   } else if (viewName === 'globe') {
     const g = document.getElementById('globe-view');
