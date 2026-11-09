@@ -29,7 +29,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v76">
+  <link rel="stylesheet" href="style.css?v=20261107_v77">
 </head>
 
 <body class="view-dashboard">
@@ -1368,10 +1368,6 @@
           title="Return to Mission Launchpad">
           ← Launchpad
         </button>
-        <button class="globe-back-btn font-mono" onclick="switchView('dashboard')"
-          title="Return to 3D Command Center Dashboard">
-          ← Dashboard
-        </button>
         <button class="globe-back-btn mobile-menu-btn font-mono" onclick="toggleMobileNavDrawer()" title="Open Mission Menu">
           ❖ Menu
         </button>
@@ -2058,13 +2054,6 @@
                 <span class="btn-secondary">Editorial Intro</span>
               </div>
             </button>
-            <button class="drawer-nav-btn" onclick="switchViewAndCloseDrawer('dashboard')">
-              <span class="btn-icon">🧊</span>
-              <div class="btn-text">
-                <span class="btn-primary">3D Dashboard</span>
-                <span class="btn-secondary">Command Center</span>
-              </div>
-            </button>
             <button class="drawer-nav-btn" onclick="switchViewAndCloseDrawer('globe')">
               <span class="btn-icon">🌐</span>
               <div class="btn-text">
@@ -2199,7 +2188,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v76"></script>
+  <script src="app.js?v=20261107_v77"></script>
 </body>
 
 </html>

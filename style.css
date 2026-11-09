@@ -1893,7 +1893,8 @@ body.view-story-himalayas #dashboard-view {
   z-index: 600;
   pointer-events: none;
   display: flex;
-  justify-content: center;
+  justify-content: safe center;
+  max-width: calc(100% - 155px);
 }
 
 .signal-toolbar {
@@ -5969,6 +5970,25 @@ body.view-dashboard .nav-container {
 .drawer-scenario-btn .scen-arrow {
   color: #00FFFF;
   font-size: 0.9rem;
+}
+
+/* Responsive Stacking for Radar Lab Navigation & Signal Toolbar (prevents any overlap on laptops and tablets) */
+@media (max-width: 1200px) {
+  .signal-toolbar-wrapper {
+    top: 3.25rem !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    transform: none !important;
+    width: calc(100% - 2rem) !important;
+    max-width: calc(100% - 2rem) !important;
+  }
+  .signal-toolbar {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
 }
 
 /* Mobile Responsiveness Overrides for Place Explorer & Global Controls */
