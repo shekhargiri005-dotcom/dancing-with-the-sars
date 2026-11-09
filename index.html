@@ -29,7 +29,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v73">
+  <link rel="stylesheet" href="style.css?v=20261107_v75">
 </head>
 
 <body class="view-dashboard">
@@ -329,6 +329,71 @@
         </section>
 
         <!-- ===================================================================
+             FEATURED DEMO: CONVERSION FROM GLACIER TO FLOOD
+             =================================================================== -->
+        <section class="launchpad-section section-demo-video" aria-label="Physical Glacier to Flood Cascade Video Demonstration">
+          <div class="section-kicker font-mono">
+            <span class="kicker-num">DEMO</span>
+            <span class="kicker-sep">//</span>
+            <span class="kicker-title">THE CASCADE DYNAMICS</span>
+          </div>
+
+          <h2 class="section-headline headline-video-demo">
+            How Ice Becomes a Flood: Physical Cascade Demo.
+          </h2>
+
+          <p class="section-lead lead-video-demo">
+            Watch how a hanging glacier detachment accelerates down steep bedrock couloirs, pulverizing millions of
+            tons of rock and ice into a hyper-turbulent flash flood. When torrential mountain storms block optical
+            visibility, NISAR's 24.2 cm L-band microwave radar penetrates through the clouds to track this conversion
+            in real time.
+          </p>
+
+          <!-- Interactive Video Player Container with Cyber HUD Frame -->
+          <div class="demo-video-wrapper">
+            <div class="video-hud-header font-mono">
+              <div class="video-hud-status">
+                <span class="video-rec-dot"></span>
+                <span>PHYSICAL CASCADE SIMULATION // SURVEILLANCE FEED</span>
+              </div>
+              <div class="video-hud-meta">
+                <span>SENSOR: OPTICAL CAPTURE</span>
+                <span class="hud-sep">•</span>
+                <span>PHENOMENON: GLACIER-TO-FLOOD DETACHMENT</span>
+              </div>
+            </div>
+
+            <div class="video-player-container">
+              <video id="glacier-flood-video" class="glacier-demo-video" controls loop playsinline preload="metadata">
+                <source src="assets/glacier_to_flood_demo.mp4" type="video/mp4">
+                Your browser does not support the video element.
+              </video>
+            </div>
+
+            <!-- Video Telemetry Annotations Strip -->
+            <div class="video-annotations-strip font-mono">
+              <div class="anno-step">
+                <span class="anno-num">PHASE 1 // PRECURSOR</span>
+                <span class="anno-desc">Permafrost thaw weakens deep bedrock fractures along the mountain ridge.</span>
+              </div>
+              <div class="anno-step">
+                <span class="anno-num">PHASE 2 // DETACHMENT</span>
+                <span class="anno-desc">Catastrophic shearing releases millions of tons of hanging glacier and rock.</span>
+              </div>
+              <div class="anno-step">
+                <span class="anno-num">PHASE 3 // CONVERSION</span>
+                <span class="anno-desc">High-speed friction pulverizes ice and melts core mass into a liquid slurry.</span>
+              </div>
+              <div class="anno-step">
+                <span class="anno-num">PHASE 4 // INUNDATION</span>
+                <span class="anno-desc">Hyper-turbulent debris flood cascades down narrow river canyons at &gt;50 km/h.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ===================================================================
              SECTION 2: THE CAPABILITY (NISAR)
              =================================================================== -->
         <section class="launchpad-section section-capability">
@@ -515,6 +580,56 @@
                   <button class="launch-dashboard-btn font-mono" type="button"
                     onclick="event.stopPropagation(); switchView('story-lhonak');"
                     aria-label="Read Story for South Lhonak Moraine Burst">
+                    <span class="btn-bracket">[</span>
+                    <span class="btn-text">Read the Story</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="btn-bracket">]</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 3: Lake Merzbacher Jökulhlaup (Tian Shan, Kyrgyzstan) -->
+            <article class="launch-hazard-card card-glof-kyrgyzstan" onclick="openDossierModal('merzbacher')" tabindex="0"
+              role="button" aria-label="Read Lake Merzbacher Outburst Story Dossier"
+              onkeydown="if(event.key==='Enter'||event.key===' ')openDossierModal('merzbacher')">
+              <div class="hazard-card-inner">
+                <div class="hazard-card-badge font-mono">
+                  <span class="badge-tag">[ HISTORICAL DOSSIER // KYRGYZSTAN ]</span>
+                  <span class="badge-tech">SENTINEL-1 / ALOS / NISAR PROXY</span>
+                </div>
+
+                <div class="hazard-card-title-block">
+                  <h3 class="hazard-card-title">Lake Merzbacher Outburst (Kyrgyzstan)</h3>
+                  <span class="hazard-card-geo font-mono">LAKE MERZBACHER &amp; ENILCHEK GLACIER // 42.22°N, 79.86°E</span>
+                </div>
+
+                <p class="hazard-card-desc">
+                  Nestled in the Central Tian Shan, Lake Merzbacher is dammed by the massive 400-meter ice tongue of the South
+                  Enilchek Glacier. In recurrent annual outbursts (jökulhlaups), hydrostatic water pressure lifts the ice dam,
+                  catastrophically discharging over 120 million cubic meters of meltwater into the Sary-Jaz basin. Spaceborne
+                  radar tracks ice dam flexure and exposes the sudden loss of specular water reflection across the drained lakebed.
+                </p>
+
+                <div class="hazard-card-stats font-mono">
+                  <div class="card-stat">
+                    <span class="stat-number">120M m³</span>
+                    <span class="stat-name">Drainage Volume</span>
+                  </div>
+                  <div class="card-stat">
+                    <span class="stat-number">18.5 cm</span>
+                    <span class="stat-name">InSAR Dam Uplift</span>
+                  </div>
+                  <div class="card-stat">
+                    <span class="stat-number">+9.4 dB</span>
+                    <span class="stat-name">Specular Loss Jump</span>
+                  </div>
+                </div>
+
+                <div class="hazard-card-cta">
+                  <button class="launch-dashboard-btn font-mono" type="button"
+                    onclick="event.stopPropagation(); openDossierModal('merzbacher');"
+                    aria-label="Read Story for Lake Merzbacher Outburst">
                     <span class="btn-bracket">[</span>
                     <span class="btn-text">Read the Story</span>
                     <span class="btn-arrow">→</span>
@@ -2080,7 +2195,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v73"></script>
+  <script src="app.js?v=20261107_v75"></script>
 </body>
 
 </html>

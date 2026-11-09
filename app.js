@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v73');
+    const res = await fetch('data/cases.json?v=20261107_v75');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v73)', {
-      build: '20261107_v73',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v75)', {
+      build: '20261107_v75',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -871,6 +871,9 @@ function switchView(viewName) {
     setTimeout(() => {
       initCesiumGlobe();
     }, 50);
+  } else if (viewName === 'story-merzbacher') {
+    openDossierModal('merzbacher');
+    return;
   } else if (viewName === 'story-himalayas' || viewName === 'story-alaska' || viewName === 'story-ice' || viewName === 'story' || viewName === 'story-chamoli' || viewName === 'story-mendenhall' || viewName === 'story-lhonak' || viewName === 'story-sikkim') {
     const s = document.getElementById('story-view');
     if (s) {
@@ -2178,6 +2181,63 @@ const DOSSIER_DATA = {
         title: 'Geological Survey of India (GSI, 2023) — "Geotechnical Assessment of Teesta Basin Outburst Flood"',
         url: 'https://www.gsi.gov.in',
         meta: 'GSI Geohazards Research Directorate'
+      }
+    ]
+  },
+  merzbacher: {
+    classification: 'HISTORICAL RADAR FORENSIC RECONSTRUCTION',
+    title: 'FORENSIC DOSSIER: LAKE MERZBACHER ICE-DAM GLOF',
+    meta: {
+      event: 'ICE-DAMMED SUBGLACIAL JÖKULHLAUP (GLOF)',
+      date: 'RECURRENT ANNUAL (JUL–AUG CYCLES)',
+      location: 'CENTRAL TIAN SHAN, KYRGYZSTAN (42.22°N, 79.86°E)',
+      sensor: 'SENTINEL-1 C-BAND / ALOS PALSAR / NISAR PROXY'
+    },
+    timeline: [
+      {
+        time: 'STAGE 1 • ANNUAL STORAGE',
+        title: 'Meltwater Impoundment Behind 400m Ice Dam',
+        desc: 'Summer meltwater from the North Enilchek Glacier fills the upper basin, dammed by the 400-meter-thick trunk of the South Enilchek Glacier.'
+      },
+      {
+        time: 'STAGE 2 • BUOYANCY LIFT',
+        title: 'Critical Hydrostatic Threshold & Ice Dam Flexure',
+        desc: 'Rising lake water levels exceed the ice flotation threshold, lifting the ice dam off bedrock and inducing 18.5 cm of vertical InSAR ground flexure.'
+      },
+      {
+        time: 'STAGE 3 • SUBGLACIAL BREACH',
+        title: 'Subglacial Conduit Opening & Drainage Acceleration',
+        desc: 'High-pressure subglacial channels carve through the base of the glacier, rapidly evacuating over 120 million cubic meters of meltwater.'
+      },
+      {
+        time: 'STAGE 4 • DOWNSTREAM DISCHARGE',
+        title: 'Flash Inundation Down Sary-Jaz & Kumarik Valleys',
+        desc: 'Floodwaters surge at speeds over 40 km/h with peak discharges exceeding 1,800 m³/s, threatening bridges, highways, and border settlements downstream into Xinjiang.'
+      },
+      {
+        time: 'STAGE 5 • POST-DRAINAGE SCATTER',
+        title: 'Exposed Lakebed & Grounded Iceberg Caldera',
+        desc: 'The emptied basin reveals stranded icebergs and rough boulder moraines, creating an immediate +9.4 dB surge in radar backscatter as specular water disappears.'
+      }
+    ],
+    impact: 'Recurrent outburst floods from Lake Merzbacher historically inundate the Sary-Jaz (Kumarik) river basin, damaging roads, irrigation canals, and border infrastructure across eastern Kyrgyzstan and the Tarim Basin in Xinjiang, China. Peak discharges of 1,500–2,500 m³/s wash out seasonal bridges and transport heavy sediment loads that disrupt agricultural networks.',
+    physics: 'Spaceborne SAR is the primary remote sensing tool capable of penetrating persistent summer storms over the Tian Shan. Calm lake water produces specular reflection (radar backscatter σ° ≤ -21 dB, pitch black). Upon subglacial drainage, rough stranded icebergs and exposed moraine sediments produce strong diffuse backscatter (σ° ≥ -8 dB), registering an immediate +9.4 dB radar brightness jump. Differential InSAR measures ice dam flexure and crevasse opening prior to breach.',
+    limits: 'Historical observations rely on European Sentinel-1 C-band and Japanese ALOS PALSAR L-band data. NISAR’s 12-day repeat-pass L-band radar provides superior temporal coherence across glaciated terrain to track ice dam uplift before release.',
+    sources: [
+      {
+        title: 'Wortmann, M., et al. (Hydrol. Earth Syst. Sci., 2014) — "Hydro-meteorological monitoring and glacier outburst flood modeling of Lake Merzbacher, Kyrgyzstan"',
+        url: 'https://doi.org/10.5194/hess-18-5029-2014',
+        meta: 'HESS Vol 18 • GFZ German Research Centre for Geosciences'
+      },
+      {
+        title: 'Shangguan, D., et al. (Remote Sensing, 2017) — "Monitoring glacial lake outburst floods of Lake Merzbacher using SAR and optical satellite observations"',
+        url: 'https://doi.org/10.3390/rs9101037',
+        meta: 'Remote Sensing MDPI • Satellite Investigation'
+      },
+      {
+        title: 'Central Asian Institute for Applied Geosciences (CAIAG) — "Glacier and Lake Dynamics in the Inylchek Basin"',
+        url: 'http://caiag.kg',
+        meta: 'CAIAG Geohazards Directorate Technical Report'
       }
     ]
   }
