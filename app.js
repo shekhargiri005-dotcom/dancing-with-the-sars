@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToolbarHoverListeners();
     minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v63');
+    const res = await fetch('data/cases.json?v=20261107_v64');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v63)', {
-      build: '20261107_v63',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v64)', {
+      build: '20261107_v64',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -874,7 +874,7 @@ function switchView(viewName) {
     setTimeout(() => {
       initCesiumGlobe();
     }, 50);
-  } else if (viewName === 'story-himalayas' || viewName === 'story-alaska' || viewName === 'story-ice' || viewName === 'story') {
+  } else if (viewName === 'story-himalayas' || viewName === 'story-alaska' || viewName === 'story-ice' || viewName === 'story' || viewName === 'story-chamoli' || viewName === 'story-mendenhall') {
     const s = document.getElementById('story-view');
     if (s) {
       s.classList.remove('hidden');
@@ -884,20 +884,20 @@ function switchView(viewName) {
     const storyHimalayas = document.getElementById('story-himalayas');
     const storyAlaska = document.getElementById('story-alaska');
 
-    if (viewName === 'story-alaska') {
+    if (viewName === 'story-alaska' || viewName === 'story-mendenhall') {
       if (storyHimalayas) storyHimalayas.classList.add('hidden');
       if (storyAlaska) storyAlaska.classList.remove('hidden');
       const lbl = document.getElementById('current-case-label');
-      if (lbl) lbl.innerText = 'Story: The Suicide Basin Breach (Alaska)';
-      sendClientLog('info', 'STORY_SELECT', 'Selected Alaska GLOF narrative dossier', { story: 'alaska' });
+      if (lbl) lbl.innerText = 'Story: The Mendenhall Glacier Outburst (Alaska)';
+      sendClientLog('info', 'STORY_SELECT', 'Selected Mendenhall Glacier GLOF narrative dossier', { story: 'mendenhall' });
       initStoryAlaskaMap();
     } else {
-      // Default to Himalayas Ice Avalanche
+      // Default to Chamoli Rock-Ice Avalanche (Himalayas)
       if (storyAlaska) storyAlaska.classList.add('hidden');
       if (storyHimalayas) storyHimalayas.classList.remove('hidden');
       const lbl = document.getElementById('current-case-label');
-      if (lbl) lbl.innerText = 'Story: The Langtang Collapse (Himalayas)';
-      sendClientLog('info', 'STORY_SELECT', 'Selected Himalayas Ice Avalanche narrative dossier', { story: 'himalayas' });
+      if (lbl) lbl.innerText = 'Story: The Chamoli Disaster (Uttarakhand)';
+      sendClientLog('info', 'STORY_SELECT', 'Selected Chamoli Disaster narrative dossier', { story: 'chamoli' });
       initStoryHimalayasMap();
     }
 
@@ -1101,12 +1101,15 @@ function launchModalRadarLab() {
 
 function launchModalDossier() {
   closeStoryModal();
-  if (activeModalCaseId === 'langtang') {
-    switchView('story-himalayas');
-  } else if (activeModalCaseId === 'suicide_basin') {
-    switchView('story-alaska');
+  if (activeModalCaseId === 'chamoli') {
+    switchView('story-chamoli');
+    openDossierModal('chamoli');
+  } else if (activeModalCaseId === 'suicide_basin' || activeModalCaseId === 'mendenhall') {
+    switchView('story-mendenhall');
+    openDossierModal('mendenhall');
+  } else if (activeModalCaseId === 'south_lhonak') {
+    openDossierModal('south_lhonak');
   } else {
-    // For Chamoli, South Lhonak, or historical cases
     openDossierModal(activeModalCaseId || 'chamoli');
   }
 }
@@ -1135,8 +1138,14 @@ function selectCase(caseId) {
       switchView('place');
       renderPlaceScreen(c);
     } else {
-      switchView('story');
-      renderStoryScreen(c);
+      if (c.id === 'chamoli') {
+        switchView('story-chamoli');
+      } else if (c.id === 'suicide_basin' || c.id === 'mendenhall') {
+        switchView('story-mendenhall');
+      } else {
+        switchView('story');
+        renderStoryScreen(c);
+      }
     }
     if (loader) {
       loader.style.opacity = '0';
@@ -1808,8 +1817,8 @@ function initStoryHimalayasMap() {
 
   if (!storyMapHimalayas) {
     storyMapHimalayas = L.map('story-map-himalayas', {
-      center: [28.25, 85.50],
-      zoom: 9,
+      center: [30.38, 79.73],
+      zoom: 10,
       minZoom: 4,
       maxZoom: 18,
       dragging: false,
@@ -1842,9 +1851,9 @@ function initStoryHimalayasMap() {
       popupAnchor: [0, -14]
     });
 
-    L.marker([28.25, 85.50], { icon: cyanPulseIcon })
+    L.marker([30.38, 79.73], { icon: cyanPulseIcon })
       .addTo(storyMapHimalayas)
-      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">LANGTANG LIRUNG</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Epicenter of 20M m³ Ice Avalanche<br>28.25°N, 85.50°E</span>', {
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">CHAMOLI / RONTI PEAK</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Epicenter of 27M m³ Rock-Ice Detachment<br>30.38°N, 79.73°E</span>', {
         autoPan: false
       })
       .openPopup();
@@ -1863,7 +1872,7 @@ function initStoryHimalayasMap() {
     setTimeout(() => {
       if (storyMapHimalayas) {
         storyMapHimalayas.invalidateSize();
-        storyMapHimalayas.setView([28.25, 85.50], storyMapHimalayas.getZoom() || 9);
+        storyMapHimalayas.setView([30.38, 79.73], storyMapHimalayas.getZoom() || 10);
       }
     }, delay);
   });
@@ -1911,7 +1920,7 @@ function initStoryAlaskaMap() {
 
     L.marker([58.46, -134.56], { icon: cyanPulseIcon })
       .addTo(storyMapAlaska)
-      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">SUICIDE BASIN</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Subglacial Dam Breach & GLOF Source<br>58.46°N, 134.56°W</span>', {
+      .bindPopup('<strong style="color:#00FFFF;font-family:monospace;letter-spacing:0.06em;">MENDENHALL GLACIER</strong><br><span style="font-size:11px;color:#94a3b8;font-family:sans-serif;">Subglacial Jökulhlaup & Suicide Basin<br>58.46°N, 134.56°W</span>', {
         autoPan: false
       })
       .openPopup();
@@ -2008,6 +2017,64 @@ function closeStoryGuide(e) {
 // 6B. Forensic Dossier Modal Controller (Chamoli & South Lhonak)
 // ==========================================================================
 const DOSSIER_DATA = {
+  mendenhall: {
+    classification: 'SUBGLACIAL GLOF RADAR RECONSTRUCTION',
+    title: 'FORENSIC DOSSIER: MENDENHALL GLACIER GLOF',
+    meta: {
+      event: 'SUBGLACIAL JÖKULHLAUP (GLOF)',
+      date: 'AUG 2023–2024 RECURRENT',
+      location: 'JUNEAU, ALASKA (58.46°N, 134.56°W)',
+      sensor: 'NISAR L-BAND / AIRSAR (24.2 CM)'
+    },
+    timeline: [
+      {
+        time: 'PHASE 1 • BASIN IMPOUNDMENT',
+        title: 'Suicide Basin Water Accumulation',
+        desc: 'Over 31 million cubic meters of meltwater and precipitation impound inside Suicide Basin, structurally dammed by the western flank of Mendenhall Glacier.'
+      },
+      {
+        time: 'PHASE 2 • SUBGLACIAL BREACH',
+        title: 'Hydrostatic Seal Rupture & Conduit Carving',
+        desc: 'Rising lake levels reach critical buoyant threshold, floating the ice dam and opening pressurized subglacial conduits along the glacier bed.'
+      },
+      {
+        time: 'PHASE 3 • DISCHARGE PEAK',
+        title: 'Violent Jökulhlaup Evacuation',
+        desc: 'Discharge rates surge past 31,000 cubic feet per second into Mendenhall Lake and River, draining over 100 vertical meters of water in under 36 hours.'
+      },
+      {
+        time: 'PHASE 4 • CREST & INUNDATION',
+        title: 'Downstream Residential Flood Crest',
+        desc: 'Mendenhall River crests at unprecedented record stages, severely undercutting riverbanks, undermining foundations, and collapsing homes into the channel.'
+      },
+      {
+        time: 'PHASE 5 • POST-FLOOD EXPOSURE',
+        title: 'Rough Bedrock Exposure',
+        desc: 'The emptied basin reveals stranded icebergs and boulder-strewn moraines, shifting radar backscatter abruptly from specular loss to intense diffuse reflection.'
+      }
+    ],
+    impact: 'Catastrophic annual outbursts in August 2023 and August 2024 caused unprecedented structural destruction along the Mendenhall River corridor in Juneau. Rapid bank erosion collapsed multi-story homes directly into the torrent, severed critical arterial roadways, damaged municipal water infrastructure, and prompted state-level disaster emergencies and residential evacuations.',
+    physics: 'L-band microwave radar penetrates pervasive coastal fog sheets and continuous precipitation without signal attenuation. Calm surface water in the filled basin acts as a specular reflector (radar backscatter σ° ≤ -20 dB, appearing pitch black). As tens of millions of cubic meters of water drain subglacially, rough exposed bedrock and stranded calved ice scatter microwave energy directly back to the sensor (σ° ≥ -8 dB, an abrupt +12 dB surge), allowing remote glaciologists to quantify drainage progress in real time.',
+    limits: 'High-latitude coastal terrain experiences severe atmospheric moisture variations. L-band dual-polarization (HH/HV) is utilized to decouple surface roughness from soil dielectric moisture changes.',
+    sources: [
+      {
+        title: 'USGS Alaska Science Center — "Suicide Basin Glacier Outburst Flood Monitoring"',
+        url: 'https://www.usgs.gov/centers/asc/science/suicide-basin-monitoring',
+        meta: 'U.S. Geological Survey Geohazards Research'
+      },
+      {
+        title: 'National Weather Service (Juneau) — "Mendenhall River Flood Hazard Assessment"',
+        url: 'https://www.weather.gov/ajk/suicideBasin',
+        meta: 'NOAA NWS Juneau Hydro-Meteorological Bulletins'
+      },
+      {
+        title: 'Curran, C. A., et al. (Geomorphology, 2024) — "Outburst flood dynamics and bank erosion on the Mendenhall River"',
+        url: 'https://doi.org/10.1016/j.geomorph.2024',
+        meta: 'Peer-reviewed Glaciology & Geomorphology'
+      }
+    ]
+  },
+
   chamoli: {
     classification: 'HISTORICAL RADAR FORENSIC RECONSTRUCTION',
     title: 'FORENSIC DOSSIER: CHAMOLI / RISHIGANGA',
@@ -2125,7 +2192,8 @@ const DOSSIER_DATA = {
 };
 
 function renderDossierModalContent(caseId) {
-  const data = DOSSIER_DATA[caseId] || DOSSIER_DATA['chamoli'];
+  const key = (caseId === 'suicide_basin' || caseId === 'mendenhall') ? 'mendenhall' : (caseId || 'chamoli');
+  const data = DOSSIER_DATA[key] || DOSSIER_DATA['chamoli'];
   if (!data) return;
 
   const classEl = document.getElementById('dossier-classification');

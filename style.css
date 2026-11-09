@@ -3221,8 +3221,26 @@ html, body {
 .story-cta-footer {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.story-cta-dashboard-btn.secondary {
+  background: rgba(14, 23, 38, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #94A3B8;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+}
+
+.story-cta-dashboard-btn.secondary:hover {
+  background: rgba(0, 255, 255, 0.12);
+  border-color: #00FFFF;
+  color: #00FFFF;
+  box-shadow: 0 4px 22px rgba(0, 255, 255, 0.35);
+  transform: translateY(-2px);
 }
 
 .story-cta-dashboard-btn {

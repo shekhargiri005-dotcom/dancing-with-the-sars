@@ -28,7 +28,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v63">
+  <link rel="stylesheet" href="style.css?v=20261107_v64">
 </head>
 
 <body class="view-dashboard">
@@ -435,49 +435,49 @@
             orbital SAR telemetry.
           </p>
 
-          <!-- TWO MASSIVE Clickable Glassmorphic Cards Side-by-Side -->
+          <!-- TWO MASSIVE Clickable Glassmorphic Historical Story Cards Side-by-Side -->
           <div class="launch-cards-grid">
 
-            <!-- CARD 1: Ice Avalanche (Himalayas) -->
-            <article class="launch-hazard-card card-ice-avalanche" onclick="switchView('story-himalayas')" tabindex="0"
-              role="button" aria-label="Read Himalayan Ice Avalanche Story"
-              onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-himalayas')">
+            <!-- CARD 1: Chamoli Rock-Ice Avalanche (Himalayas) -->
+            <article class="launch-hazard-card card-ice-avalanche" onclick="switchView('story-chamoli')" tabindex="0"
+              role="button" aria-label="Read Chamoli Disaster Story Dossier"
+              onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-chamoli')">
               <div class="hazard-card-inner">
                 <div class="hazard-card-badge font-mono">
-                  <span class="badge-tag">[ THEATRE 01 // HIMALAYAS ]</span>
-                  <span class="badge-tech">L2 GCOV DUAL-POL</span>
+                  <span class="badge-tag">[ HISTORICAL DOSSIER // HIMALAYAS ]</span>
+                  <span class="badge-tech">SENTINEL-1 / NISAR PROXY</span>
                 </div>
 
                 <div class="hazard-card-title-block">
-                  <h3 class="hazard-card-title">Ice Avalanche (Himalayas)</h3>
-                  <span class="hazard-card-geo font-mono">LANGTANG VALLEY &amp; CHAMOLI // 28.25°N, 85.50°E</span>
+                  <h3 class="hazard-card-title">Chamoli Disaster (Himalayas)</h3>
+                  <span class="hazard-card-geo font-mono">CHAMOLI &amp; RISHIGANGA, UTTARAKHAND // 30.38°N, 79.73°E</span>
                 </div>
 
                 <p class="hazard-card-desc">
-                  Catastrophic hanging glacier detachment, pulverized rock-ice chutes, and sudden river blockages.
-                  Spaceborne L-band radar isolates rough debris deposit textures (+6.2 dB backscatter surge) and catches
-                  pre-collapse slope creep through heavy monsoon cloud cover.
+                  Catastrophic detachment of a 27 million m³ rock-ice wedge from Ronti Peak, triggering a devastating
+                  flash flood down Rishiganga and Dhauliganga gorges. Spaceborne SAR isolates rough debris deposit textures
+                  (+6.2 dB backscatter surge) and detects precursor slope creep through dense cloud cover.
                 </p>
 
                 <div class="hazard-card-stats font-mono">
                   <div class="card-stat">
-                    <span class="stat-number">+6.2 dB</span>
-                    <span class="stat-name">Debris Surge</span>
+                    <span class="stat-number">27M m³</span>
+                    <span class="stat-name">Rock-Ice Mass</span>
                   </div>
                   <div class="card-stat">
                     <span class="stat-number">11.4 cm</span>
                     <span class="stat-name">InSAR Slope Creep</span>
                   </div>
                   <div class="card-stat">
-                    <span class="stat-number">27M m³</span>
-                    <span class="stat-name">Displaced Ice/Rock</span>
+                    <span class="stat-number">+6.2 dB</span>
+                    <span class="stat-name">Debris Surge</span>
                   </div>
                 </div>
 
                 <div class="hazard-card-cta">
                   <button class="launch-dashboard-btn font-mono" type="button"
-                    onclick="event.stopPropagation(); switchView('story-himalayas');"
-                    aria-label="Read Story for Ice Avalanche">
+                    onclick="event.stopPropagation(); switchView('story-chamoli');"
+                    aria-label="Read Story for Chamoli Disaster">
                     <span class="btn-bracket">[</span>
                     <span class="btn-text">Read the Story</span>
                     <span class="btn-arrow">→</span>
@@ -487,25 +487,25 @@
               </div>
             </article>
 
-            <!-- CARD 2: Glacial Lake Outbursts (Alaska) -->
-            <article class="launch-hazard-card card-glof-alaska" onclick="switchView('story-alaska')" tabindex="0"
-              role="button" aria-label="Read Alaska Glacial Lake Outburst Story"
-              onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-alaska')">
+            <!-- CARD 2: Mendenhall Glacier Outburst (Alaska) -->
+            <article class="launch-hazard-card card-glof-alaska" onclick="switchView('story-mendenhall')" tabindex="0"
+              role="button" aria-label="Read Mendenhall Glacier Outburst Story Dossier"
+              onkeydown="if(event.key==='Enter'||event.key===' ')switchView('story-mendenhall')">
               <div class="hazard-card-inner">
                 <div class="hazard-card-badge font-mono">
-                  <span class="badge-tag">[ THEATRE 02 // ALASKA &amp; SIKKIM ]</span>
+                  <span class="badge-tag">[ HISTORICAL DOSSIER // ALASKA ]</span>
                   <span class="badge-tech">L-BAND WATER LOSS</span>
                 </div>
 
                 <div class="hazard-card-title-block">
-                  <h3 class="hazard-card-title">Glacial Lake Outbursts (Alaska)</h3>
-                  <span class="hazard-card-geo font-mono">SUICIDE BASIN &amp; MENDENHALL // 58.46°N, 134.56°W</span>
+                  <h3 class="hazard-card-title">Mendenhall Glacier Outburst (Alaska)</h3>
+                  <span class="hazard-card-geo font-mono">MENDENHALL GLACIER &amp; SUICIDE BASIN // 58.46°N, 134.56°W</span>
                 </div>
 
                 <p class="hazard-card-desc">
-                  Subglacial jökulhlaup lake evacuations and surging moraine-dam breaches. While torrential mountain
-                  storms and pitch darkness blind optical satellites, radar captures the sudden drainage of tens of
-                  millions of cubic meters of water as calm specular reflection vanishes.
+                  Subglacial jökulhlaup lake evacuations beneath Mendenhall Glacier, releasing 31 million m³ of impounded
+                  meltwater into Juneau within 36 hours. While torrential coastal storms and darkness blind optical sensors,
+                  radar captures the sudden drainage as calm specular reflection vanishes from the exposed bedrock bed.
                 </p>
 
                 <div class="hazard-card-stats font-mono">
@@ -515,7 +515,7 @@
                   </div>
                   <div class="card-stat">
                     <span class="stat-number">168 ha</span>
-                    <span class="stat-name">Lake Area Lost</span>
+                    <span class="stat-name">Basin Area Lost</span>
                   </div>
                   <div class="card-stat">
                     <span class="stat-number">100%</span>
@@ -525,8 +525,8 @@
 
                 <div class="hazard-card-cta">
                   <button class="launch-dashboard-btn font-mono" type="button"
-                    onclick="event.stopPropagation(); switchView('story-alaska');"
-                    aria-label="Read Story for Glacial Lake Outbursts">
+                    onclick="event.stopPropagation(); switchView('story-mendenhall');"
+                    aria-label="Read Story for Mendenhall Glacier Outburst">
                     <span class="btn-bracket">[</span>
                     <span class="btn-text">Read the Story</span>
                     <span class="btn-arrow">→</span>
@@ -1354,9 +1354,9 @@
           </div>
         </header>
 
-        <!-- SUB-SECTION 1: THE LANGTANG COLLAPSE (HIMALAYAS) -->
+        <!-- SUB-SECTION 1: THE CHAMOLI DISASTER (HIMALAYAS) -->
         <article id="story-himalayas" class="editorial-story-card"
-          aria-label="Himalayan Ice Avalanche Narrative Dossier">
+          aria-label="Chamoli Rock-Ice Avalanche Narrative Dossier">
           <div class="story-card-grid">
 
             <!-- Left Column (60% width): Text Narrative & CTA -->
@@ -1369,29 +1369,29 @@
                 </div>
 
                 <h1 class="story-card-title">
-                  The Langtang Collapse
+                  The Chamoli Disaster: Rock-Ice Avalanche
                 </h1>
 
                 <!-- Monospace Metadata Strip -->
                 <div class="story-meta-strip font-mono">
                   <div class="story-meta-item">
                     <span class="meta-key">EVENT:</span>
-                    <span class="meta-val">ICE AVALANCHE</span>
+                    <span class="meta-val">ROCK-ICE DETACHMENT &amp; FLASH FLOOD</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">DATE:</span>
-                    <span class="meta-val">AUG 26, 2026</span>
+                    <span class="meta-val">FEB 07, 2021</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">LOCATION:</span>
-                    <span class="meta-val">LANGTANG VALLEY, NEPAL (28.25°N, 85.50°E)</span>
+                    <span class="meta-val">CHAMOLI / RISHIGANGA, UTTARAKHAND (30.38°N, 79.73°E)</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">SENSOR:</span>
-                    <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+                    <span class="meta-val">SENTINEL-1 / NISAR PROXY (C/L-BAND)</span>
                   </div>
                 </div>
               </header>
@@ -1406,11 +1406,11 @@
                     <span>What Happened</span>
                   </h2>
                   <p class="narrative-p">
-                    A massive ice-rock avalanche detached from the steep hanging glaciers of Langtang Lirung peak,
-                    plummeting thousands of meters down narrow mountain chutes. Over 20 million cubic meters of ice,
-                    pulverized granite bedrock, and degrading permafrost sheared away along structurally weakened joint
-                    planes, generating a devastating atmospheric shockwave that echoed across the valley before settling
-                    into a deep deposit field.
+                    On the morning of February 7, 2021, a massive wedge of glacier ice and frozen bedrock—measuring
+                    approximately 27 million cubic meters—detached from the north face of Ronti Peak (~5,600 m) in
+                    Uttarakhand's Chamoli district. Free-falling nearly 1,800 meters into the narrow Ronti Gad valley,
+                    the kinetic impact shattered granite bedrock and frictional heating instantly melted glacial ice,
+                    transforming the avalanche into a catastrophic, high-velocity debris slurry racing downstream.
                   </p>
                 </section>
 
@@ -1421,10 +1421,11 @@
                     <span>The Damage</span>
                   </h2>
                   <p class="narrative-p">
-                    The tumbling wall of debris pulverized downstream pastoral settlements, obliterating bridges,
-                    trails, and high-altitude weather stations. The debris choked the valley gorge, creating an unstable
-                    natural landslide dam that impounded glacial meltwater—threatening downstream Himalayan villages
-                    with a secondary catastrophic dam-breach flash flood.
+                    The hyper-concentrated deluge swept down the Rishiganga and Dhauliganga gorges at over 50 km/h,
+                    completely obliterating the 13.2 MW Rishiganga Small Hydro Project and smashing the 520 MW Tapovan
+                    Vishnugad Hydropower barrage downstream. More than 200 workers and residents tragically lost their lives
+                    or went missing in the inundated tunnel networks, and 13 arterial bridges were swept away, severing
+                    connectivity to high-altitude border villages.
                   </p>
                 </section>
 
@@ -1435,21 +1436,29 @@
                     <span>How Radar Saw It</span>
                   </h2>
                   <p class="narrative-p">
-                    While thick monsoon cloud sheets and dense mountain fog completely blinded optical satellites,
-                    NISAR's 24.2 cm L-band radar penetrated the storm cover. Differential amplitude tracking isolated a
-                    massive +6.2 dB backscatter surge across the chaotic debris deposit, while interferometric phase
-                    coherence revealed 11.4 cm of precursor slope creep prior to the detachment.
+                    While heavy mountain cloud sheets and steep topographic shadows hindered conventional optical satellites,
+                    spaceborne Synthetic Aperture Radar peered directly through atmospheric occlusion. Retrospective InSAR
+                    analysis identified up to 11.4 cm of precursor slope creep along the crown scarp during preceding seasons,
+                    while post-event radar amplitude tracking isolated a massive +6.2 dB backscatter surge across the chaotic,
+                    boulder-strewn valley floor.
                   </p>
                 </section>
 
               </div>
 
-              <!-- Bottom Call to Action -->
+              <!-- Bottom Call to Action (Open Forensic Dossier & View 3D Dashboard) -->
               <footer class="story-cta-footer">
-                <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')"
-                  aria-label="View Radar Data in 3D Dashboard">
+                <button class="story-cta-dashboard-btn font-mono" onclick="openDossierModal('chamoli')"
+                  aria-label="Open Forensic Dossier Modal for Chamoli">
                   <span>[</span>
-                  <span>VIEW RADAR DATA</span>
+                  <span>OPEN FORENSIC DOSSIER</span>
+                  <span class="cta-arrow">→</span>
+                  <span>]</span>
+                </button>
+                <button class="story-cta-dashboard-btn secondary font-mono" onclick="switchView('dashboard')"
+                  aria-label="View in 3D Command Center">
+                  <span>[</span>
+                  <span>3D COMMAND CENTER</span>
                   <span class="cta-arrow">→</span>
                   <span>]</span>
                 </button>
@@ -1462,7 +1471,7 @@
                 <div class="story-map-hud-header font-mono">
                   <div class="hud-target-indicator">
                     <span class="hud-dot-pulse"></span>
-                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // NEPAL</span>
+                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // UTTARAKHAND, INDIA</span>
                   </div>
                   <div class="hud-header-right">
                     <div class="map-layer-toggles font-mono">
@@ -1472,13 +1481,13 @@
                       <button class="layer-toggle-btn" id="btn-layer-dark-himalayas"
                         onclick="setStoryMapLayer('himalayas', 'dark')" title="Show Dark Canvas">DARK</button>
                     </div>
-                    <span class="hud-coords-tag">28.25°N, 85.50°E</span>
+                    <span class="hud-coords-tag">30.38°N, 79.73°E</span>
                   </div>
                 </div>
 
                 <div class="story-map-frame">
                   <div id="story-map-himalayas" class="story-leaflet-map" role="region"
-                    aria-label="Langtang Nepal geographic context mini-map"></div>
+                    aria-label="Chamoli Uttarakhand geographic context mini-map"></div>
                   <button id="interact-btn-himalayas" class="map-interact-btn font-mono"
                     onclick="toggleMapInteraction('himalayas')" aria-label="Toggle map pan and zoom interaction">
                     [ Click to Interact ]
@@ -1486,7 +1495,7 @@
                 </div>
 
                 <div class="story-map-hud-footer font-mono">
-                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • ASCENDING TRACK 083 // L-BAND 24CM</span>
+                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • SENTINEL-1 / NISAR PROXY • 30.38°N, 79.73°E</span>
                 </div>
               </div>
             </div>
@@ -1494,9 +1503,9 @@
           </div>
         </article>
 
-        <!-- SUB-SECTION 2: THE SUICIDE BASIN BREACH (ALASKA) -->
+        <!-- SUB-SECTION 2: THE MENDENHALL GLACIER OUTBURST (ALASKA) -->
         <article id="story-alaska" class="editorial-story-card hidden"
-          aria-label="Alaska Glacial Lake Outburst Narrative Dossier">
+          aria-label="Mendenhall Glacier Outburst Narrative Dossier">
           <div class="story-card-grid">
 
             <!-- Left Column (60% width): Text Narrative & CTA -->
@@ -1509,29 +1518,29 @@
                 </div>
 
                 <h1 class="story-card-title">
-                  The Suicide Basin Breach
+                  The Mendenhall Glacier Outburst: Subglacial Jökulhlaup
                 </h1>
 
                 <!-- Monospace Metadata Strip -->
                 <div class="story-meta-strip font-mono">
                   <div class="story-meta-item">
                     <span class="meta-key">EVENT:</span>
-                    <span class="meta-val">GLACIAL LAKE OUTBURST FLOOD (GLOF)</span>
+                    <span class="meta-val">SUBGLACIAL JÖKULHLAUP (GLOF)</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">DATE:</span>
-                    <span class="meta-val">AUG 19, 2026</span>
+                    <span class="meta-val">ANNUAL RECURRENT (AUG 2023–2024)</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">LOCATION:</span>
-                    <span class="meta-val">JUNEAU, ALASKA (58.46°N, 134.56°W)</span>
+                    <span class="meta-val">MENDENHALL GLACIER &amp; SUICIDE BASIN, JUNEAU (58.46°N, 134.56°W)</span>
                   </div>
                   <span class="meta-sep">|</span>
                   <div class="story-meta-item">
                     <span class="meta-key">SENSOR:</span>
-                    <span class="meta-val">NISAR L-BAND (24.2 CM)</span>
+                    <span class="meta-val">NISAR L-BAND / AIRSAR (24.2 CM)</span>
                   </div>
                 </div>
               </header>
@@ -1546,10 +1555,11 @@
                     <span>What Happened</span>
                   </h2>
                   <p class="narrative-p">
-                    High above Juneau, Alaska, Suicide Basin—a marginal glacial basin dammed by the towering flank of
-                    the Mendenhall Glacier—accumulated tens of millions of cubic meters of subglacial meltwater. Once
-                    hydrostatic water pressure overcame the ice dam's structural seal, subglacial drainage conduits
-                    ruptured violently, initiating an uncontainable jökulhlaup lake outburst.
+                    High above Juneau, Alaska, Suicide Basin is an ice-dammed marginal glacier depression held back
+                    by the sheer western flank of the massive Mendenhall Glacier. During late spring and summer, rainfall
+                    and melting glaciers fill the basin with over 31 million cubic meters of meltwater. Once hydrostatic
+                    buoyancy lifts the glacier dam from its bedrock seal, subglacial tunnels rupture catastrophically,
+                    initiating a violent jökulhlaup lake outburst lasting 36 to 48 hours.
                   </p>
                 </section>
 
@@ -1560,10 +1570,10 @@
                     <span>The Damage</span>
                   </h2>
                   <p class="narrative-p">
-                    More than 31 million cubic meters of glacial discharge surged downstream into Mendenhall Lake and
-                    River, setting record-shattering peak flood stages. Extreme bank erosion caused residential homes to
-                    collapse into the river, tore out arterial roadway networks, and caused extensive municipal damage
-                    across Juneau while cloud cover concealed the basin from ground and aerial view.
+                    The sudden subglacial deluge surges through Mendenhall Lake and pours down the Mendenhall River
+                    directly into Juneau's residential districts. Record-shattering crest stages in August 2023 and 2024
+                    undermined riverbanks by tens of meters, collapsing multi-story homes into the torrent, tearing out
+                    arterial roadways, severing municipal utilities, and prompting emergency city-wide evacuations.
                   </p>
                 </section>
 
@@ -1574,22 +1584,29 @@
                     <span>How Radar Saw It</span>
                   </h2>
                   <p class="narrative-p">
-                    Heavy Pacific coastal storm fronts and continuous mountain fog kept optical cameras blind, but
-                    NISAR's L-band radar pierced directly through the weather. Because calm lake water reflects radar
-                    pulses specularly away from the satellite (registering as a pitch-black radar signature below -24
-                    dB), NISAR mapped the sudden loss of 168 hectares of water surface, accurately quantifying flood
-                    discharge volumes in real time.
+                    Torrential maritime rainstorms and low cloud sheets continuously blind optical cameras across coastal
+                    Alaska, but spaceborne L-band SAR penetrates weather and darkness without attenuation. Calm water in the
+                    filled basin reflects radar pulses specularly away (appearing pitch-black below -20 dB). As the water
+                    evacuates, the exposed rocky basin floor and stranded ice blocks scatter radar pulses directly back
+                    (+12 dB backscatter surge), allowing glaciologists to map lake discharge volumes in real time.
                   </p>
                 </section>
 
               </div>
 
-              <!-- Bottom Call to Action -->
+              <!-- Bottom Call to Action (Open Forensic Dossier & View 3D Dashboard) -->
               <footer class="story-cta-footer">
-                <button class="story-cta-dashboard-btn font-mono" onclick="switchView('dashboard')"
-                  aria-label="View Radar Data in 3D Dashboard">
+                <button class="story-cta-dashboard-btn font-mono" onclick="openDossierModal('mendenhall')"
+                  aria-label="Open Forensic Dossier Modal for Mendenhall">
                   <span>[</span>
-                  <span>VIEW RADAR DATA</span>
+                  <span>OPEN FORENSIC DOSSIER</span>
+                  <span class="cta-arrow">→</span>
+                  <span>]</span>
+                </button>
+                <button class="story-cta-dashboard-btn secondary font-mono" onclick="switchView('dashboard')"
+                  aria-label="View in 3D Command Center">
+                  <span>[</span>
+                  <span>3D COMMAND CENTER</span>
                   <span class="cta-arrow">→</span>
                   <span>]</span>
                 </button>
@@ -1602,7 +1619,7 @@
                 <div class="story-map-hud-header font-mono">
                   <div class="hud-target-indicator">
                     <span class="hud-dot-pulse"></span>
-                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // ALASKA</span>
+                    <span class="hud-target-label">GEOGRAPHIC CONTEXT // JUNEAU, ALASKA</span>
                   </div>
                   <div class="hud-header-right">
                     <div class="map-layer-toggles font-mono">
@@ -1618,7 +1635,7 @@
 
                 <div class="story-map-frame">
                   <div id="story-map-alaska" class="story-leaflet-map" role="region"
-                    aria-label="Suicide Basin Juneau Alaska geographic context mini-map"></div>
+                    aria-label="Mendenhall Glacier Suicide Basin Juneau Alaska geographic context mini-map"></div>
                   <button id="interact-btn-alaska" class="map-interact-btn font-mono"
                     onclick="toggleMapInteraction('alaska')" aria-label="Toggle map pan and zoom interaction">
                     [ Click to Interact ]
@@ -1626,7 +1643,7 @@
                 </div>
 
                 <div class="story-map-hud-footer font-mono">
-                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • DESCENDING TRACK 129 // L-BAND 24CM</span>
+                  <span class="hud-footer-tag">HIGH-RES SATELLITE TERRAIN • NISAR L-BAND 24CM • 58.46°N, 134.56°W</span>
                 </div>
               </div>
             </div>
@@ -2108,7 +2125,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v63"></script>
+  <script src="app.js?v=20261107_v64"></script>
 </body>
 
 </html>
