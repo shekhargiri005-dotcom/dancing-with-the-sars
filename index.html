@@ -28,7 +28,7 @@
   <!-- Three.js CDN for Isometric 3D Command Center -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261107_v61">
+  <link rel="stylesheet" href="style.css?v=20261107_v62">
 </head>
 
 <body class="view-dashboard">
@@ -36,7 +36,7 @@
   <!-- =====================================================================
        1. GLOBAL BRAND NAV (56px Fixed, Precision Linear/Apple Glass)
        ===================================================================== -->
-  <header class="app-header command-toolbar vertical-toolbar" id="app-toolbar">
+  <header class="app-header command-toolbar vertical-toolbar toolbar-minimized" id="app-toolbar">
     <div class="nav-container">
 
       <!-- Vertical HUD Header Badge -->
@@ -272,7 +272,7 @@
   </header>
 
   <!-- Floating Restore / Expand Pill (Shown when toolbar is minimized) -->
-  <button id="toolbar-restore-pill" class="toolbar-restore-pill vertical-restore-dock font-mono hidden"
+  <button id="toolbar-restore-pill" class="toolbar-restore-pill vertical-restore-dock font-mono"
     onclick="toggleToolbarMinimization()" title="Expand Command Toolbar">
     <span class="restore-dot"></span>
     <span class="restore-label">❖ HUD · EXPAND ▸</span>
@@ -1968,7 +1968,7 @@
   <script>window.CESIUM_BASE_URL = 'https://unpkg.com/cesium@1.119.0/Build/Cesium/';</script>
   <script src="https://unpkg.com/cesium@1.119.0/Build/Cesium/Cesium.js"></script>
   <!-- Application Controller -->
-  <script src="app.js?v=20261107_v61"></script>
+  <script src="app.js?v=20261107_v62"></script>
 </body>
 
 </html>

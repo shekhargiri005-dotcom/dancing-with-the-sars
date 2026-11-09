@@ -119,11 +119,13 @@ try {
 } catch (e) {}
 
 document.addEventListener('DOMContentLoaded', async () => {
+    setupToolbarHoverListeners();
+    minimizeToolbar(); // Ensure HUD starts closed by default
   try {
-    const res = await fetch('data/cases.json?v=20261107_v61');
+    const res = await fetch('data/cases.json?v=20261107_v62');
     appData = await res.json();
-    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v61)', {
-      build: '20261107_v61',
+    sendClientLog('info', 'APP_INIT', 'NISAR Frontend initialized (v62)', {
+      build: '20261107_v62',
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
     
@@ -3443,26 +3445,24 @@ function initFallbackGlobe() {
 
 
 // ==========================================================================
-// 17. COMMAND TOOLBAR MINIMIZATION CONTROLLER
+// 17. COMMAND TOOLBAR MINIMIZATION CONTROLLER (Default Closed & Hover Expand)
 // ==========================================================================
-let isToolbarMinimized = false;
+let isToolbarMinimized = true; // Closed by default
+let toolbarHoverCloseTimer = null;
 
-function toggleToolbarMinimization() {
+function expandToolbar() {
+  if (toolbarHoverCloseTimer) {
+    clearTimeout(toolbarHoverCloseTimer);
+    toolbarHoverCloseTimer = null;
+  }
   const toolbar = document.getElementById('app-toolbar');
   const restorePill = document.getElementById('toolbar-restore-pill');
-  if (!toolbar || !restorePill) return;
+  if (!toolbar) return;
 
-  isToolbarMinimized = !isToolbarMinimized;
-
-  if (isToolbarMinimized) {
-    toolbar.classList.add('toolbar-minimized');
-    restorePill.classList.remove('hidden');
-    document.body.classList.add('toolbar-minimized-active');
-  } else {
-    toolbar.classList.remove('toolbar-minimized');
-    restorePill.classList.add('hidden');
-    document.body.classList.remove('toolbar-minimized-active');
-  }
+  isToolbarMinimized = false;
+  toolbar.classList.remove('toolbar-minimized');
+  if (restorePill) restorePill.classList.add('hidden');
+  document.body.classList.remove('toolbar-minimized-active');
 
   setTimeout(() => {
     if (typeof updateConnectingLines === 'function') {
@@ -3471,7 +3471,64 @@ function toggleToolbarMinimization() {
   }, 350);
 }
 
+function minimizeToolbar() {
+  const toolbar = document.getElementById('app-toolbar');
+  const restorePill = document.getElementById('toolbar-restore-pill');
+  if (!toolbar) return;
+
+  isToolbarMinimized = true;
+  toolbar.classList.add('toolbar-minimized');
+  if (restorePill) restorePill.classList.remove('hidden');
+  document.body.classList.add('toolbar-minimized-active');
+
+  setTimeout(() => {
+    if (typeof updateConnectingLines === 'function') {
+      updateConnectingLines();
+    }
+  }, 350);
+}
+
+function toggleToolbarMinimization() {
+  if (isToolbarMinimized) {
+    expandToolbar();
+  } else {
+    minimizeToolbar();
+  }
+}
+
+function setupToolbarHoverListeners() {
+  const toolbar = document.getElementById('app-toolbar');
+  const restorePill = document.getElementById('toolbar-restore-pill');
+
+  // When cursor hovers over the left restore tab/pill, open the HUD
+  if (restorePill) {
+    restorePill.addEventListener('mouseenter', () => {
+      expandToolbar();
+    });
+  }
+
+  // When cursor enters toolbar, cancel any pending close timer
+  if (toolbar) {
+    toolbar.addEventListener('mouseenter', () => {
+      if (toolbarHoverCloseTimer) {
+        clearTimeout(toolbarHoverCloseTimer);
+        toolbarHoverCloseTimer = null;
+      }
+    });
+
+    // When cursor leaves the HUD toolbar, auto-close after a 300ms debounce
+    toolbar.addEventListener('mouseleave', () => {
+      if (toolbarHoverCloseTimer) clearTimeout(toolbarHoverCloseTimer);
+      toolbarHoverCloseTimer = setTimeout(() => {
+        minimizeToolbar();
+      }, 300);
+    });
+  }
+}
+
 window.toggleToolbarMinimization = toggleToolbarMinimization;
+window.expandToolbar = expandToolbar;
+window.minimizeToolbar = minimizeToolbar;
 
 // Keyboard shortcut: H key toggles toolbar minimization (HUD mode)
 window.addEventListener('keydown', (e) => {
